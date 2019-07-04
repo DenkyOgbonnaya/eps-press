@@ -59,4 +59,4 @@ const commentCtrl = {
         }
     }
 }
-module.export = commentCtrl;
+module.exports = commentCtrl;

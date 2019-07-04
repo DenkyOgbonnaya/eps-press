@@ -31,14 +31,6 @@ const postService = {
             throw err;
         }
     },
-    async comment(id, credentials){
-        try{
-            post = await  Post.findById(id);
-            return post.comment(credentials);
-        }catch(err){
-            throw err;
-        }
-    },
     async edit(postId, ownerId){
         try{
             return editedPost = await  Post.findOneAndUpdate({_id: postId, owner: ownerId}, {new: true});

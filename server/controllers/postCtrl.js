@@ -76,16 +76,5 @@ const postCtrl = {
             res.status(400).send(err); 
         }
     },
-    async commentPost(req, res){
-        const{postId} = req.params;
-        const{ownerId, comment} = req.body;
-
-        const post = await postService.comment(postId, {owner: ownerId, text: comment});
-
-        try{
-
-        }catch(err){
-
-        }
-    }
 }
+module.exports = postCtrl;
