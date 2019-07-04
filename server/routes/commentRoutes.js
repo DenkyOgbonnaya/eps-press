@@ -1,18 +1,19 @@
 const commentRouter = require('express').Router();
 const commentCtrl = require('../controllers/commentCtrl');
 const{isLoggedIn} = require('../middlewares/auth');
+const{ validateReply, validateComment, checkValidationResult} = require('../middlewares/validation');
 
 const{createComment, getOneComment, likeComment, replyComment, editComment} = commentCtrl;
 
 commentRouter.route('/comment')
-.post(isLoggedIn, createComment)
+.post(isLoggedIn, validateComment, checkValidationResult, createComment)
 
 commentRouter.route('/comment/:commentId')
 .get(getOneComment)
 .post(likeComment)
-.put(isLoggedIn, editComment)
+.put(isLoggedIn, validateComment, checkValidationResult, editComment)
 
 commentRouter.route('/comment/:commentId/reply')
-.post(isLoggedIn, replyComment)
+.post(isLoggedIn, validateReply, checkValidationResult, replyComment)
 
 module.exports = commentRouter;
