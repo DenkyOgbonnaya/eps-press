@@ -17,11 +17,11 @@ module.exports.validatePost = validatePost = [
 ]
 //validate comment data
 module.exports.validateComment = validateComment = [
-    check('comment', 'comment is required').isLength({min: 3}),
+    check('text', 'comment text is required').isLength({min: 1}),
 ]
 //validate reply 
 module.exports.validateReply = validateReply = [
-    check('reply', 'reply is required').isLength({min: 3}),
+    check('text', 'reply text is required').isLength({min: 1}),
 ]
 module.exports.checkValidationResult = checkValidationResult = (req, res, next) => {
     const result = validationResult(req);

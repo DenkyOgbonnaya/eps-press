@@ -32,7 +32,7 @@ const commentSchema = new mongoose.Schema({
     }
 });
 commentSchema.methods.like = function() {
-    this.like += 1;
+    this.likes += 1;
     return this.save()
 }
 commentSchema.methods.reply = function(reply) {

@@ -1,5 +1,5 @@
 const postService = require('../services/postService');
-const postEmitter = require('../utills/postEvents');
+const Comment = require('../models/comment');
 
 const postCtrl = {
     async createPost(req, res){
@@ -22,14 +22,15 @@ const postCtrl = {
         const limit = Number(req.query.limit) || 8;
 
         try{
-          const result = await  postService.getAll({page, limit})
-          if(result.docs.length > 0)
+          const posts = await  postService.getAll({page, limit});
+          const postCount = await postService.postCount();
+          if(posts.length > 0)
             return res.status(200).send({
                 status: 'success',
-                posts:result.docs,
-                page: result.page,
-                pages: result.pages,
-                total: result.total
+                posts,
+                page,
+                pages: Math.ceil(postCount/limit),
+                total: posts.length
             })
             return res.status(404).send({message: 'No available posts'})
         }catch(err){
@@ -42,35 +43,39 @@ const postCtrl = {
 
         try{
             const post = await postService.getOne(postSlug);
-            if(post)
-                const newPost = post.toObject();
+            if(post){
+                let postCopy = post.toObject();
 
-                //event emiter to get post comments
-                const comments = await postEmitter.emit('getPost', postSlug);
-                newPost.comments = comments;
+                const comments = await Comment.find({postSlug: post.slug})
+                .populate('owner', '-password -createdAt -updatedAt -__v');
+                postCopy.comments= comments;
 
                 return res.status(200).send({
                     status: 'success',
-                    post: newPost
+                    post: postCopy
                 })
+            }
             return res.status(404).send({message: 'This post is not available'})
         }catch(err){
             res.status(400).send(err); 
         }
     },
-    likePost(req, res){
+    async likePost(req, res){
         const{postId} = req.params;
-        postService.like(postId)
-        .then( () => {
-            return res.status(200).send({status: 'success', message: 'done'})
-        })
-        .catch(err => res.status(400).send(err) ) 
+        try{
+            const post = await postService.like(postId)
+        
+            return res.status(200).send({status: 'success', post})
+        }catch(err){
+            res.status(400).send(err) 
+        }
     },
     async editPost(req, res){
         const{postId} = req.params;
+        const credentials = req.body;
 
         try{
-            const post = await postService.edit(postId);
+            const post = await postService.edit(postId, credentials);
             return res.status(200).send({status: 'success', post})
         }catch(err){
             res.status(400).send(err); 

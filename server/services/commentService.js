@@ -10,7 +10,9 @@ const commentService = {
     },
     async getOne(id){
         try{
-            return comment = await  Comment.findById(id).populate('owner').populate('replies.owner');
+            return comment = await  Comment.findById(id)
+            .populate('owner', '-password -createdAt -updatedAt -__v')
+            .populate('replies.owner', '-password -createdAt -updatedAt -__v');
           }catch(err){
             throw err;
         }
@@ -18,22 +20,24 @@ const commentService = {
     async like(id){
         try{
             comment = await  Comment.findById(id);
-            return this.comment.like().exec()
+            comment.like();
+            return comment;
         }catch(err){
             throw err;
         }
     },
     async reply(id, credentials){
         try{
-            comment = await  Comment.findById(id);
-            return comment.reply(credentials);
+            const comment = await  Comment.findById(id);
+            comment.reply(credentials);
+            return comment.replies;
         }catch(err){
             throw err;
         }
     },
-    async edit(commentId, ownerId){
+    async edit(commentId, text){
         try{
-            return editedPost = await  Comment.findOneAndUpdate({_id: commentId, owner: ownerId}, {new: true});
+            return editedPost = await  Comment.findByIdAndUpdate(commentId, {$set: text}, {new: true});
         }catch(err){
             throw err;
         }

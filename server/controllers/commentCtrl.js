@@ -28,19 +28,20 @@ const commentCtrl = {
             res.status(400).send(err);
         }
     },
-    likeComment(req, res){
+    async likeComment(req, res){
         const{commentId} = req.params;
-        commentService.like(commentId)
-        .then( () => {
-            return res.status(200).send({status: 'success', message: 'done'})
-        })
-        .catch(err => res.status(400).send(err) ) 
+        try{
+            const comment = await commentService.like(commentId);
+            return res.status(200).send({status: 'success', comment})
+        }catch(err){
+            res.status(400).send(err) 
+        } 
     },
     async editComment(req, res){
         const{commentId} = req.params;
 
         try{
-            const comment = await commentService.edit(commentId);
+            const comment = await commentService.edit(commentId, {text: req.body.text});
             return res.status(200).send({status: 'success', comment})
         }catch(err){
             res.status(400).send(err); 
@@ -48,14 +49,14 @@ const commentCtrl = {
     },
     async replyComment(req, res){
         const{commentId} = req.params;
-        const{ownerId, reply} = req.body;
-
-        const post = await commentService.reply(commentId, {owner: ownerId, text: reply});
+        const{owner, text} = req.body;
 
         try{
-
+            const replies = await commentService.reply(commentId, {owner, text});
+            return res.status(200).send({status: 'success', replies})
         }catch(err){
-
+            console.log(err)
+            res.status(400).send(err);
         }
     }
 }

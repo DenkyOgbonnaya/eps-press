@@ -8,32 +8,43 @@ const postService = {
             throw err;
         }
     },
-    async getAll(queryParams){
+    async getAll(options){
+        const{page, limit} = options;
         try{
-            return posts = await  Post.paginate({}, queryParams)
+            return posts = await  Post.find({})
+            .skip((page*limit)-limit)
+            .limit(limit)
             .sort({createdDate: 'desc'})
+        }catch(err){
+            throw err;
+        }
+    },
+    async postCount(){
+        try{
+            return count = Post.countDocuments();
         }catch(err){
             throw err;
         }
     },
     async getOne(postSlug){
         try{
-            return post = await  Post.findOne({postSlug}).populate('owner');
+            return post = await  Post.findOne({slug: postSlug}).populate('owner', '-password -createdAt -updatedAt -__v');
           }catch(err){
             throw err;
         }
     },
     async like(id){
         try{
-            post = await  Post.findById(id);
-            return post.like().exec()
+            post = await Post.findById(id);
+            post.like();
+            return post;
         }catch(err){
             throw err;
         }
     },
-    async edit(postId, ownerId){
+    async edit(postId, credentials){
         try{
-            return editedPost = await  Post.findOneAndUpdate({_id: postId, owner: ownerId}, {new: true});
+            return editedPost = await  Post.findByIdAndUpdate(postId, {$set: credentials}, {new: true});
         }catch(err){
             throw err;
         }

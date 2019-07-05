@@ -13,7 +13,7 @@ commentRouter.route('/comment/:commentId')
 .post(likeComment)
 .put(isLoggedIn, validateComment, checkValidationResult, editComment)
 
-commentRouter.route('/comment/:commentId/reply')
+commentRouter.route('/comment/reply/:commentId')
 .post(isLoggedIn, validateReply, checkValidationResult, replyComment)
 
 module.exports = commentRouter;

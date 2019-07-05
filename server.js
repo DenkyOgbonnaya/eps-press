@@ -3,6 +3,8 @@ const cors = require('cors');
 const UserRouter  = require('./server/routes/userRoutes');
 const postRouter  = require('./server/routes/postRoutes');
 const commentRouter  = require('./server/routes/commentRoutes');
+const path = require('path');
+const connectDB = require('./server/models/index');
 
 const app = express();
 
@@ -17,11 +19,10 @@ app.use('/api/users', UserRouter);
 app.use('/api', postRouter);
 app.use('/api', commentRouter);
 
-app.get('*', (req, res) => {
-    res.send('we up');
-})
+//connect DB
+connectDB();
 //listening port
 app.listen(port, (err) =>{
     if(err) throw err ;
-        console.log(`HiBooks listening on port ${port}`);
+        console.log(`eps-press listening on port ${port}`);
 } );

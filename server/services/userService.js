@@ -8,12 +8,19 @@ const userService = {
             throw err;
         }
     },
-    async getUser(username){
+    async usernameExist(username){
         try{
             return user = await User.findOne({username});
         }catch(err){
             throw err;
         }
-    }
+    },
+    async emailExist(email){
+        try{
+            return user = await User.findOne({email});
+        }catch(err){
+            throw err;
+        }
+    },
 }
 module.exports = userService;

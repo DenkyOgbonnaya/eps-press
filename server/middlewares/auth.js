@@ -5,7 +5,7 @@ require('dotenv').config();
 const{usernameExist, emailExist} = userService;
 
 module.exports.isLoggedIn = isLoggedIn = (req, res, next) =>{
-    const token = req.headers['authorization'] && req.headers['authorization'].replace(/"/g, '')  // ? req.headers['authorization'].substring(7).replace(/"/g, '') : '';
+    const token = req.headers['authorization'] && req.headers['authorization'].replace(/"/g, '').substring(7);
     
     if(!token) return res.status(401 ).send({message: 'unauthorized user'})
 
@@ -19,7 +19,7 @@ module.exports.isLoggedIn = isLoggedIn = (req, res, next) =>{
     });
 }
 module.exports.isAdmin = isAdmin = (req, res, next) => {
-    const token =  req.headers['authorization'] && req.headers['authorization'].replace(/"/g, ''); 
+    const token =  req.headers['authorization'] && req.headers['authorization'].replace(/"/g, '').substring(7);
     const decoded = jwt.decode(token);
 
     if(decoded.currentUser.isAdmin !== 1)

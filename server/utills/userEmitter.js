@@ -5,9 +5,11 @@ require('dotenv').config();
 const userEmitter = new events.EventEmitter()
 
 userEmitter.on('userAuth', user => {
-    return token = jwt.sign(
+    const token = jwt.sign(
     {currentUser: {_id: user._id, username: user.username, email: user.email}},
     process.env.SECRET_KEY,
     {expiresIn: '24h'} ) //24hrs
+    
+    user.token = token;
 })
 module.exports = userEmitter;

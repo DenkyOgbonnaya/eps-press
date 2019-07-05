@@ -1,6 +1,5 @@
 const  mongoose = require('mongoose');
-const slug = require('mongoos-slug-generator');
-const paginate = require('mongoose-paginate');
+const slug = require('mongoose-slug-generator');
 
 mongoose.plugin(slug);
 
@@ -34,9 +33,8 @@ const postSchema = new mongoose.Schema({
     }
 });
 postSchema.methods.like = function() {
-    this.like += 1;
-    return this.save()
+    this.likes++;
+    return this.save();
 }
-postSchema.plugin(paginate);
 
 module.exports = mongoose.model('Post', postSchema);
