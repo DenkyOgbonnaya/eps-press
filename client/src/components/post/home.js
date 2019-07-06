@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import PostFeeds from './postFeeds';
+import SearchField from '../includes/searchField';
 
 const Home = () => {
     const[posts, setPosts] = useState([]);
@@ -24,6 +25,8 @@ const Home = () => {
         <div> 
             <p> The official blogging platform for the EPS CDS group Lafia. <i>...saving the environment! </i> </p>
             <hr />
+            <SearchField />
+            <br />
             <PostFeeds posts = {posts} />
         </div>
     )
