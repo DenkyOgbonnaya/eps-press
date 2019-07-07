@@ -8,7 +8,7 @@ const PostFeeds = (props) => {
             <Container> 
                 <Row> 
                     {
-                        props.posts.map(post => 
+                        props.posts.length > 0 && props.posts.map(post => 
                             <Col key = {post._id} xs='12' > 
                                 <Card onClick = { () => props.history.push(`/post/${post.slug}`) } > 
                                     <CardBody> 
