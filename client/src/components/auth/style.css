@@ -1,0 +1,16 @@
+body {
+    height: 100vh;
+}
+.authForm {
+    display: table;
+    height: 100%;
+    margin:0 auto;
+    border: 1px solid grey;
+    height: 400px;
+}
+.form {
+    display: table-cell;
+    vertical-align: middle;
+   padding: 5px;
+   width: 600px
+}

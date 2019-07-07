@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link as RRNavlink} from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -25,15 +26,16 @@ const NavBar = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
               <NavItem>
-              { true === true ?
+              { false ?
               <Dropdown nav isOpen={dropdownOpen} toggle={() => setDropDownOpen(!dropdownOpen)} > Welcome {" "}
             <DropdownToggle caret color='light' >
               'Denky'
             </DropdownToggle>
             <DropdownMenu>
               <DropdownItem header> Dashboard  </DropdownItem>
-              <DropdownItem > Profile </DropdownItem>
-              <DropdownItem >My pep talks</DropdownItem>
+              <DropdownItem > Post </DropdownItem>
+              <DropdownItem >All Post</DropdownItem>
+              <DropdownItem >Profile</DropdownItem>
               <DropdownItem divider />
               <DropdownItem  > Logout </DropdownItem>
             </DropdownMenu>
@@ -41,13 +43,13 @@ const NavBar = () => {
              :
              <Nav className="ml-auto" navbar>
              <NavItem>
-               <NavLink to='/login'  > Login </NavLink>
+               <NavLink to='/login' tag={RRNavlink} > Login </NavLink>
              </NavItem>
                <NavItem>
-               <NavLink to='/sign' > Signup </NavLink>
+               <NavLink to='/signup' tag={RRNavlink} > Signup </NavLink>
              </NavItem>
                <NavItem>
-               <NavLink to='/about'  > About </NavLink>
+               <NavLink to='/about' tag={RRNavlink}  > About </NavLink>
              </NavItem>
            </Nav>
             } 
