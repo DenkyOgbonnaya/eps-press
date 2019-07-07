@@ -20,7 +20,7 @@ const NavBar = () => {
 
   return (
     <div>
-      <Navbar color="light" light expand="xs">
+      <Navbar color="dark" dark expand="xs">
         <NavbarBrand href="/"> <img src= {require('./logo_ic50.png')} alt='logo'/>EPSpress</NavbarBrand>
         <NavbarToggler onClick={ () => setIsOpen(!isOpen)} />
         <Collapse isOpen={isOpen} navbar>

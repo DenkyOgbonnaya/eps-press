@@ -1,3 +1,18 @@
 .App {
     padding: 5px;
+    height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.footer {
+  background: #424242;
+  margin-top: auto;
+  color: #ccc;
+}
+.footer div {
+  text-align: center;
+}
+.footer span {
+  color: #e25555;
+  font-size: 25px;
 }

@@ -8,7 +8,7 @@ const SearchField = ({setSearch, handleSearch}) => {
         <div> 
             <InputGroup>
                 <Input placeholder = 'Search post..'  onChange = { e => setSearch(e.target.value)}  />
-                <InputGroupAddon addonType='append' ><Button onClick = {() => handleSearch()} >Search</Button></InputGroupAddon>
+                <InputGroupAddon addonType='append' ><Button color='success' onClick = {() => handleSearch()} >Search</Button></InputGroupAddon>
             </InputGroup>
         </div>
     )

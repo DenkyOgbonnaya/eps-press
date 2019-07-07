@@ -4,6 +4,6 @@ import {Form, Input, Button} from 'reactstrap';
 const CommentForm = ({setText, handleSubmit}) =>
     <Form  onSubmit = {handleSubmit}  >
         <Input type='textarea' placeholder='type a comment'  onChange={e => setText(e.target.value)} /> <br />
-        <Button> Send </Button>
+        <Button color='success'> Send </Button>
     </Form>
 export default CommentForm;
