@@ -1,0 +1,14 @@
+.postForm {
+    display: table;
+    height: 90%;
+    margin:0 auto;
+}
+
+.form {
+    display: table-cell;
+    vertical-align: middle;
+   padding: 5px;
+}
+.form > textarea {
+    height: auto;
+}

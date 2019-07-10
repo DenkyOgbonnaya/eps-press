@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link as RRNavlink} from 'react-router-dom';
+import {Link as RRNavlink, withRouter} from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -14,7 +14,7 @@ import {
   DropdownMenu,
   DropdownItem } from 'reactstrap';
 
-const NavBar = () => {
+const NavBar = props => {
   const[isOpen, setIsOpen] = useState(false);
   const[dropdownOpen, setDropDownOpen] = useState(false);
 
@@ -26,16 +26,17 @@ const NavBar = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
               <NavItem>
-              { false ?
-              <Dropdown nav isOpen={dropdownOpen} toggle={() => setDropDownOpen(!dropdownOpen)} > Welcome {" "}
-            <DropdownToggle caret color='light' >
+              { true ?
+              <Dropdown nav isOpen={dropdownOpen} toggle={() => setDropDownOpen(!dropdownOpen)} > 
+            <DropdownToggle caret color='dark' >
               'Denky'
             </DropdownToggle>
             <DropdownMenu>
               <DropdownItem header> Dashboard  </DropdownItem>
-              <DropdownItem > Post </DropdownItem>
+              <DropdownItem onClick = {()=> props.history.push('/new')} >New Post </DropdownItem>
               <DropdownItem >All Post</DropdownItem>
               <DropdownItem >Profile</DropdownItem>
+              <DropdownItem >About</DropdownItem>
               <DropdownItem divider />
               <DropdownItem  > Logout </DropdownItem>
             </DropdownMenu>
@@ -63,4 +64,4 @@ const NavBar = () => {
   );
 }
 
-export default NavBar;
+export default withRouter(NavBar);
