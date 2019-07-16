@@ -35,7 +35,7 @@ const NavBar = props => {
               <DropdownItem header> Dashboard  </DropdownItem>
               <DropdownItem onClick = {()=> props.history.push('/new')} >New Post </DropdownItem>
               <DropdownItem >All Post</DropdownItem>
-              <DropdownItem >Profile</DropdownItem>
+              <DropdownItem onClick = {()=> props.history.push('/me')} >Profile</DropdownItem>
               <DropdownItem >About</DropdownItem>
               <DropdownItem divider />
               <DropdownItem  > Logout </DropdownItem>

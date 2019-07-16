@@ -7,6 +7,7 @@ import NewPost from '../post/newPost';
 
 const Home = lazy( () => import('../post/home'));
 const PageDetails = lazy( () => import('../post/postDetails'));
+const Profile = lazy( () => import('../members/profile'));
 
 const Routes = () => {
 return(
@@ -17,6 +18,7 @@ return(
             <Route exact path = '/signup' component = {SignupForm} />
             <Route exact path = '/login' component = {LoginForm} />
             <Route exact path = '/new' component = {NewPost} />
+            <Route exact path = '/me' component = {Profile} />
         </Switch>
     </Suspense>
 )
