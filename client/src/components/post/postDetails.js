@@ -2,6 +2,7 @@ import React, {useState,  useEffect} from 'react';
 import Comment from './comment'
 import{Container, Row, Col, Card, CardFooter, CardHeader, CardBody, CardText, CardSubtitle, CardTitle} from 'reactstrap';
 import CommentForm from './commentForm';
+import './style.css';
 
 const postt ={
     _id: 2, title: 'welcome to eps-press', content: 'Hi, welcome to the very first post on eps press, Hi, welcome to the very first post on eps press, Hi, welcome to the very first post on eps press, Hi, welcome to the very first post on eps press, Hi, welcome to the very first post on eps press, Hi, welcome to the very first post on eps press, Hi, welcome to the very first post on eps press, Hi, welcome to the very first post on eps press, Hi, welcome to the very first post on eps press, Hi, welcome to the very first post on eps press, Hi, welcome to the very first post on eps press, Hi, welcome to the very first post on eps press, Hi, welcome to the very first post on eps press, Hi, welcome to the very first post on eps press, Hi, welcome to the very first post on eps press, the official blogging platform for the eps cds group Lafia',
@@ -46,29 +47,27 @@ const PostDetails = props => {
         )
     }, [])
     return (
-        <div> 
+        <div className='post'> 
+            <div className='post-author'> 
+                <span> <img src={require('./Denkys.jpg')} alt='author' /> </span>  <br />
+                <small text-muted> By {postt.owner.username} | {" "} {new Date(postt.createdDate).toDateString()} </small>
+            </div>
             <Container> 
                 <Row> 
                     <Col xs='12' > 
-                        <Card> 
-                            <CardHeader> 
-                                <h3> {postt.title} </h3>
-                                <small> By {postt.owner.username} </small>
-                                <small className='text-muted' > {new Date(postt.createdDate).toDateString()} </small>
-                            </CardHeader>
-                            <CardBody> 
-                                <CardText> {postt.content} </CardText>
-                            </CardBody>
-                            <CardFooter > 
-                                    <span onClick = {() => setIsOpen(!isOpen)} > {isOpen ? 'close reply' : 'Reply'} </span> {" "}
-                                    <span> Like {postt.likes} </span> {" "}
-                                    <span> Edit </span> {" "}
-                                    <span> Delete  </span> {" "}
-                                </CardFooter>
-                        </Card>
+                        <div className='post-content'> 
+                            
+                            <h2> {postt.title.toUpperCase()} </h2>
+                            <p> {postt.content} </p>
+                            <span onClick = {() => setIsOpen(!isOpen)} > {isOpen ? 'close reply' : 'Reply'} </span> {" "}
+                            <span> Like {postt.likes} </span> {" "}
+                            <span> Edit </span> {" "}
+                            <span> Delete  </span> {" "}
+                        </div>
                         <br />
+                        <h3>Post Replies </h3>
                         {isOpen && <CommentForm />}
-                        <hr />
+                        <hrv/>
                     </Col>
                 </Row>
                 <Row> 
