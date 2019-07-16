@@ -25,7 +25,7 @@ const Profile = () => {
             <h3>Your Profile  </h3>
             <Container > 
                 <Row> 
-                    <Col xs='12' md='4'> 
+                    <Col xs='12' md='4' className='profile-col'> 
                         <div className ='profile-image'>
                             <img src={require('./Denkys.jpg')} alt='profile pix' /> <br />
                             <Button className='edit-profile-btn' size='sm' color='success' > Change profile </Button>

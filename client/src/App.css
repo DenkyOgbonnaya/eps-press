@@ -25,6 +25,9 @@ div.DraftEditor-root {
   font-family: 'calibri', sans-serif;
   overflow-y: scroll;
 }
+.about-container {
+  padding: 10px;
+}
 
 /*div.DraftEditor-editorContainer {
   margin-top:1px;

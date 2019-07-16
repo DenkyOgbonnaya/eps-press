@@ -3,6 +3,8 @@ import {Route, Switch} from 'react-router-dom';
 import SignupForm from '../auth/signupForm';
 import LoginForm from '../auth/loginForm';
 import NewPost from '../post/newPost';
+import About from '../includes/about';
+
 
 
 const Home = lazy( () => import('../post/home'));
@@ -19,6 +21,7 @@ return(
             <Route exact path = '/login' component = {LoginForm} />
             <Route exact path = '/new' component = {NewPost} />
             <Route exact path = '/me' component = {Profile} />
+            <Route exact path = '/about' component = {About} />
         </Switch>
     </Suspense>
 )
