@@ -65,16 +65,16 @@ const PostDetails = props => {
                             <span> Delete  </span> {" "}
                         </div>
                         <br />
-                        <h3>Post Replies </h3>
+                        <h5>Comments: {postt.comments.length} </h5>
                         {isOpen && <CommentForm />}
-                        <hrv/>
+                        
                     </Col>
                 </Row>
                 <Row> 
                     {postt.comments.length > 0 && postt.comments.map(comment => 
                         <Col key= {comment._id} xs='12'> 
                             <Comment comment= {comment} />
-                            <br />
+                            <hr />
                         </Col>
                     )}
                 </Row>
