@@ -1,38 +1,37 @@
 import React from 'react';
 import HeaderStyleDropdown from './headerStyleDropdown';
 import BlockStyleButton from './blockStyleButton';
-class BlockStyleToolbar extends React.Component {
-    render() {
-     const { editorState } = this.props;
-     const selection = editorState.getSelection();
-     const blockType = editorState
-     .getCurrentContent()
-     .getBlockForKey(selection.getStartKey())
-     .getType();
+const BlockStyleToolbar = props  => {
+
+  const { editorState } = props;
+  const selection = editorState.getSelection();
+  const blockType = editorState
+    .getCurrentContent()
+    .getBlockForKey(selection.getStartKey())
+    .getType();
      
-     return (
-      <div>
+  return (
+    <div>
        
-       <span className="RichEditor-controls">
+      <span className="RichEditor-controls">
         {BLOCK_TYPES.map(type => 
           <BlockStyleButton
             active={type.style === blockType}
             label={type.label}
-            onToggle={this.props.onToggle}
+            onToggle={props.onToggle}
             style={type.style}
             key={type.label}
             type={type}
           />
-         )}
+        )}
          <HeaderStyleDropdown
          headerOptions={HEADER_TYPES}
          active={blockType}
-         onToggle={this.props.onToggle}
+         onToggle={props.onToggle}
          />
        </span>
       </div>
      );
-    }
    }
     const BLOCK_TYPES = [
     { label: "UL", style: "unordered-list-item" },

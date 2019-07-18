@@ -1,35 +1,31 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {Container, Row, Col, Label, Input, Button} from 'reactstrap';
 import {Editor, EditorState, RichUtils} from 'draft-js';
 import BlockStyleToolbar, {getBlockStyle} from '../blockStyles/blocKStyleToolBar';
 
-class NewPost extends Component{
-  state = {editorState: EditorState.createEmpty() }
-
-  handleChange = editorState => {
-    this.setState({editorState})
-  }
-  handleKeyCommand = command => {
-    const newState = RichUtils.handleKeyCommand(this.state.editorState, command)
+ const NewPost = () => {
+  const[editorState, setEditorState] = useState(EditorState.createEmpty())// {editorState: EditorState.createEmpty() }
+  
+  const handleKeyCommand = command => {
+    const newState = RichUtils.handleKeyCommand(editorState, command)
     if (newState) {
-        this.handleChange(newState);
+        setEditorState(newState);
         return 'handled';
     }
     return 'not-handled';
   }
-  toggleBlockType = (blockType) => {
-    this.handleChange(RichUtils.toggleBlockType(this.state.editorState, blockType));
+  const toggleBlockType = (blockType) => {
+    setEditorState(RichUtils.toggleBlockType(editorState, blockType));
     };
 
-  _onClick = (e) => {
-    this.handleChange(RichUtils.toggleInlineStyle(this.state.editorState, e.target.name));
+  const _onClick = e => {
+    setEditorState(RichUtils.toggleInlineStyle(editorState, e.target.name));
   }
-  render(){
-    const styles = [
-      {symbol: 'B', name:'BOLD'}, {symbol: 'I', name:'ITALIC'}, {symbol: 'U', name:'UNDERLINE'}, {symbol: '</>', name:'CODE'}];
-    const buttons = styles.map(style => 
-      <Button  size='sm'  key={style.name} onClick={this._onClick} name={style.name}>{style.symbol}</Button>
-    )
+  const styles = [
+    {symbol: 'B', name:'BOLD'}, {symbol: 'I', name:'ITALIC'}, {symbol: 'U', name:'UNDERLINE'}, {symbol: '</>', name:'CODE'}];
+  const buttons = styles.map(style => 
+    <Button  size='sm'  key={style.name} onClick={_onClick} name={style.name}>{style.symbol}</Button>
+  )
     return(
       <div>
         <h3>Start new post </h3>
@@ -50,8 +46,8 @@ class NewPost extends Component{
             <Col xs='6' xs={{offset:0}} md={{offset: 0}}> 
               <div className='toolbar' > 
                 <BlockStyleToolbar
-                  editorState={this.state.editorState}
-                  onToggle={this.toggleBlockType}
+                  editorState={editorState}
+                  onToggle={toggleBlockType}
                 />
               </div>
             </Col>
@@ -59,10 +55,10 @@ class NewPost extends Component{
           <Row> 
             <Col md={{size: 8, offset: 2}}>
               <Editor 
-                blockStyleFn={this.getBlockStyle}
-                editorState = {this.state.editorState}
-                handleKeyCommand={this.handleKeyCommand}
-                onChange = {this.handleChange}
+                blockStyleFn={getBlockStyle}
+                editorState = {editorState}
+                handleKeyCommand={handleKeyCommand}
+                onChange = {setEditorState}
                 placeholder='click below to start typing...'
               /> 
               <Label >Picture (optional) </Label>
@@ -73,6 +69,6 @@ class NewPost extends Component{
         </Container>
       </div>
     )
-  }
+  
 }
 export default NewPost;

@@ -1,21 +1,21 @@
-import React, {Component} from "react";
+import React from "react";
 import {Button} from 'reactstrap';
 
-class BlockStyleButton extends Component {
-  onToggle = (e) => {
+const BlockStyleButton = props => {
+  const onToggle = (e) => {
     e.preventDefault()
     this.props.onToggle(this.props.style)
   }
-  render() {
-    let className = "RichEditor-styleButton"
-    if(this.props.active) {
-      className += " RichEditor-activeButton"
-    }
-    return (
-      <Button size='sm' className={className} onClick={this.onToggle}>
-        {this.props.label}
-      </Button>
-    );
+  
+  let className = "RichEditor-styleButton"
+  if(props.active) {
+    className += " RichEditor-activeButton"
   }
+  return (
+    <Button size='sm' className={className} onClick={onToggle}>
+      {props.label}
+    </Button>
+    );
+
 }
 export default BlockStyleButton
