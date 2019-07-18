@@ -29,7 +29,7 @@ const NavBar = props => {
               { true ?
               <Dropdown nav isOpen={dropdownOpen} toggle={() => setDropDownOpen(!dropdownOpen)} > 
             <DropdownToggle caret color='dark' >
-              'Denky'
+              <img style= {{borderRadius: '50%', width:'40px'}} src={require('../post/Denkys.jpg')} />
             </DropdownToggle>
             <DropdownMenu>
               <DropdownItem header> Dashboard  </DropdownItem>
