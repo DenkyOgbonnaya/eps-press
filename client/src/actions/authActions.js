@@ -49,6 +49,14 @@ export async function login(userData, dispatch){
         console.log(err);
     }
 }
-export const authToken = (token, dispatch) => {
-    
+export async function verifyToken(token, dispatch){
+    const {data} = await axios.get(`/api/users/verify/${token}`)
+    if(data.isAuthenticated){
+        const{currentUser} = jwt.decode(token);
+
+        dispatch({
+            type:actionTypes.LOGIN_USER,
+            currentUser
+        } );
+    }
 }

@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
-const userEmitter = require('../utills/userEmitter');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const userService = require('../services/userService');
 
 const userCtrl = {
@@ -49,6 +50,13 @@ const userCtrl = {
             res.status(400).send(err);
         }
     },
+    verifyToken(req, res){
+        const{token} = req.params;
+        jwt.verify(token, process.env.SECRET_KEY,  (err, verified) => {
+            if(err ) return res.status(401).send({isAuthenticated: false})
+        res.status(200).send({isAuthenticated: true})
+        })
+    }
 
 }
 module.exports = userCtrl;

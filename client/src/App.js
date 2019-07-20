@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import NavBar from './components/includes/navBar';
 import './App.css';
 import Routes from './components/routes/routes';
@@ -7,17 +7,18 @@ import { AuthContextProvider } from './context/authContext';
 
 
 
-function App() {
-  return (
+const App = () => {
+
+  return(
     <div className="App">
       <AuthContextProvider>
-      <NavBar />
-      <br />
-      <Routes />
+        <NavBar />
+        <br />
+        <Routes />
       </AuthContextProvider>
       <AppFooter />
     </div>
-  );
+  )
 }
 
 export default App;

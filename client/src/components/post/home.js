@@ -1,10 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import PostFeeds from './postFeeds';
 import SearchField from '../includes/searchField';
+import {AuthContext} from '../../context/authContext';
+import {verifyToken} from '../../actions/authActions';
 
 const Home = () => {
     const[posts, setPosts] = useState([]);
+    const{dispatch} = useContext(AuthContext);
 
+    useEffect( ()=> {
+        const authToken = localStorage.authToken;
+        if(authToken)
+            verifyToken(authToken, dispatch);
+    }, [])
     useEffect( () => {
         setPosts([
             {
