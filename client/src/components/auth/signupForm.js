@@ -1,22 +1,41 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import { Button, FormGroup, Form, Label, Input } from 'reactstrap';
 import {Link} from 'react-router-dom';
+import {AuthContext} from '../../context/authContext';
+import {signup} from '../../actions/authActions';
+import {withRouter} from 'react-router-dom';
+import {Alert} from 'reactstrap';
 import './style.css';
 
-const SignupForm = () => {
-    const[userName, setUserName] = useState('');
+const SignupForm = props => {
+    const[username, setUserName] = useState('');
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
+    const[isError, setIsError] = useState(false);
 
-    const handleSubmit = e => {}
+    const {authData, dispatch} = useContext(AuthContext);
+
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        signup({username, email, password}, dispatch)
+        .then(data => {
+            if(data && data.status === 'success'){
+                props.history.push('/');
+            }else {
+                setIsError(true);
+            }
+        })
+    }
     return (
         <div className = 'authForm'>
             <div className = 'form'>
+            <Alert color='danger' isOpen={isError} > {authData.authError} </Alert>
             <h5> Create an account </h5>
                 <Form onSubmit = {handleSubmit} >
                     <FormGroup>
                         <Label for ='userName'>User Name </Label> 
-                        <Input type='text' name='userName' required placeholder = 'Enter userName' onChange={e => setUserName(e.target.value)} /> 
+                        <Input type='text' name='username' required placeholder = 'Enter userName' onChange={e => setUserName(e.target.value)} /> 
                     </FormGroup>
                     <FormGroup>
                         <Label for ='email'> Email </Label>
@@ -33,4 +52,4 @@ const SignupForm = () => {
       </div>
     )
 }
-export default SignupForm;
+export default withRouter(SignupForm);

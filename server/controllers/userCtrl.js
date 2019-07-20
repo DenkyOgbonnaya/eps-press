@@ -37,7 +37,7 @@ const userCtrl = {
 
             if(!validPassword)
                 return res.status(401).send({
-                    status: error,
+                    status: 'error',
                     message: 'incorrect email and password combination'
                 })
             //generate token and appen to user object
@@ -45,6 +45,7 @@ const userCtrl = {
 
             return res.status(200).send({status: 'success', token: user.token})
         }catch(err){
+            console.log(err)
             res.status(400).send(err);
         }
     },

@@ -1,22 +1,13 @@
-import React, {useState} from 'react';
-import {Link as RRNavlink, withRouter} from 'react-router-dom';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem } from 'reactstrap';
-
+import React, {useContext, useState} from 'react';
+import {Button, NavItem, Nav, Navbar, NavLink, NavbarBrand, NavbarToggler, DropdownMenu,
+dropdownOpen, DropdownToggle, DropdownItem, Dropdown, Collapse,} from 'reactstrap';
+import {withRouter, NavLink as RRNavlink} from 'react-router-dom';
+import {AuthContext} from '../../context/authContext';
 const NavBar = props => {
   const[isOpen, setIsOpen] = useState(false);
   const[dropdownOpen, setDropDownOpen] = useState(false);
+  const{authData} = useContext(AuthContext);
+  console.log(authData)
 
   return (
     <div>
@@ -26,7 +17,7 @@ const NavBar = props => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
               <NavItem>
-              { true ?
+              { authData.isAuthenticated ?
               <Dropdown nav isOpen={dropdownOpen} toggle={() => setDropDownOpen(!dropdownOpen)} > 
             <DropdownToggle caret color='dark' >
               <img style= {{borderRadius: '50%', width:'40px'}} src={require('../post/Denkys.jpg')} />
@@ -42,11 +33,11 @@ const NavBar = props => {
           </Dropdown>
              :
              <Nav className="ml-auto" navbar>
+               <NavItem>
+               <NavLink to='/signup' tag={RRNavlink} > <Button size='sm' outline >Get Started </Button> </NavLink>
+             </NavItem>
              <NavItem>
                <NavLink to='/login' tag={RRNavlink} > Login </NavLink>
-             </NavItem>
-               <NavItem>
-               <NavLink to='/signup' tag={RRNavlink} > Signup </NavLink>
              </NavItem>
                <NavItem>
                <NavLink to='/about' tag={RRNavlink}  > About </NavLink>
