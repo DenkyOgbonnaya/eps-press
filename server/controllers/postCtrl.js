@@ -3,7 +3,7 @@ const Comment = require('../models/comment');
 
 const postCtrl = {
     async createPost(req, res){
-        
+
         try{
             if(!req.file){
               const post = await postService.create(req.body)
@@ -19,7 +19,7 @@ const postCtrl = {
     },
     async getAllPost(req, res){
         const page = Number(req.query.page) || 1;
-        const limit = Number(req.query.limit) || 8;
+        const limit = Number(req.query.limit) || 3;
 
         try{
           const posts = await  postService.getAll({page, limit});

@@ -13,7 +13,7 @@ module.exports.validateLoginData = validateLoginData = [
 //validate post data
 module.exports.validatePost = validatePost = [
     check('title', 'title is required').isLength({min: 3}),
-    check('content', 'content  is required').isLength({min: 3})
+   // check('content', 'content  is required').isLength({min: 3})
 ]
 //validate comment data
 module.exports.validateComment = validateComment = [

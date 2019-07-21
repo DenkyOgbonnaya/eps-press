@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const userEmitter = require('../utills/userEmitter');
 const userService = require('../services/userService');
 
 const userCtrl = {

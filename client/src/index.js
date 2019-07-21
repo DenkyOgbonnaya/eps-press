@@ -5,11 +5,18 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {BrowserRouter as Router} from 'react-router-dom';
+import { AuthContextProvider } from './context/authContext';
+import {PostContextProvider} from './context/postContext';
 
 ReactDOM.render(
     <Router>
         <div> 
-            <App />
+            <AuthContextProvider> 
+                <PostContextProvider> 
+                    <App />
+                </PostContextProvider>
+            </AuthContextProvider>
+            
         </div> 
     </Router>,
     document.getElementById('root'));

@@ -1,6 +1,7 @@
 const types = {
     ADD_POST: "ADD_POST",
-    GET_POST: "GET_POst",
+    GET_POST: "GET_POST",
+    GET_POSTS: "GET_POSTS",
     EDIT_POST: "EDIT_POST",
     DELETE_POST: "DELETE_POST",
     SIGNUP_USER: "SIGNUP_USER",

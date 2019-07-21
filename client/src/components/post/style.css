@@ -2,6 +2,15 @@
   position: fixed;
   bottom: 20px;
 }
+.editor div.DraftEditor-root {
+  width:inherit;
+  height: 210px;
+  border: 1px solid #ccc;
+  padding:20px;
+  font-size: 15px;
+  font-family: 'calibri', sans-serif;
+  overflow-y: scroll;
+}
 .comment-container {
   display: grid;
   grid-template-columns: 20% 70%;

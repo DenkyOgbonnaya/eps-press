@@ -4,7 +4,7 @@ import {Button} from 'reactstrap';
 const BlockStyleButton = props => {
   const onToggle = (e) => {
     e.preventDefault()
-    this.props.onToggle(this.props.style)
+    props.onToggle(props.style)
   }
   
   let className = "RichEditor-styleButton"

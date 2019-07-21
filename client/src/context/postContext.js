@@ -1,15 +1,23 @@
-import React, {useContext, useReducer} from 'react';
+import React, {useReducer} from 'react';
 import postReducer from '../reducers/postReducer';
 
-const PostContext = useContext.createContext();
+export const PostContext = React.createContext();
 
-const PostContextProvider = props => {
-    const[posts, dispatch] = useReducer(postReducer, []);
-    return(
-        <PostContext.Provider value={{posts, dispatch}}  > 
+export const PostContextProvider = (props) => {
+    const[postData, dispatch] = useReducer(postReducer, {
+        posts: [],
+        post: {},
+        page: 1,
+        currentPage: '',
+        isLoading: true,
+        PostError: '',
+        isNewPost: true
+    })
+    return (
+        <PostContext.Provider value= {{postData, dispatch}}> 
             {props.children}
         </PostContext.Provider>
     )
 }
 
-export default PostContextProvider;
+export default PostContextProvider

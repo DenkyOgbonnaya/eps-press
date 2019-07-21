@@ -1,21 +1,24 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useContext} from 'react';
 import NavBar from './components/includes/navBar';
 import './App.css';
 import Routes from './components/routes/routes';
 import AppFooter  from './components/includes/footer';
-import { AuthContextProvider } from './context/authContext';
-
+import {AuthContext} from './context/authContext';
+import {verifyToken} from './actions/authActions';
 
 
 const App = () => {
-
+  const{dispatch} = useContext(AuthContext);
+  useEffect( ()=> {
+    const authToken = localStorage.authToken;
+    if(authToken)
+      verifyToken(authToken, dispatch);
+  }, [])
   return(
     <div className="App">
-      <AuthContextProvider>
-        <NavBar />
-        <br />
-        <Routes />
-      </AuthContextProvider>
+          <NavBar />
+          <br />
+          <Routes />
       <AppFooter />
     </div>
   )
