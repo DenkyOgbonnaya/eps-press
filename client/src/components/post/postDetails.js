@@ -42,6 +42,9 @@ const PostDetails = props => {
                                 editorState = {editorState}
                                 readOnly = {true}
                             />
+                            <div className='post-picture'> 
+                                {post.picture && <img src={post.picture} alt='post-pix'/>}
+                            </div>
                             <span onClick = {() => setIsOpen(!isOpen)} > {isOpen ? 'close reply' : 'Reply'} </span> {" "}
                             <span> Like {post.likes} </span> {" "}
                             <span> Edit </span> {" "}

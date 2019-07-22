@@ -56,7 +56,7 @@ import PostEditor from '../editor/postEditor';
       <Container> 
         <Row> 
           <Col md={{size: 8, offset: 2}}>
-          <Alert isOpen={isError} > {postData.postError} </Alert>
+          <Alert color='danger' isOpen={isError} > {postData.postError} </Alert>
             <Label for='title'> Title </Label>
             <Input name='title' placeholder='post title' onChange = { e => setTitle(e.target.value)} /> <br />
             <Label for='content'> Content </Label>
@@ -68,7 +68,7 @@ import PostEditor from '../editor/postEditor';
         />
         <Row> 
           <Col md={{size: 8, offset: 2}} > 
-          <Label >Add Picture (optional) </Label>
+          <Label >Add Picture (optional, max 1mb, jpg,png,jpeg) </Label>
           <Input type='file' name="image" accept='image/*' onChange = { e => setImage(e.target.files[0])}  /> <br /> 
           </Col>
         </Row>

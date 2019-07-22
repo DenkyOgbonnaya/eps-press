@@ -1,13 +1,29 @@
 const postService = require('../services/postService');
 const Comment = require('../models/comment');
 
+
 const postCtrl = {
     async createPost(req, res){
 
         try{
+            
             if(!req.file){
               const post = await postService.create(req.body)
               res.status(201).send({
+                  status: 'success',
+                  message: 'Post successfully created',
+                  post
+              })
+            }else {
+                const{title, content, owner} = req.body;
+                const post = await postService.create({
+                    title,
+                    content,
+                    owner,
+                    picture: `/uploads/${req.file.filename}`
+                })
+
+                res.status(201).send({
                   status: 'success',
                   message: 'Post successfully created',
                   post

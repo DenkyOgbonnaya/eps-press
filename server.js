@@ -14,10 +14,14 @@ app.options('*', cors());
 app.use(cors({credentials:true, origin: 'http://localhost:3000'}));
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(express.static(__dirname + '/client/public'));
+app.use(express.static(__dirname + '/public'));
 
 app.use('/api/users', UserRouter);
 app.use('/api', postRouter);
 app.use('/api', commentRouter);
+app.use( (err, req, res, next) => {
+    return res.status(400).send({status: 'error', message: err.message})
+})
 
 //connect DB
 connectDB();

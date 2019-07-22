@@ -45,4 +45,9 @@
   border: 1px solid #ccc;
   width: 100%
 }
+.post-picture > img {
+  width: 80%;;
+  height: 20%;
+  margin: 20px
+}
   

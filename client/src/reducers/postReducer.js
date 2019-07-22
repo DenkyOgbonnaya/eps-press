@@ -38,6 +38,11 @@ const postReducer = (state, action) => {
             ...state,
             posts: state.posts.filter( post => post._id !== action.postId)
         }
+        case actionTypes.ERROR :
+        return {
+            ...state,
+            postError: action.message
+        }
     }
 }
 

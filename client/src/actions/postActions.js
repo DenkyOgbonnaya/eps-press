@@ -11,13 +11,13 @@ export async function addPost(post, dispatch){
             type: actionTypes.ADD_POST,
             post: data.post
         });
-        return data;
     }else {
         dispatch({
             type: actionTypes.ERROR,
             message: data.message
         });
     }
+    return data;
 }
 export async function editPost(credentials, dispatch){
     const{data} = await axios.put(`api/post/${credentials._id}`, credentials);

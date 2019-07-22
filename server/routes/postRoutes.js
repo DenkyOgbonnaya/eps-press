@@ -1,7 +1,7 @@
 const PostRouter = require('express').Router();
 const postCtrl = require('../controllers/postCtrl');
 const{isLoggedIn} = require('../middlewares/auth');
-const{ validatePost, checkValidationResult} = require('../middlewares/validation');
+const{ validatePost, checkValidationResult, uploadErrHandler} = require('../middlewares/validation');
 const upload = require('../utills/multerConfig')
 
 const{createPost, getAllPost, getOnePost, likePost, editPost } = postCtrl;
