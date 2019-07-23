@@ -17,7 +17,8 @@ const postReducer = (state, action) => {
             case actionTypes.GET_POST :
             return {
                 ...state,
-                post: action.post
+                post: action.post,
+                isLoading: false
             }
         case actionTypes.SEARCH_POST :
             return{
@@ -29,9 +30,8 @@ const postReducer = (state, action) => {
         case actionTypes.EDIT_POST :
         return{
             ...state,
-                posts: state.posts.map(post => post._id === action.post._id ?  
-                Object.assign({}, post, action.post ) : post
-            )
+            posts: state.posts.map(post => post._id === action.post._id ?  
+            Object.assign({}, post, action.post ) : post )
         }
         case actionTypes.DELETE_POST :
         return{

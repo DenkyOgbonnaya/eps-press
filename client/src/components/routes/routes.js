@@ -5,11 +5,10 @@ import LoginForm from '../auth/loginForm';
 import NewPost from '../post/newPost';
 import About from '../includes/about';
 
-
-
 const Home = lazy( () => import('../post/home'));
 const PageDetails = lazy( () => import('../post/postDetails'));
 const Profile = lazy( () => import('../members/profile'));
+const EditPost = lazy( () => import('../post/editPost'));
 
 const Routes = () => {
 return(
@@ -17,6 +16,7 @@ return(
         <Switch> 
             <Route exact path = '/' component = {Home} />
             <Route exact path = '/post/:slug' component = {PageDetails} />
+            <Route exact path = '/edit/:slug' component = {EditPost} />
             <Route exact path = '/signup' component = {SignupForm} />
             <Route exact path = '/login' component = {LoginForm} />
             <Route exact path = '/new' component = {NewPost} />

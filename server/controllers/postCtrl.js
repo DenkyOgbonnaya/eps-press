@@ -1,5 +1,6 @@
 const postService = require('../services/postService');
 const Comment = require('../models/comment');
+const postEmmitter = require('../utills/postEmitter');
 
 
 const postCtrl = {
@@ -88,11 +89,23 @@ const postCtrl = {
     },
     async editPost(req, res){
         const{postId} = req.params;
-        const credentials = req.body;
+        const {title, content} = req.body;
 
         try{
-            const post = await postService.edit(postId, credentials);
-            return res.status(200).send({status: 'success', post})
+            if(!req.file){
+                const post = await postService.edit(postId, {title, content});
+                return res.status(200).send({status: 'success', post})
+            }else {
+                const post = await postService.getPost(postId);
+                post.picture && postEmmitter.emit('pictureDelete', post.picture);
+
+                const editedPost = await postService.edit(postId, {
+                    title,
+                    content,
+                    picture: `/uploads/${req.file.filename}`
+                  })
+                return res.status(200).send({status: 'success', post: editedPost})
+            }
         }catch(err){
             res.status(400).send(err); 
         }

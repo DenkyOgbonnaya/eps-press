@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
+import {withRouter} from 'react-router-dom';
 import Comment from './comment'
 import{Container, Row, Col, Card, CardFooter, CardHeader, CardBody, CardText, CardSubtitle, CardTitle} from 'reactstrap';
 import CommentForm from './commentForm';
@@ -18,11 +19,14 @@ const PostDetails = props => {
         .then( () => {
             if(post._id){
                 setEditorState(EditorState
-                    .createWithContent(convertFromRaw(JSON.parse(post.content))))
-            }
-            
+                .createWithContent(convertFromRaw(JSON.parse(post.content))))
+            } 
         })      
     }, [post._id]);
+
+    const handleEditClick = post => {
+        props.history.push(`/edit/${post.slug}`);
+    }
     
     if(!post._id)
     return(<div> Empty post </div>)
@@ -30,7 +34,7 @@ const PostDetails = props => {
         <div className='post'> 
             <div className='post-author'> 
                 <span> <img src={require('./Denkys.jpg')} alt='author' /> </span>  <br />
-                <small text-muted> By {post.owner.username}  | {" "} {new Date(post.createdDate).toDateString()} </small>
+                <small > By {post.owner.username}  | {" "} {new Date(post.createdDate).toDateString()} </small>
             </div>
             <Container> 
                 <Row> 
@@ -47,7 +51,7 @@ const PostDetails = props => {
                             </div>
                             <span onClick = {() => setIsOpen(!isOpen)} > {isOpen ? 'close reply' : 'Reply'} </span> {" "}
                             <span> Like {post.likes} </span> {" "}
-                            <span> Edit </span> {" "}
+                            <span onClick={() => handleEditClick(post)}> Edit </span> {" "}
                             <span> Delete  </span> {" "}
                         </div>
                         <br />
@@ -71,4 +75,4 @@ const PostDetails = props => {
         </div>
     )
 }
-export default PostDetails;
+export default withRouter(PostDetails);

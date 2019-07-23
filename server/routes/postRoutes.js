@@ -14,6 +14,6 @@ PostRouter.route('/post/:postSlug')
 .get(getOnePost)
 PostRouter.route('/post/:postId')
 .post(likePost)
-.put(isLoggedIn, validatePost, checkValidationResult, editPost)
+.put(upload.single('image'), isLoggedIn, validatePost, checkValidationResult, editPost)
 
 module.exports = PostRouter

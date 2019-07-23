@@ -34,6 +34,13 @@ const postService = {
             throw err;
         }
     },
+    async getPost(postId){
+        try{
+            return post = await  Post.findById(postId).populate('owner', '-password -createdAt -updatedAt -__v');
+          }catch(err){
+            throw err;
+        }
+    },
     async like(id){
         try{
             post = await Post.findById(id);
