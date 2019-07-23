@@ -4,7 +4,7 @@ import Comment from './comment'
 import{Container, Row, Col, Card, CardFooter, CardHeader, CardBody, CardText, CardSubtitle, CardTitle} from 'reactstrap';
 import CommentForm from './commentForm';
 import {PostContext} from '../../context/postContext';
-import {getPost} from '../../actions/postActions';
+import {getPost, likePost} from '../../actions/postActions';
 import {Editor, EditorState, convertFromRaw} from 'draft-js';
 import './style.css';
 
@@ -26,6 +26,10 @@ const PostDetails = props => {
 
     const handleEditClick = post => {
         props.history.push(`/edit/${post.slug}`);
+    }
+    const handleLikeClick = id => {
+        console.log(id);
+        likePost(id, dispatch);
     }
     
     if(!post._id)
@@ -50,7 +54,7 @@ const PostDetails = props => {
                                 {post.picture && <img src={post.picture} alt='post-pix'/>}
                             </div>
                             <span onClick = {() => setIsOpen(!isOpen)} > {isOpen ? 'close reply' : 'Reply'} </span> {" "}
-                            <span> Like {post.likes} </span> {" "}
+                            <span onClick = {() => handleLikeClick(post._id) } > Like ({post.likes}) </span> {" "}
                             <span onClick={() => handleEditClick(post)}> Edit </span> {" "}
                             <span> Delete  </span> {" "}
                         </div>

@@ -7,6 +7,10 @@ const types = {
     SIGNUP_USER: "SIGNUP_USER",
     LOGIN_USER: "LOGIN_USER",
     AUTH_TOKEN: "AUTH_TOKEN",
-    ERROR: 'ERROR'
+    ERROR: 'ERROR',
+    LIKE_POST: "LIKE_POST",
+    UNLIKE_POST: "UNLIKE_POST",
+    COMMENT_POST: "COMMENT_POST",
+    REPLY_POST: "REPLY_POST",
 }
 export default types;

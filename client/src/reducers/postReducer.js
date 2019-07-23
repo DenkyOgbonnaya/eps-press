@@ -30,8 +30,7 @@ const postReducer = (state, action) => {
         case actionTypes.EDIT_POST :
         return{
             ...state,
-            posts: state.posts.map(post => post._id === action.post._id ?  
-            Object.assign({}, post, action.post ) : post )
+            post: Object.assign({}, state.post, action.post )
         }
         case actionTypes.DELETE_POST :
         return{
@@ -43,7 +42,15 @@ const postReducer = (state, action) => {
             ...state,
             postError: action.message
         }
+        case actionTypes.LIKE_POST :
+        const{post} = state;
+        return {
+            ...state,
+            post: Object.assign({}, post, {likes: post.likes+1} ) 
+        }
+        default : return state;
     }
+    
 }
 
 export default postReducer;

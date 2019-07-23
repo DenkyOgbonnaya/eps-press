@@ -75,3 +75,14 @@ export async function getPost(slug, dispatch){
         console.log(err);
     }
 }
+export async function likePost(id, dispatch){
+    try{
+        dispatch({
+            type: actionTypes.LIKE_POST,
+            id
+        });
+        const{data} = await axios.post(`/api/post/${id}`);
+    }catch(err){
+        console.log(err);
+    }
+}
