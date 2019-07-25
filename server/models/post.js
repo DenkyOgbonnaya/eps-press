@@ -24,6 +24,10 @@ const postSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    likers: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'User'
+    },
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
@@ -33,8 +37,17 @@ const postSchema = new mongoose.Schema({
         default: Date.now()
     }
 });
-postSchema.methods.like = function() {
+postSchema.methods.like = function(likerId) {
     this.likes++;
+    this.likers.push(likerId);
+
+    return this.save();
+}
+postSchema.methods.unlike = function(likerId) {
+    this.likes--;
+    const likersCopy = this.likers;
+    this.likers = likersCopy.filter(liker => liker != likerId );
+    
     return this.save();
 }
 

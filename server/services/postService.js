@@ -41,11 +41,28 @@ const postService = {
             throw err;
         }
     },
-    async like(id){
+    async like(id, likerId){
         try{
             post = await Post.findById(id);
-            post.like();
+            post.like(likerId);
             return post;
+        }catch(err){
+            throw err;
+        }
+    },
+    async unlike(id, likerId){
+        try{
+            post = await Post.findById(id);
+            post.unlike(likerId);
+            return post;
+        }catch(err){
+            throw err;
+        }
+    },
+    async getLikers(postId){
+        try{
+            const post = await Post.findById(postId);
+            return post.likers;
         }catch(err){
             throw err;
         }

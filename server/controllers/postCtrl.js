@@ -79,12 +79,32 @@ const postCtrl = {
     },
     async likePost(req, res){
         const{postId} = req.params;
+        const{liker} = req.body;
         try{
-            const post = await postService.like(postId)
+            const post = await postService.like(postId, liker)
         
-            return res.status(200).send({status: 'success', post})
+            return res.status(200).send({status: 'success', likers: post.likers})
         }catch(err){
             res.status(400).send(err) 
+        }
+    },
+    async unlikePost(req, res){
+        const{postId} = req.params;
+        const{unLiker} = req.body;
+        try{
+            const post = await postService.unlike(postId, unLiker);
+        
+            return res.status(200).send({status: 'success', likers: post.likers});
+        }catch(err){
+            res.status(400).send(err) 
+        }
+    },
+    async getPostLikers(req, res){
+        const postLikers = await postService.getLikers();
+        return res.status(200).send({status: 'success', postLikers});
+
+        try{}catch(err){
+            res.status(400).send(err);
         }
     },
     async editPost(req, res){

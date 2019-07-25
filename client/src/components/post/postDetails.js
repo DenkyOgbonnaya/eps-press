@@ -4,7 +4,8 @@ import Comment from './comment'
 import{Container, Row, Col, Card, CardFooter, CardHeader, CardBody, CardText, CardSubtitle, CardTitle} from 'reactstrap';
 import CommentForm from './commentForm';
 import {PostContext} from '../../context/postContext';
-import {getPost, likePost} from '../../actions/postActions';
+import {AuthContext} from '../../context/authContext';
+import {getPost, likePost, unlikePost} from '../../actions/postActions';
 import {Editor, EditorState, convertFromRaw} from 'draft-js';
 import './style.css';
 
@@ -12,7 +13,9 @@ const PostDetails = props => {
     const[editorState, setEditorState] = useState(EditorState.createEmpty());
     const[isOpen, setIsOpen] = useState(false);
     const{postData, dispatch} = useContext(PostContext);
+    const{authData} = useContext(AuthContext);
     const post = postData.post;
+
     useEffect( () => {
         const postSlug = props.match.params.slug;
         getPost(postSlug, dispatch)
@@ -27,9 +30,17 @@ const PostDetails = props => {
     const handleEditClick = post => {
         props.history.push(`/edit/${post.slug}`);
     }
-    const handleLikeClick = id => {
-        console.log(id);
-        likePost(id, dispatch);
+    const handleLikeClick = (e, post) => {
+        const currentUser = authData.currentUser._id;
+        
+        if( e.target.textContent.trim() === 'Like'){
+            likePost(post, currentUser , dispatch);
+        }else
+            unlikePost(post, currentUser, dispatch );
+        
+    }
+    const likeBtn = (post) => {
+       return post.likers.includes(authData.currentUser._id) ? 'unLike' : 'Like'
     }
     
     if(!post._id)
@@ -54,7 +65,7 @@ const PostDetails = props => {
                                 {post.picture && <img src={post.picture} alt='post-pix'/>}
                             </div>
                             <span onClick = {() => setIsOpen(!isOpen)} > {isOpen ? 'close reply' : 'Reply'} </span> {" "}
-                            <span onClick = {() => handleLikeClick(post._id) } > Like ({post.likes}) </span> {" "}
+                            <span onClick = { e => handleLikeClick(e, post) } > {likeBtn(post)}  </span> likes {post.likes}
                             <span onClick={() => handleEditClick(post)}> Edit </span> {" "}
                             <span> Delete  </span> {" "}
                         </div>

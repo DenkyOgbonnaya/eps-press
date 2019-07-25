@@ -44,9 +44,21 @@ const postReducer = (state, action) => {
         }
         case actionTypes.LIKE_POST :
         const{post} = state;
+        const{likes} = post;
+        const{inc, likers} = action.payLoad;
         return {
             ...state,
-            post: Object.assign({}, post, {likes: post.likes+1} ) 
+            post: Object.assign({}, post, {likes: likes+inc, likers} ) 
+        }
+        case actionTypes.UNLIKE_POST :
+        const postLikes = state.post.likes;
+        const{payLoad} = action;
+        return {
+            ...state,
+            post: Object.assign({}, state.post, {
+                likes: postLikes-payLoad.dec, 
+                likers: payLoad.likers
+            } ) 
         }
         default : return state;
     }

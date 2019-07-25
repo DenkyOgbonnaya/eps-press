@@ -75,13 +75,37 @@ export async function getPost(slug, dispatch){
         console.log(err);
     }
 }
-export async function likePost(id, dispatch){
+export async function likePost(post, liker, dispatch){
     try{
         dispatch({
             type: actionTypes.LIKE_POST,
-            id
+            payLoad: {likers: post.likers, inc: 1}
         });
-        const{data} = await axios.post(`/api/post/${id}`);
+        const{data} = await axios.post(`/api/post/${post._id}/likes`, {liker});
+        console.log(data)
+        if(data.status === 'success'){
+            dispatch({
+                type: actionTypes.LIKE_POST,
+                payLoad: {likers: data.likers, inc: 0}
+            });
+        }
+    }catch(err){
+        console.log(err);
+    }
+}
+export async function unlikePost(post, unLiker, dispatch){
+    try{
+        dispatch({
+            type: actionTypes.UNLIKE_POST,
+            payLoad: {likers: post.likers, dec: 1}
+        });
+        const{data} = await axios.delete(`/api/post/${post._id}/likes`, {data: {unLiker}});
+        if(data.status === 'success'){
+            dispatch({
+                type: actionTypes.UNLIKE_POST,
+                payLoad: {likers: data.likers, dec: 0}
+            });
+        }
     }catch(err){
         console.log(err);
     }
