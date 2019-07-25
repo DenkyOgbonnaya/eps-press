@@ -60,6 +60,13 @@ const postReducer = (state, action) => {
                 likers: payLoad.likers
             } ) 
         }
+        case actionTypes.COMMENT_POST :
+        return {
+            ...state,
+            post: Object.assign({}, state.post, {
+                comments: state.post.comments.concat(action.comment)
+            })
+        }
         default : return state;
     }
     

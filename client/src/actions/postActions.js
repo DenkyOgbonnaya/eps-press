@@ -110,3 +110,17 @@ export async function unlikePost(post, unLiker, dispatch){
         console.log(err);
     }
 }
+export async function postComment(commentData, dispatch){
+    
+    try{
+        const {data} = await axios.post('/api/comment', commentData);
+        if(data.status === 'success')
+        dispatch({
+            type: actionTypes.COMMENT_POST,
+            comment: data.comment
+        })
+    }catch(err){
+        console.log(err);
+        
+    }
+}

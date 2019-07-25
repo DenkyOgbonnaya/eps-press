@@ -12,5 +12,6 @@ const types = {
     UNLIKE_POST: "UNLIKE_POST",
     COMMENT_POST: "COMMENT_POST",
     REPLY_POST: "REPLY_POST",
+    REPLY_COMMENT: "REPLY_COMMENT"
 }
 export default types;

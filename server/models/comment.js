@@ -9,8 +9,9 @@ const commentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    postSlug: {
-        type: String,
+    post: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post',
         required: true
     },
     likes : {

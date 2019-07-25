@@ -63,7 +63,7 @@ const postCtrl = {
             if(post){
                 let postCopy = post.toObject();
 
-                const comments = await Comment.find({postSlug: post.slug})
+                const comments = await Comment.find({post: post._id})
                 .populate('owner', '-password -createdAt -updatedAt -__v');
                 postCopy.comments= comments;
 

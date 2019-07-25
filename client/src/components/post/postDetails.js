@@ -5,13 +5,14 @@ import{Container, Row, Col, Card, CardFooter, CardHeader, CardBody, CardText, Ca
 import CommentForm from './commentForm';
 import {PostContext} from '../../context/postContext';
 import {AuthContext} from '../../context/authContext';
-import {getPost, likePost, unlikePost} from '../../actions/postActions';
+import {getPost, likePost, unlikePost, postComment} from '../../actions/postActions';
 import {Editor, EditorState, convertFromRaw} from 'draft-js';
 import './style.css';
 
 const PostDetails = props => {
     const[editorState, setEditorState] = useState(EditorState.createEmpty());
     const[isOpen, setIsOpen] = useState(false);
+    const[comment, setComment] = useState('');
     const{postData, dispatch} = useContext(PostContext);
     const{authData} = useContext(AuthContext);
     const post = postData.post;
@@ -42,7 +43,17 @@ const PostDetails = props => {
     const likeBtn = (post) => {
        return post.likers.includes(authData.currentUser._id) ? 'unLike' : 'Like'
     }
-    
+    const submitComment = e => {
+        const currentUser = authData.currentUser._id;
+        e.preventDefault();
+        
+        const commentData = {
+            text:comment,
+            owner: currentUser,
+            post: post._id
+        }
+        postComment(commentData, dispatch);
+    }
     if(!post._id)
     return(<div> Empty post </div>)
     return (
@@ -71,7 +82,7 @@ const PostDetails = props => {
                         </div>
                         <br />
                         <h5>Comments: {post.comments.length} </h5>
-                        {isOpen && <CommentForm />}
+                        {isOpen && <CommentForm setText= {setComment} handleSubmit={submitComment} />}
                         
                     </Col>
                 </Row>

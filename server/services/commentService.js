@@ -3,7 +3,12 @@ const Comment = require('../models/comment')
 const commentService = {
     async create(comment){
         try{
-          return created = await  Comment.create(comment);
+          let created = await  Comment.create(comment)
+          
+        created = await created
+        .populate('owner', '-password -createdAt -updatedAt -__v').execPopulate();
+        
+        return created;
         }catch(err){
             throw err;
         }
