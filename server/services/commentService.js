@@ -44,7 +44,8 @@ const commentService = {
         try{
             let comment = await  Comment.findById(id);
             comment.reply(credentials);
-            comment = await comment.populate("replies.owner").execPopulate();
+            comment = await comment.populate("replies.owner", '-password -createdAt -updatedAt -__v')
+            .execPopulate();
             return comment.replies;
         }catch(err){
             throw err;

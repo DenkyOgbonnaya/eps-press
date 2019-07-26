@@ -1,18 +1,20 @@
 import React, {useState, useContext} from 'react';
 import Replies from './commentReplies';
-import {Card, CardBody, CardSubtitle, Container, Row, Col, CardText} from 'reactstrap';
+import {Form, Input, Button} from 'reactstrap';
 import {AuthContext} from '../../context/authContext';
 import {PostContext} from '../../context/postContext';
-import {likeComment, unlikeComment} from '../../actions/postActions';
+import {likeComment, unlikeComment, editComment} from '../../actions/postActions';
 import './style.css';
+import CommentForm from './commentForm';
 
 const Comment = ({comment}) => {
     const[isOpen, setIsOpen] = useState(false);
+    const[isEdit, setIsEdit] = useState(false);
+    const[text, setText] = useState(comment.text || '')
     const{authData} = useContext(AuthContext);
     const{dispatch} = useContext(PostContext);
 
     const handleLike = (e, comment) => {
-        
         const currentUser = authData.currentUser._id;
         const likeSpan = e.target
         
@@ -31,6 +33,24 @@ const Comment = ({comment}) => {
             </span>
         )
     }
+    const handleSave = e => {
+        e.preventDefault();
+        if(text.length > 0){
+            editComment({...comment, ...{text}}, dispatch);
+            setIsEdit(false);
+        }
+    }
+    if(isEdit){
+    return(
+        <div> 
+            {isEdit && <span onClick= { () => setIsEdit(!isEdit)} >Cancel Edit </span>}
+            <Form  onSubmit = {handleSave}  >
+                <Input type='textarea' value={text} placeholder='type a comment'  onChange={e => setText(e.target.value)} /> <br />
+                <Button color='success'> Save </Button>
+            </Form>
+        </div>
+    )
+    }else
     return(
         <div className='comment-container'> 
             <div className='author-image'> 
@@ -44,6 +64,7 @@ const Comment = ({comment}) => {
             <div className='like-reply'>
                 {displayLikes(comment)}
                 <span id='reply' onClick= {() => setIsOpen(!isOpen)}  > {isOpen ? 'close' : <img src={require('./comment_ic20.png')} />} {comment.replies.length} </span>
+                <span onClick={() => setIsEdit(!isEdit)} > Edit </span>
             </div>
             <div className ='comment-replies'> 
                 {

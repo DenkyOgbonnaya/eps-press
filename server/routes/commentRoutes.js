@@ -17,8 +17,4 @@ commentRouter.route('/comment/:id/likes')
 .post(isLoggedIn,likeComment)
 .delete(isLoggedIn, unlikeComment)
 
-
-commentRouter.route('/comment/reply/:commentId')
-.post(isLoggedIn, validateReply, checkValidationResult, replyComment)
-
 module.exports = commentRouter;

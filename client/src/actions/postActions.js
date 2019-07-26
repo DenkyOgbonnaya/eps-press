@@ -174,3 +174,23 @@ export async function postReply(replyData, comment, dispatch){
         
     }
 }
+export async function editComment(credentials, dispatch){
+    console.log(credentials);
+    
+    dispatch({
+        type: actionTypes.EDIT_COMMENT,
+        credentials
+    })
+    try{
+        const {data} = await axios.put(`/api/comment/${credentials._id}`, credentials);
+        console.log('data',data.comment);
+        
+        if(data.status === 'success')
+        dispatch({
+            type: actionTypes.EDIT_COMMENT,
+            credentials: data.comment
+        })
+    }catch(err){
+        console.log(err)
+    }
+}
