@@ -42,8 +42,9 @@ const commentService = {
     },
     async reply(id, credentials){
         try{
-            const comment = await  Comment.findById(id);
+            let comment = await  Comment.findById(id);
             comment.reply(credentials);
+            comment = await comment.populate("replies.owner").execPopulate();
             return comment.replies;
         }catch(err){
             throw err;

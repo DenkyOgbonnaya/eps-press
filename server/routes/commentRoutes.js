@@ -9,6 +9,7 @@ commentRouter.route('/comment')
 .post(isLoggedIn, validateComment, checkValidationResult, createComment)
 
 commentRouter.route('/comment/:commentId')
+.post(isLoggedIn, validateReply, checkValidationResult, replyComment)
 .get(getOneComment)
 .put(isLoggedIn, validateComment, checkValidationResult, editComment)
 

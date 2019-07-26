@@ -47,7 +47,7 @@ const Comment = ({comment}) => {
             </div>
             <div className ='comment-replies'> 
                 {
-                isOpen && <Replies replies={comment.replies} />
+                isOpen && <Replies comment={comment} />
                 }
             </div>
             

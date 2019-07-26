@@ -160,3 +160,17 @@ export async function unlikeComment(comment, unliker, dispatch){
         console.log(err);
     }
 }
+export async function postReply(replyData, comment, dispatch){
+    
+    try{
+        const {data} = await axios.post(`/api/comment/${comment._id}`, replyData);
+        if(data.status === 'success')
+        dispatch({
+            type: actionTypes.REPLY_COMMENT,
+            payLoad: {replies: data.replies, comment}
+        })
+    }catch(err){
+        console.log(err);
+        
+    }
+}

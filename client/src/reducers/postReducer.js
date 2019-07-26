@@ -92,6 +92,17 @@ const postReducer = (state, action) => {
                 post: Object.assign({}, post, {comments: updatedComment})
             }
         }
+        case actionTypes.REPLY_COMMENT : {
+            const{post} = state;
+            const{replies, comment} = action.payLoad;
+            
+            let updatedComment = post.comments.map(comnt => comnt._id === comment._id ?
+               {...comnt, ...{replies}} : comnt)
+            return {
+                ...state,
+                post: Object.assign({}, post, {comments: updatedComment})
+            }
+            }
         default : return state;
     }
     
