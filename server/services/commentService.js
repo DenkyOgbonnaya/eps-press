@@ -22,10 +22,19 @@ const commentService = {
             throw err;
         }
     },
-    async like(id){
+    async like(id, liker){
         try{
             comment = await  Comment.findById(id);
-            comment.like();
+            comment.like(liker);
+            return comment;
+        }catch(err){
+            throw err;
+        }
+    },
+    async unlike(id, unliker){
+        try{
+            comment = await  Comment.findById(id);
+            comment.unlike(unliker);
             return comment;
         }catch(err){
             throw err;

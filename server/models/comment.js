@@ -18,6 +18,10 @@ const commentSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    likers: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'User'
+    },
     replies: [
         {
             owner: {
@@ -32,9 +36,17 @@ const commentSchema = new mongoose.Schema({
         default: Date.now()
     }
 });
-commentSchema.methods.like = function() {
+commentSchema.methods.like = function(liker) {
     this.likes += 1;
+    this.likers.push(liker);
     return this.save()
+}
+commentSchema.methods.unlike = function(unliker) {
+    this.likes--;
+    const likersCopy = this.likers;
+    this.likers = likersCopy.filter(liker => liker != unliker );
+    
+    return this.save();
 }
 commentSchema.methods.reply = function(reply) {
     this.replies.push(reply)

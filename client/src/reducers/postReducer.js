@@ -60,12 +60,37 @@ const postReducer = (state, action) => {
                 likers: payLoad.likers
             } ) 
         }
-        case actionTypes.COMMENT_POST :
+        case actionTypes.COMMENT_POST : {
         return {
             ...state,
             post: Object.assign({}, state.post, {
                 comments: state.post.comments.concat(action.comment)
             })
+        }
+        }
+        case actionTypes.LIKE_COMMENT : {
+            const{post} = state;
+            const{comments} = post;
+            const{inc, likers, comment} = action.payLoad;
+
+            let updatedComment = comments.map(comnt => comnt._id === comment._id ?
+            {...comment, ...{likes: comnt.likes+inc, likers}} : comnt )
+            return {
+                ...state,
+                post: Object.assign({}, post, {comments: updatedComment})
+            }
+        }
+        case actionTypes.UNLIKE_COMMENT : {
+            const{post} = state;
+            const{comments} = post;
+            const{dec, likers, comment} = action.payLoad;
+
+            let updatedComment = comments.map(comnt => comnt._id === comment._id ?
+                {...comment, ...{likes: comnt.likes-dec, likers}} : comnt )
+            return {
+                ...state,
+                post: Object.assign({}, post, {comments: updatedComment})
+            }
         }
         default : return state;
     }

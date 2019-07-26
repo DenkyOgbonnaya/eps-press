@@ -124,3 +124,39 @@ export async function postComment(commentData, dispatch){
         
     }
 }
+export async function likeComment(comment, liker, dispatch){
+    try{
+        dispatch({
+            type: actionTypes.LIKE_COMMENT,
+            payLoad: {likers: comment.likers, inc: 1, comment}
+        });
+        const{data} = await axios.post(`/api/comment/${comment._id}/likes`, {liker});
+        
+        if(data.status === 'success'){
+            dispatch({
+                type: actionTypes.LIKE_COMMENT,
+                payLoad: {likers: data.likers, inc: 0, comment}
+            });
+        }
+    }catch(err){
+        console.log(err);
+    }
+}
+export async function unlikeComment(comment, unliker, dispatch){
+    try{
+        dispatch({
+            type: actionTypes.UNLIKE_COMMENT,
+            payLoad: {likers: comment.likers, dec: 1, comment}
+        });
+        const{data} = await axios.delete(`/api/comment/${comment._id}/likes`, {data:{unliker}});
+        
+        if(data.status === 'success'){
+            dispatch({
+                type: actionTypes.UNLIKE_COMMENT,
+                payLoad: {likers: data.likers, dec: 0, comment}
+            });
+        }
+    }catch(err){
+        console.log(err);
+    }
+}

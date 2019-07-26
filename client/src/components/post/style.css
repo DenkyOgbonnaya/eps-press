@@ -53,4 +53,9 @@
 .post-content span {
 cursor: pointer;
 }
+.is-liked  {
+  display: inline-block;
+  border: 13px, solid greenyellow;
+  background: #ccc;
+}
   

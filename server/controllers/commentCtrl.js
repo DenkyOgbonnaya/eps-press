@@ -31,10 +31,21 @@ const commentCtrl = {
         }
     },
     async likeComment(req, res){
-        const{commentId} = req.params;
+        const{id} = req.params;
+        const{liker} = req.body;
         try{
-            const comment = await commentService.like(commentId);
-            return res.status(200).send({status: 'success', comment})
+            const comment = await commentService.like(id, liker);
+            return res.status(200).send({status: 'success', likers: comment.likers})
+        }catch(err){
+            res.status(400).send(err) 
+        } 
+    },
+    async unlikeComment(req, res){
+        const{id} = req.params;
+        const{unliker} = req.body;
+        try{
+            const comment = await commentService.unlike(id, unliker);
+            return res.status(200).send({status: 'success', likers: comment.likers})
         }catch(err){
             res.status(400).send(err) 
         } 
