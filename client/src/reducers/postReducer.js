@@ -1,4 +1,5 @@
 import actionTypes from '../actions/actionTypes';
+import { INSPECT_MAX_BYTES } from 'buffer';
 const postReducer = (state, action) => {
     switch(action.type){
         case actionTypes.GET_POSTS :
@@ -109,6 +110,15 @@ const postReducer = (state, action) => {
 
             let updatedComments = post.comments.map(comment => comment._id === credentials._id ?
                 Object.assign({}, comment, credentials) : comment) 
+            return{
+                ...state,
+                post: Object.assign({}, post, {comments: updatedComments})
+            }
+        }
+        case actionTypes.DELETE_COMMENT: {
+            const{post} = state;
+            let updatedComments = post.comments.filter(comment => comment._id !== action.id);
+
             return{
                 ...state,
                 post: Object.assign({}, post, {comments: updatedComments})

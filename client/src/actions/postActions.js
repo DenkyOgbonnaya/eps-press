@@ -194,3 +194,21 @@ export async function editComment(credentials, dispatch){
         console.log(err)
     }
 }
+export async function deleteComment(id, dispatch){
+
+    dispatch({
+        type: actionTypes.DELETE_COMMENT,
+        id
+    })
+    try{
+        const {data} = await axios.delete(`/api/comment/${id}`);
+        if(data.status === 'success'){
+            dispatch({
+                type: actionTypes.DELETE_COMMENT,
+                id
+            })
+        }
+    }catch(err){
+        console.log(err)
+    }
+}

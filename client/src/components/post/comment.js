@@ -3,7 +3,7 @@ import Replies from './commentReplies';
 import {Form, Input, Button} from 'reactstrap';
 import {AuthContext} from '../../context/authContext';
 import {PostContext} from '../../context/postContext';
-import {likeComment, unlikeComment, editComment} from '../../actions/postActions';
+import {likeComment, unlikeComment, editComment, deleteComment} from '../../actions/postActions';
 import './style.css';
 import CommentForm from './commentForm';
 
@@ -40,6 +40,9 @@ const Comment = ({comment}) => {
             setIsEdit(false);
         }
     }
+    const handleDelete = id => {
+        deleteComment(id, dispatch);
+    }
     if(isEdit){
     return(
         <div> 
@@ -65,6 +68,7 @@ const Comment = ({comment}) => {
                 {displayLikes(comment)}
                 <span id='reply' onClick= {() => setIsOpen(!isOpen)}  > {isOpen ? 'close' : <img src={require('./comment_ic20.png')} />} {comment.replies.length} </span>
                 <span onClick={() => setIsEdit(!isEdit)} > Edit </span>
+                <span onClick={() => handleDelete(comment._id)} > Delete </span>
             </div>
             <div className ='comment-replies'> 
                 {

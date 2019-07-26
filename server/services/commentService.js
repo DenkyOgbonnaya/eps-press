@@ -57,6 +57,13 @@ const commentService = {
         }catch(err){
             throw err;
         }
+    },
+    async delete(id){
+        try{
+            return deleted = await Comment.findByIdAndRemove(id);
+        }catch(err){
+            console.log(err);
+        }
     }
 }
 module.exports = commentService;

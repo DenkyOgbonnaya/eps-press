@@ -68,7 +68,15 @@ const commentCtrl = {
             const replies = await commentService.reply(commentId, {owner, text});
             return res.status(200).send({status: 'success', replies})
         }catch(err){
-            console.log(err)
+            res.status(400).send(err);
+        }
+    },
+    async deleteComment(req, res){
+        const{commentId} = req.params;
+        try{
+            const deleted = await commentService.delete(commentId);
+            return res.status(200).send({status: 'success'})
+        }catch(err){
             res.status(400).send(err);
         }
     }
