@@ -229,3 +229,17 @@ export async function deleteComment(id, dispatch){
         console.log(err)
     }
 }
+export async function getUserPost(userId, dispatch){
+    try{
+        const{data} = await axios.get(`/api/users/${userId}/post`);
+        if(data.status === 'success'){
+            dispatch({
+                type: actionTypes.GET_USER_POST,
+                posts: data.posts
+            });
+            return data;
+        }
+    }catch(err){
+        console.log(err);
+    }
+}

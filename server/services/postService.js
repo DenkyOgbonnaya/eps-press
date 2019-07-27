@@ -80,6 +80,14 @@ const postService = {
         }catch(err){
             throw err;
         }
-    }
+    },
+    async userPost(id){
+        try{
+            return posts = await  Post.find({owner: id})
+            .populate('owner', '-password -createdAt -updatedAt -__v')
+          }catch(err){
+            throw err;
+        }
+    },
 }
 module.exports = postService;

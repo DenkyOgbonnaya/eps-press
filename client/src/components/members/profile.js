@@ -1,25 +1,19 @@
-import React, {useState} from 'react';
+import React, {useEffect, useContext} from 'react';
 import {Container, Row, Col, Table, Button} from 'reactstrap';
 import './style.css';
 import PostFeeds from '../post/postFeeds';
+import { getUserPost } from '../../actions/postActions';
+import { AuthContext } from '../../context/authContext';
+import { PostContext } from '../../context/postContext';
 
 const Profile = () => {
-    const[posts, setPost] = useState(
-        [
-            {
-                _id: 1, title: 'Welcome to eps-press', content: 'Hi, welcome to the very first post on eps press, the official blogging platform for the eps cds group Lafia',
-                likes: 500, slug: 'Welcome-to-eps-press', createdDate: Date.now(),  owner: 'Denky', comments: [1, 2, 3, 4, 5, 6, 7, 5, 4, 3, 3, 4, 4, 4,5, 5, 5]
-            },
-            {
-                _id: 2, title: 'How to keep your enviroment cleen', content: 'Hi, welcome to the very first post on eps press, the official blogging platform for the eps cds group Lafia',
-                likes: 200, slug: 'How-to-keep-your-enviroment-cleen', createdDate: Date.now(), owner: 'Belly', comments: [1, 2, 3,3,4, 4, 5, 6, 7, 5, 4, 3, 3, 4, 4, 4,5, 5, 5]
-            },
-            {
-                _id: 3, title: 'Sentisization exize at dasa', content: 'Hi, welcome to the very first post on eps press, the official blogging platform for the eps cds group Lafia',
-                likes: 50, slug:'Sentisization-exize-at-dasa',   createdDate: Date.now(), owner: 'Nwakali', comments: [1, 2, 3, 4, 5, 4, 3, 3, 4, 4, 4,5, 5, 5]
-            }
-        ]
-    )
+    const{authData} = useContext(AuthContext);
+    const{postData, dispatch} = useContext(PostContext);
+
+    useEffect( () => {
+        getUserPost(authData.currentUser._id, dispatch);
+        
+    }, [])
     return (
         <div className = 'profile-container'> 
             <h3>Your Profile  </h3>
@@ -45,8 +39,11 @@ const Profile = () => {
                          <br />
                     </Col>
                     <Col xs='12' md='7'>
-                        <h3>Your Posts </h3>
-                        <PostFeeds posts = {posts} />
+                        <h3>Posts </h3>
+                        {
+                            !postData.posts.length > 0 ? <div> no posts to display </div>:  
+                            <PostFeeds posts = {postData.posts} />
+                        }
                     </Col>
                 </Row>
                 <Row> 

@@ -124,6 +124,12 @@ const postReducer = (state, action) => {
                 post: Object.assign({}, post, {comments: updatedComments})
             }
         }
+        case actionTypes.GET_USER_POST : {
+            return {
+                ...state,
+                posts: action.posts
+            }
+        }
         default : return state;
     }
     

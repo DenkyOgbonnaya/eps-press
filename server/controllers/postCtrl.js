@@ -138,6 +138,16 @@ const postCtrl = {
         }catch(err){
             res.status(400).send(err);
         }
-    }
+    },
+    async getUserPost(req, res){
+        const{userId} = req.params;
+        try{
+            const posts = await postService.userPost(userId);
+            return res.status(200).send({status: 'success', posts})
+        }catch(err){
+            res.status(400).send(err);
+        }
+    },
+
 }
 module.exports = postCtrl;
