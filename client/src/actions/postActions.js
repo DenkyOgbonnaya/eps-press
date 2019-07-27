@@ -42,9 +42,9 @@ export async function editPost( id, credentials, dispatch){
         console.log(err);
     }
 }
-export async function getPosts(dispatch){
+export async function getPosts(dispatch, page, limit){
     try{
-        const{data} = await axios.get('/api/post');
+        const{data} = await axios.get(`/api/post?page=${page}&limit=${limit}`);
         if(data.status === 'success'){
             dispatch({
                 type: actionTypes.GET_POSTS,
