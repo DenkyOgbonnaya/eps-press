@@ -36,7 +36,7 @@ const postReducer = (state, action) => {
         case actionTypes.DELETE_POST :
         return{
             ...state,
-            posts: state.posts.filter( post => post._id !== action.postId)
+            posts: state.posts.filter( post => post._id !== action.id)
         }
         case actionTypes.ERROR :
         return {

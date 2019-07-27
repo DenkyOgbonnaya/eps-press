@@ -5,7 +5,7 @@ import{Container, Row, Col, Card, CardFooter, CardHeader, CardBody, CardText, Ca
 import CommentForm from './commentForm';
 import {PostContext} from '../../context/postContext';
 import {AuthContext} from '../../context/authContext';
-import {getPost, likePost, unlikePost, postComment} from '../../actions/postActions';
+import {getPost, likePost, unlikePost, postComment, deletePost} from '../../actions/postActions';
 import {Editor, EditorState, convertFromRaw} from 'draft-js';
 import './style.css';
 
@@ -54,6 +54,11 @@ const PostDetails = props => {
         }
         postComment(commentData, dispatch);
     }
+    const handleDelete = id => {
+        deletePost(id, dispatch);
+        props.history.push('/');
+    }
+
     if(!post._id)
     return(<div> Empty post </div>)
     return (
@@ -78,7 +83,7 @@ const PostDetails = props => {
                             <span onClick = {() => setIsOpen(!isOpen)} > {isOpen ? 'close reply' : 'Reply'} </span> {" "}
                             <span onClick = { e => handleLikeClick(e, post) } > {likeBtn(post)}  </span> likes {post.likes}
                             <span onClick={() => handleEditClick(post)}> Edit </span> {" "}
-                            <span> Delete  </span> {" "}
+                            <span onClick={() => handleDelete(post._id)}> Delete  </span> {" "}
                         </div>
                         <br />
                         <h5>Comments: {post.comments.length} </h5>

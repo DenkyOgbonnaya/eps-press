@@ -73,6 +73,13 @@ const postService = {
         }catch(err){
             throw err;
         }
+    },
+    async delete(id){
+        try{
+            return deletedPost = await  Post.findByIdAndRemove(id);
+        }catch(err){
+            throw err;
+        }
     }
 }
 module.exports = postService;

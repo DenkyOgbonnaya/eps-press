@@ -130,5 +130,14 @@ const postCtrl = {
             res.status(400).send(err); 
         }
     },
+    async deletePost(req, res){
+        const{postId} = req.params;
+        try{
+            const deletePost = await postService.delete(postId);
+            return res.status(200).send({status: 'success'})
+        }catch(err){
+            res.status(400).send(err);
+        }
+    }
 }
 module.exports = postCtrl;

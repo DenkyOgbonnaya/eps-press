@@ -75,6 +75,23 @@ export async function getPost(slug, dispatch){
         console.log(err);
     }
 }
+export async function deletePost(id, dispatch){
+    dispatch({
+        type: actionTypes.DELETE_POST,
+        id
+    });
+    try{
+        const{data} = await axios.delete(`/api/post/${id}`);
+        if(data.status === 'success'){
+            dispatch({
+                type: actionTypes.DELETE_POST,
+                id
+            });
+        }
+    }catch(err){
+        console.log(err);
+    }
+}
 export async function likePost(post, liker, dispatch){
     try{
         dispatch({
