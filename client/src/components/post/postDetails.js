@@ -8,6 +8,7 @@ import {AuthContext} from '../../context/authContext';
 import {getPost, likePost, unlikePost, postComment, deletePost} from '../../actions/postActions';
 import {Editor, EditorState, convertFromRaw} from 'draft-js';
 import './style.css';
+import Can from '../includes/can';
 
 const PostDetails = props => {
     const[editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -16,6 +17,7 @@ const PostDetails = props => {
     const{postData, dispatch} = useContext(PostContext);
     const{authData} = useContext(AuthContext);
     const post = postData.post;
+    const {currentUser} = authData;
 
     useEffect( () => {
         const postSlug = props.match.params.slug;
@@ -58,6 +60,12 @@ const PostDetails = props => {
         deletePost(id, dispatch);
         props.history.push('/');
     }
+    const handleReplyClick = () => {
+        if(authData.isAthaunticated){
+            setIsOpen(!isOpen);
+        }else
+            props.history.push('/login');
+    }
 
     if(!post._id)
     return(<div> Empty post </div>)
@@ -80,10 +88,40 @@ const PostDetails = props => {
                             <div className='post-picture'> 
                                 {post.picture && <img src={post.picture} alt='post-pix'/>}
                             </div>
-                            <span onClick = {() => setIsOpen(!isOpen)} > {isOpen ? 'close reply' : 'Reply'} </span> {" "}
-                            <span onClick = { e => handleLikeClick(e, post) } > {likeBtn(post)}  </span> likes {post.likes}
-                            <span onClick={() => handleEditClick(post)}> Edit </span> {" "}
-                            <span onClick={() => handleDelete(post._id)}> Delete  </span> {" "}
+                                <span onClick = {() => handleReplyClick() } > {isOpen ? 'close reply' : 'Reply'} </span> 
+                                        
+                            {
+                                <Can 
+                                    role= {currentUser.isAdmin}
+                                    perform = "post:edit"
+                                    data= {{
+                                        userId: currentUser._id,
+                                        postOwnerId: post.owner._id
+                                    }}
+                                    yes = { () => (
+                                        <span onClick={() => handleEditClick(post)}> Edit </span> 
+                                    )}
+                                />
+                            }
+                            {
+                                <Can 
+                                    role= {authData.currentUser.isAdmin}
+                                    perform = "post:delete"
+                                    yes = { () => (
+                                        <span onClick={() => handleDelete(post._id)}> Delete  </span> 
+                                    )}
+                                />
+                            }
+                            {
+                                <Can 
+                                    role= {currentUser.isAdmin}
+                                    perform = "post:like"
+                                    yes = { () => (
+                                        <span onClick = { e => handleLikeClick(e, post) } > {likeBtn(post)}  </span>  
+                                    )}
+                                />
+                            }
+                            <span> {post.likes} {post.likes > 1 ? 'likes' : 'like' } </span>
                         </div>
                         <br />
                         <h5>Comments: {post.comments.length} </h5>
