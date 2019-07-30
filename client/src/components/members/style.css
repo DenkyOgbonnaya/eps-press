@@ -12,7 +12,10 @@
     width: inherit;
     margin: auto;
 }
-.edit-profile-btn {
-    margin: 10px;
-    margin-left: 20px;
+.profile-image > input {
+    visibility: hidden;
+}
+.profile-image .edit-profile-btn {
+   margin: 10px;
+   margin-left: 60px
 }

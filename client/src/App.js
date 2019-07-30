@@ -8,11 +8,11 @@ import {verifyToken} from './actions/authActions';
 
 
 const App = () => {
-  const{dispatch} = useContext(AuthContext);
+  const{dispatchAuth} = useContext(AuthContext);
   useEffect( ()=> {
     const authToken = localStorage.authToken;
     if(authToken)
-      verifyToken(authToken, dispatch);
+      verifyToken(authToken, dispatchAuth);
   }, [])
   return(
     <div className="App">

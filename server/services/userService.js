@@ -22,5 +22,12 @@ const userService = {
             throw err;
         }
     },
+    async changeAvatar(id, avatar){
+        try{
+            return user = await User.findByIdAndUpdate(id, {avatar}, {new: true});
+        }catch(err){
+            throw err;
+        }
+    },
 }
 module.exports = userService;

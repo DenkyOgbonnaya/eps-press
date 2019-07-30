@@ -57,6 +57,21 @@ const userCtrl = {
             if(err ) return res.status(401).send({isAuthenticated: false})
         res.status(200).send({isAuthenticated: true})
         })
+    },
+    async changeAvatar(req, res){
+        const{id} = req.params;
+        if(!req.file)
+            return res.status(400).send({message: 'choose a profile picture'})
+
+        const avatar = `/uploads/${req.file.filename}`
+        try{
+            const user = await userService.changeAvatar(id, avatar);
+            return res.status(200).send({status: 'success', avatar: user.avatar})
+        }catch(err){
+            console.log(err);
+            
+            res.status(400).send(err);
+        }
     }
 
 }

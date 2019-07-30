@@ -60,3 +60,24 @@ export async function verifyToken(token, dispatch){
         } );
     }
 }
+export async function changeAvatar(id, avatar, dispatch){
+    try{
+        const{data} = await axios.put(`/api/users/${id}/avatar`, avatar)
+        if(data.status ==='success'){
+            dispatch({
+                type: actionTypes.CHANGE_AVATAR,
+                avatar: data.avatar
+            })
+            return data
+        }else{
+            dispatch({
+                type: actionTypes.ERROR,
+                message: data.message
+            })
+            return data;
+        }
+        
+    }catch(err){
+        console.log(err);
+    }
+}

@@ -17,7 +17,8 @@ const userSchema = new mongoose.Schema({
     isAdmin: {
         type: Number,
         default: 0,
-    }
+    },
+    avatar: String
 },
 {timestamps: true})
 

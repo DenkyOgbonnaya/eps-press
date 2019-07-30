@@ -27,6 +27,13 @@ const authReducer = (state, action) => {
                 isAuthenticated : false,
                 authError: action.message
             }
+        case actionTypes.CHANGE_AVATAR :
+        console.log(action);
+        
+            return {
+                ...state,
+                currentUser: Object.assign({}, state.currentUser, {avatar: action.avatar})
+            }
 
         default : return state;
     }

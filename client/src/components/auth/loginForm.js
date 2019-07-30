@@ -12,11 +12,11 @@ const LoginForm = props => {
     const[password, setPassword] = useState('');
     const[isError, setIsError] = useState(false);
 
-    const{authData, dispatch} = useContext(AuthContext);
+    const{authData, dispatchAuth} = useContext(AuthContext);
     const handleSubmit = e => {
         e.preventDefault();
 
-        login({username, password}, dispatch)
+        login({username, password}, dispatchAuth)
         .then(data => {
             if(data && data.status === 'success'){
                 props.history.push('/');
