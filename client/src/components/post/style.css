@@ -67,3 +67,9 @@ cursor: pointer;
   width: 40px;
   height: 40px;
 }
+.post-content div.DraftEditor-root {
+  padding:20px;
+  font-size: 20px;
+  font-family: 'serif', sans-serif;
+  text-align: justify;
+}
