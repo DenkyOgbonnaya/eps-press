@@ -61,7 +61,7 @@ const PostDetails = props => {
         props.history.push('/');
     }
     const handleReplyClick = () => {
-        if(authData.isAthaunticated){
+        if(authData.isAuthenticated){
             setIsOpen(!isOpen);
         }else
             props.history.push('/login');
@@ -72,7 +72,7 @@ const PostDetails = props => {
     return (
         <div className='post'> 
             <div className='post-author'> 
-                <span> <img src={require('./Denkys.jpg')} alt='author' /> </span>  <br />
+                <span> <img src={currentUser.avatar ? currentUser.avatar : '/images/avatar.jpg'} alt='author' /> </span>  <br />
                 <small > By {post.owner.username}  | {" "} {new Date(post.createdDate).toDateString()} </small>
             </div>
             <Container> 

@@ -8,8 +8,9 @@
 }
 .profile-image > img {
     border: 1px solid #ccc;
-    border-radius: 70%;
-    width: inherit;
+    border-radius: 100%;
+    width: 200px;
+    height: 200px;
     margin: auto;
 }
 .profile-image > input {

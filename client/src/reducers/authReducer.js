@@ -14,7 +14,7 @@ const authReducer = (state, action) => {
                 currentUser : action.currentUser,
                 isAuthenticated : true
             }
-        case actionTypes.LOG_OUT_USER :
+        case actionTypes.LOGOUT_CURRENT_USER :
             return {
                 ...state,
                 currentUser : {},

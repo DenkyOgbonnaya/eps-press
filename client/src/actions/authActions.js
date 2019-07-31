@@ -81,3 +81,9 @@ export async function changeAvatar(id, avatar, dispatch){
         console.log(err);
     }
 }
+export const logout = (dispatch) => {
+    localStorage.removeItem('authToken');
+    dispatch({
+        type: actionTypes.LOGOUT_CURRENT_USER
+    })
+}

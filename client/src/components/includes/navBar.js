@@ -3,11 +3,15 @@ import {Button, NavItem, Nav, Navbar, NavLink, NavbarBrand, NavbarToggler, Dropd
 dropdownOpen, DropdownToggle, DropdownItem, Dropdown, Collapse,} from 'reactstrap';
 import {withRouter, NavLink as RRNavlink} from 'react-router-dom';
 import {AuthContext} from '../../context/authContext';
+import { logout } from '../../actions/authActions';
 const NavBar = props => {
   const[isOpen, setIsOpen] = useState(false);
   const[dropdownOpen, setDropDownOpen] = useState(false);
-  const{authData} = useContext(AuthContext);
-  console.log(authData)
+  const{authData, dispatchAuth} = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout(dispatchAuth);
+  }
 
   return (
     <div>
@@ -20,7 +24,7 @@ const NavBar = props => {
               { authData.isAuthenticated ?
               <Dropdown nav isOpen={dropdownOpen} toggle={() => setDropDownOpen(!dropdownOpen)} > 
             <DropdownToggle caret color='dark' >
-              <img style= {{borderRadius: '50%', width:'40px'}} src={require('../post/Denkys.jpg')} />
+              <img style= {{borderRadius: '50%', width:'40px', height:'40px'}} src={authData.currentUser.avatar ? authData.currentUser.avatar : '/images/avatar.jpg'} />
             </DropdownToggle>
             <DropdownMenu>
               <DropdownItem header> Dashboard  </DropdownItem>
@@ -28,7 +32,7 @@ const NavBar = props => {
               <DropdownItem onClick = {()=> props.history.push('/me')} >Profile</DropdownItem>
               <DropdownItem onClick = {()=> props.history.push('/about')} >About</DropdownItem>
               <DropdownItem divider />
-              <DropdownItem  > Logout </DropdownItem>
+              <DropdownItem  onClick={ handleLogout} > Logout </DropdownItem>
             </DropdownMenu>
           </Dropdown>
              :

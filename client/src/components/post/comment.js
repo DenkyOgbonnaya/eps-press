@@ -35,7 +35,7 @@ const Comment = (props) => {
     const displayLikes = (comment) => {
         return(
             <span className= {comment.likers.includes(authData.currentUser._id) && 'is-liked'} onClick = {e => handleLike(e, comment)}> 
-                <img src= {require('./like_ic14.png')} alt='like' />  {comment.likes} 
+                <img src= '/icons/like_ic14.png' alt='like' />  {comment.likes} 
             </span>
         )
     }
@@ -69,8 +69,8 @@ const Comment = (props) => {
     }else
     return(
         <div className='comment-container'> 
-            <div className='author-image'> 
-                <img src={require('./Denkys.jpg')} /> 
+            <div className='post-author'> 
+                <img src={currentUser.avatar ? currentUser.avatar : '/images/avatar.jpg'} alt='owner pix' /> 
             </div>
             <div className='author-date'>
                 <span className='author' > <b> {comment.owner.username} </b> </span>
@@ -93,7 +93,7 @@ const Comment = (props) => {
                         role = {currentUser.isAdmin}
                         perform ='comment:reply'
                         yes = { () => (
-                            <span id='reply' onClick= {() => setIsOpen(!isOpen)}  > {isOpen ? 'close' : <img src={require('./comment_ic20.png')} />} {comment.replies.length} </span>
+                            <span id='reply' onClick= {() => setIsOpen(!isOpen)}  > {isOpen ? 'close' : <img src='/icons/comment_ic20.png' alt='comment ic' />} {comment.replies.length} </span>
                         )}
                         no = { () => <span onClick= {() => handleReplyClick()}> {comment.replies.length} replies <span>reply</span> </span>}
                     />
