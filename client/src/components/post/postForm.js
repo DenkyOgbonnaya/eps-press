@@ -12,6 +12,7 @@ import PostEditor from '../editor/postEditor';
   const[editorState, setEditorState] = useState(EditorState.createEmpty());
   const[title, setTitle ] = useState('');
   const[image, setImage] = useState(null);
+  const[imageurl, setImageUrl] = useState('');
   const[isError, setIsError] = useState(false);
   const{postData, dispatch} = useContext(PostContext);
   const{authData} = useContext(AuthContext)
@@ -21,6 +22,7 @@ import PostEditor from '../editor/postEditor';
       setEditorState(EditorState.createEmpty())
     }else {
       setTitle(props.title)
+      setImageUrl(props.picture)
       setEditorState(EditorState
       .createWithContent(convertFromRaw(JSON.parse(props.content))))
     }
@@ -31,6 +33,7 @@ import PostEditor from '../editor/postEditor';
     const contentState = editorState.getCurrentContent();
 
     const content = JSON.stringify(convertToRaw(contentState));
+    URL.revokeObjectURL(imageurl);
     
     formData.set('title', title);
     formData.set('content', content);
@@ -55,6 +58,11 @@ import PostEditor from '../editor/postEditor';
       })
     }
   }
+  const handleFileChange = e => {
+    let file = e.target.files[0];
+    setImage(file);
+    setImageUrl(URL.createObjectURL(file))
+  }
   
   return(
     <div className='editor'>
@@ -74,8 +82,8 @@ import PostEditor from '../editor/postEditor';
         />
         <Row> 
           <Col md={{size: 8, offset: 2}} > 
-          <Label >Add Picture (optional, max 1mb, jpg,png,jpeg) </Label>
-          <Input type='file' name="image" accept='image/*' onChange = { e => setImage(e.target.files[0])}  /> <br /> 
+            <Label for='image' >Add Picture (optional, 1mb max, jpg,png,jpeg) </Label>
+            <Input type='file' name="image" accept='image/*' onChange = { handleFileChange }  /> {imageurl && <img src={imageurl} alt='file' /> } <br /> 
           </Col>
         </Row>
         <Row> 

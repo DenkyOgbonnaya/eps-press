@@ -11,7 +11,7 @@ const EditPost = (props) => {
         getPost(postSlug, dispatch);
     }, []);
 
-    const{_id, title, content, image} = postData.post;
+    const{_id, title, content, picture} = postData.post;
     if(postData.isLoading)
         return(
             <div> 
@@ -24,6 +24,7 @@ const EditPost = (props) => {
         postId = {_id}
         title = {title}
         content = {content}
+        picture = {picture}
       />
     </div>
   )
