@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, useRef} from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import Comment from './comment'
 import{Container, Row, Col, Card, CardFooter, CardHeader, CardBody, CardText, CardSubtitle, CardTitle} from 'reactstrap';
@@ -18,6 +18,7 @@ const PostDetails = props => {
     const{authData} = useContext(AuthContext);
     const post = postData.post;
     const {currentUser} = authData;
+    const bottom = useRef(null);
 
     useEffect( () => {
         const postSlug = props.match.params.slug;
@@ -55,6 +56,8 @@ const PostDetails = props => {
             post: post._id
         }
         postComment(commentData, dispatch);
+        setIsOpen(false);
+        bottom.current.scrollIntoView({behavior: 'smooth'});
     }
     const handleDelete = id => {
         deletePost(id, dispatch);
@@ -137,6 +140,7 @@ const PostDetails = props => {
                         <Col key= {comment._id} xs='12'> 
                             <Comment comment= {comment} />
                             <hr />
+                            <span ref={bottom}> </span>
                         </Col>
                     ) : 
                         <Col> <div>No Comments! be the first to comment </div> </Col>

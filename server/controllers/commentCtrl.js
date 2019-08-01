@@ -4,7 +4,6 @@ const commentCtrl = {
     async createComment(req, res){
         try{
             const comment = await commentService.create(req.body)
-            console.log(comment)
               res.status(201).send({
                   status: 'success',
                   message: 'Comment successfully created',
