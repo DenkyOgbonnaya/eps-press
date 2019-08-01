@@ -13,10 +13,10 @@
     height: 200px;
     margin: auto;
 }
-.profile-image > input {
-    visibility: hidden;
+.profile-image  input {
+    display: none
 }
 .profile-image .edit-profile-btn {
    margin: 10px;
-   margin-left: 60px
+   margin-left: 40px
 }

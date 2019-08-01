@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import Comment from './comment'
 import{Container, Row, Col, Card, CardFooter, CardHeader, CardBody, CardText, CardSubtitle, CardTitle} from 'reactstrap';
 import CommentForm from './commentForm';
@@ -73,7 +73,7 @@ const PostDetails = props => {
         <div className='post'> 
             <div className='post-author'> 
                 <span> <img src={currentUser.avatar ? currentUser.avatar : '/images/avatar.jpg'} alt='author' /> </span>  <br />
-                <small > By {post.owner.username}  | {" "} {new Date(post.createdDate).toDateString()} </small>
+                <small > By <Link to = {`/${post.owner.username}/profile`}> {post.owner.username} </Link>  | {" "} {new Date(post.createdDate).toDateString()} </small>
             </div>
             <Container> 
                 <Row> 

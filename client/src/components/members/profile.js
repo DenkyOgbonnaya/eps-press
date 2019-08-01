@@ -1,21 +1,26 @@
-import React, {useEffect, useContext, useRef} from 'react';
+import React, {useEffect, useState, useContext, useRef} from 'react';
 import {Container, Row, Col, Table, Button, Input} from 'reactstrap';
 import './style.css';
 import PostFeeds from '../post/postFeeds';
-import { getUserPost } from '../../actions/postActions';
+import { getUserProfile } from '../../actions/authActions';
+import Can from '../includes/can';
 import { AuthContext } from '../../context/authContext';
-import { PostContext } from '../../context/postContext';
 import { changeAvatar } from '../../actions/authActions';
 
-const Profile = () => {
+const Profile = props => {
+    const[userProfile, setUserProfile] = useState({});
     const{authData, dispatchAuth} = useContext(AuthContext);
-    const{postData, dispatch} = useContext(PostContext);
     const fileInput = useRef(null);
     const{currentUser} = authData;
 
     useEffect( () => {
-        getUserPost(currentUser._id, dispatch);
-        
+        const username = props.match.params.username;
+        console.log(username)
+        getUserProfile(username)
+        .then(data => {
+            if(data.status === 'success')
+            setUserProfile(data.userProfile)
+        })
     }, [])
     const handleAvaterChange = e => {
         let formdata = new FormData();
@@ -35,23 +40,38 @@ const Profile = () => {
     }
     return (
         <div className = 'profile-container'> 
-            <h3>Your Profile  </h3>
+            <h3>Profile  </h3>
             <Container > 
                 <Row> 
                     <Col xs='12' md='4' className='profile-col'> 
                         <div className ='profile-image'>
-                            <img src={currentUser.avatar ? currentUser.avatar : require('./Denkys.jpg')} alt='profile pix' /> <br />
-                            <input type='file' accept='image/*' ref={fileInput} onChange={handleAvaterChange} />
-                            <Button className='edit-profile-btn' size='sm' color='success' onClick={ handleBtnClick} > Change profile </Button>
+                            <img src={userProfile.avatar ? userProfile.avatar : '/images/avatar.jpg'} alt='profile pix' /> <br />
+                            <Can 
+                                role = {currentUser.isAdmin}
+                                perform='profile:edit'
+                                data = {{
+                                    currentUserId: currentUser._id,
+                                    profileOwnerId: userProfile._id
+                                }}
+                                yes = { () => 
+                                <div> 
+                                    <input type='file' accept='image/*' ref={fileInput} onChange={handleAvaterChange} />
+                                    <Button className='edit-profile-btn' size='sm' color='success' onClick={ handleBtnClick} > Change avatar </Button>
+                                </div>}
+                            />
                             <Table size='sm' > 
                             <tbody> 
                                 <tr> 
                                     <td>Username </td>
-                                    <td>Denky </td>
+                                    <td> {userProfile.username} </td>
                                 </tr>
                                 <tr> 
                                     <td>Email </td>
-                                    <td>Denky.com </td>
+                                    <td>{userProfile.email}</td>
+                                </tr>
+                                <tr> 
+                                    <td>Member since </td>
+                                    <td>{new Date(userProfile.createdAt).toDateString()}</td>
                                 </tr>
                             </tbody>
                         </Table>
@@ -61,8 +81,8 @@ const Profile = () => {
                     <Col xs='12' md='7'>
                         <h3>Posts </h3>
                         {
-                            !postData.posts.length > 0 ? <div> no posts to display </div>:  
-                            <PostFeeds posts = {postData.posts} />
+                            !userProfile.posts  ? <div> no posts to display </div> :  
+                            <PostFeeds posts = {userProfile.posts} />
                         }
                     </Col>
                 </Row>

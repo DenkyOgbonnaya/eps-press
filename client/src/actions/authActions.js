@@ -87,3 +87,11 @@ export const logout = (dispatch) => {
         type: actionTypes.LOGOUT_CURRENT_USER
     })
 }
+export async function getUserProfile(username){
+    try{
+        const{data} = await axios.get(`/api/users/${username}/profile`);
+        return data;
+    }catch(err){
+        console.log(err);
+    }
+}

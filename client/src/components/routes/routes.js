@@ -20,7 +20,7 @@ return(
             <Route exact path = '/signup' component = {SignupForm} />
             <Route exact path = '/login' component = {LoginForm} />
             <Route exact path = '/new' component = {NewPost} />
-            <Route exact path = '/me' component = {Profile} />
+            <Route exact path = '/:username/profile' component = {Profile} />
             <Route exact path = '/about' component = {About} />
         </Switch>
     </Suspense>

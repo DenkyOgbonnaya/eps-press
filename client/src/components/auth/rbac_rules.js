@@ -22,6 +22,10 @@ const rules = {
         "comment:edit": ({userId, commentOwnerId}) => {
             if (!userId || !commentOwnerId) return false;
             return userId === commentOwnerId;
+          },
+          "profile:edit": ({currentUserId, profileOwnerId}) => {
+            if (!currentUserId || !profileOwnerId) return false;
+            return currentUserId === profileOwnerId;
           }
       }
     },
@@ -38,7 +42,8 @@ const rules = {
         "users:get",
         "users:getSelf",
         "home-page:visit",
-        "dashboard-page:visit"
+        "dashboard-page:visit",
+        "profile:edit"
       ]
     }
   };

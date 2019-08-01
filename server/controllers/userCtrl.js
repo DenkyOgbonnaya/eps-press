@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const userEmitter = require('../utills/userEmitter');
 const userService = require('../services/userService');
+const postService = require('../services/postService');
 
 const userCtrl = {
     async createUser(req, res){
@@ -71,6 +72,20 @@ const userCtrl = {
             console.log(err);
             
             res.status(400).send(err);
+        }
+    },
+    async getUserProfile(req, res){
+        const{username} = req.params;
+        try{
+           const user = await userService.getUser(username);
+           const posts = await postService.userPost(user._id);
+           let userProfile = user.toObject();
+
+           userProfile.posts = posts;
+           console.log(userProfile)
+           return res.status(200).send({status: 'success', userProfile})
+        }catch(err){
+
         }
     }
 

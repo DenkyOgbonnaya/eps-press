@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react';
 import Replies from './commentReplies';
 import {Form, Input, Button} from 'reactstrap';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import {AuthContext} from '../../context/authContext';
 import {PostContext} from '../../context/postContext';
 import {likeComment, unlikeComment, editComment, deleteComment} from '../../actions/postActions';
@@ -73,7 +73,7 @@ const Comment = (props) => {
                 <img src={currentUser.avatar ? currentUser.avatar : '/images/avatar.jpg'} alt='owner pix' /> 
             </div>
             <div className='author-date'>
-                <span className='author' > <b> {comment.owner.username} </b> </span>
+                <span className='author' > <b> <Link to = {`/${comment.owner.username}/profile`}>{comment.owner.username} </Link> </b> </span>
                 <span className='date' > {new Date(comment.createdDate).toDateString()} </span>
             </div>
             <p className='text'> {comment.text} </p>

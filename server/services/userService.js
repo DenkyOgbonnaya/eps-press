@@ -29,5 +29,12 @@ const userService = {
             throw err;
         }
     },
+    async getUser(username){
+        try{
+            return user = await User.findOne({username}, {password: 0});
+        }catch(err){
+            throw err;
+        }
+    }
 }
 module.exports = userService;
