@@ -12,11 +12,15 @@ const NavBar = props => {
   const handleLogout = () => {
     logout(dispatchAuth);
   }
+  const gotoHome = e => {
+    e.preventDefault();
+    props.history.push('/');
+  }
 
   return (
     <div>
       <Navbar color="dark" dark expand="xs">
-        <NavbarBrand href="/"> <img src= {require('./logo_ic50.png')} alt='logo'/>EPSpress</NavbarBrand>
+        <NavbarBrand href='/' onClick= {gotoHome}> <img src= {require('./logo_ic50.png')} alt='logo'/>EPSpress</NavbarBrand>
         <NavbarToggler onClick={ () => setIsOpen(!isOpen)} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
