@@ -75,7 +75,7 @@ const PostDetails = props => {
     return (
         <div className='post'> 
             <div className='post-author'> 
-                <span> <img src={currentUser.avatar ? currentUser.avatar : '/images/avatar.jpg'} alt='author' /> </span>  <br />
+                <span> <img src={currentUser.avatar ? currentUser.avatar : '/images/defavatar.png'} alt='author' /> </span>  <br />
                 <small > By <Link to = {`/${post.owner.username}/profile`}> {post.owner.username} </Link>  | {" "} {new Date(post.createdDate).toDateString()} </small>
             </div>
             <Container> 

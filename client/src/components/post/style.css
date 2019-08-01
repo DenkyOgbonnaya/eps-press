@@ -75,3 +75,7 @@ cursor: pointer;
   justify-content: space-between;
   max-width: 250px;
 }
+.author-date >  .author *{
+  color: grey;
+  text-decoration: underline
+}

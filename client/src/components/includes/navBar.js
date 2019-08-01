@@ -28,7 +28,7 @@ const NavBar = props => {
               { authData.isAuthenticated ?
               <Dropdown nav isOpen={dropdownOpen} toggle={() => setDropDownOpen(!dropdownOpen)} > 
             <DropdownToggle caret color='dark' >
-              <img style= {{borderRadius: '50%', width:'40px', height:'40px'}} src={authData.currentUser.avatar ? authData.currentUser.avatar : '/images/avatar.jpg'} />
+              <img style= {{borderRadius: '50%', width:'40px', height:'40px'}} src={authData.currentUser.avatar ? authData.currentUser.avatar : '/images/defavatar.png'} />
             </DropdownToggle>
             <DropdownMenu>
               <DropdownItem header> Dashboard  </DropdownItem>

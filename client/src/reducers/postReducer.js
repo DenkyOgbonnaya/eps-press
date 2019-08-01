@@ -107,7 +107,7 @@ const postReducer = (state, action) => {
         case actionTypes.EDIT_COMMENT : {
             const{post} = state;
             const{credentials} = action;
-
+            
             let updatedComments = post.comments.map(comment => comment._id === credentials._id ?
                 Object.assign({}, comment, credentials) : comment) 
             return{
