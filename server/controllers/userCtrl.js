@@ -82,7 +82,6 @@ const userCtrl = {
            let userProfile = user.toObject();
 
            userProfile.posts = posts;
-           console.log(userProfile)
            return res.status(200).send({status: 'success', userProfile})
         }catch(err){
 

@@ -88,6 +88,7 @@ const PostDetails = props => {
                             <div className='post-picture'> 
                                 {post.picture && <img src={post.picture} alt='post-pix'/>}
                             </div>
+                            <div className = 'react-bar'>
                                 <span onClick = {() => handleReplyClick() } > {isOpen ? 'close reply' : 'Reply'} </span> 
                                         
                             {
@@ -122,6 +123,7 @@ const PostDetails = props => {
                                 />
                             }
                             <span> {post.likes} {post.likes > 1 ? 'likes' : 'like' } </span>
+                            </div>
                         </div>
                         <br />
                         <h5>Comments: {post.comments.length} </h5>

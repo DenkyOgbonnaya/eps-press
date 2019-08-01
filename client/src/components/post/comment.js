@@ -81,7 +81,7 @@ const Comment = (props) => {
                 {
                     <Can 
                         role = {currentUser.isAdmin}
-                        perform ='post:like'
+                        perform ='comment:like'
                         yes = { () => (
                             displayLikes(comment)
                         )}
