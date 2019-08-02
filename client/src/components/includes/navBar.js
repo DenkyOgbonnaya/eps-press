@@ -20,7 +20,7 @@ const NavBar = props => {
   return (
     <div>
       <Navbar color="dark" dark expand="xs">
-        <NavbarBrand href='/' onClick= {gotoHome}> <img src= {require('./logo_ic50.png')} alt='logo'/>EPSpress</NavbarBrand>
+        <NavbarBrand href='/' onClick= {gotoHome}> <img src= '/favicon.ico' alt='logo'/> EPSpress</NavbarBrand>
         <NavbarToggler onClick={ () => setIsOpen(!isOpen)} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
