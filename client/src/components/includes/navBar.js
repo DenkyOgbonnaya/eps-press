@@ -47,9 +47,6 @@ const NavBar = props => {
              <NavItem>
                <NavLink to='/login' tag={RRNavlink} > Login </NavLink>
              </NavItem>
-               <NavItem>
-               <NavLink to='/about' tag={RRNavlink}  > About </NavLink>
-             </NavItem>
            </Nav>
             } 
               

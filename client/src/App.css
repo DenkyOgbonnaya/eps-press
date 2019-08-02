@@ -8,6 +8,7 @@
   background: #424242;
   margin-top: auto;
   color: #ccc;
+  font-size: 14px
 }
 .footer div {
   text-align: center;
@@ -19,11 +20,11 @@
 
 .about-container {
   padding: 10px;
+  font-family: serif, sans-serif;
+  font-size: 18px;
+  text-align: justify
 }
 
-/*div.DraftEditor-editorContainer {
-  margin-top:1px;
-}*/
 
 div.buttons {
   padding-left: 20px;
