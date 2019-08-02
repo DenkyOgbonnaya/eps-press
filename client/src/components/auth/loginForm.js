@@ -16,10 +16,12 @@ const LoginForm = props => {
     const handleSubmit = e => {
         e.preventDefault();
 
+        const {from} = props.location.state || {from : {pathName: '/' }};
+        
         login({username, password}, dispatchAuth)
         .then(data => {
             if(data && data.status === 'success'){
-                props.history.push('/');
+                props.history.push(from.pathname || from.pathName);
             }else {
                 setIsError(true);
             }
