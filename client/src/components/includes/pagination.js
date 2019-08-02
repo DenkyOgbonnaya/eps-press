@@ -31,7 +31,9 @@ const Paginate = ({pages, currentPage, handlePageChange}) => {
         )
     }
     return(
-        displayPageNums()
+        <div>
+            {displayPageNums()}
+        </div>
     )
 }
 export default Paginate;

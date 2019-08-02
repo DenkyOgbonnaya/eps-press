@@ -71,7 +71,7 @@ const Comment = (props) => {
     return(
         <div className='comment-container'> 
             <div className='post-author'> 
-                <img src={currentUser.avatar ? currentUser.avatar : '/images/defavatar.png'} alt='owner pix' /> 
+                <img src={comment.owner.avatar ? comment.owner.avatar : '/images/defavatar.png'} alt='owner pix' /> 
             </div>
             <div className='author-date'>
                 <span className='author' > <b> <Link to = {`/${comment.owner.username}/profile`}>{comment.owner.username} </Link> </b> </span>

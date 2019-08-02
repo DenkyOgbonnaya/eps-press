@@ -52,6 +52,7 @@ const PostDetails = props => {
     }
     const submitComment = e => {
         const currentUser = authData.currentUser._id;
+        const pages = Math.ceil(post.comments.length / limit);
         e.preventDefault();
         
         const commentData = {
@@ -61,6 +62,7 @@ const PostDetails = props => {
         }
         postComment(commentData, dispatch);
         setIsOpen(false);
+        pages > 1 && handlePageChange(pages);
         bottom.current.scrollIntoView({behavior: 'smooth'});
     }
     const handleDelete = id => {
@@ -88,7 +90,7 @@ const PostDetails = props => {
     return (
         <div className='post'> 
             <div className='post-author'> 
-                <span> <img src={currentUser.avatar ? currentUser.avatar : '/images/defavatar.png'} alt='author' /> </span>  <br />
+                <span> <img src={post.owner.avatar ? post.owner.avatar : '/images/defavatar.png'} alt='author' /> </span>  <br />
                 <small > By <Link to = {`/${post.owner.username}/profile`}> {post.owner.username} </Link>  | {" "} {new Date(post.createdDate).toDateString()} </small>
             </div>
             <Container> 

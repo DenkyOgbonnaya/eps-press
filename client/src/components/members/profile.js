@@ -92,7 +92,7 @@ const Profile = props => {
                     <Col xs='12' md='7'>
                         <h3>Posts </h3>
                         {
-                            !posts  ? <div> no posts to display </div> :  
+                            !posts || posts.length <=0  ? <div> no posts to display </div> :  
                             <PostFeeds posts = {currentPosts()} />
                         }
                     </Col>
