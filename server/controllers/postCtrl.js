@@ -64,7 +64,8 @@ const postCtrl = {
                 let postCopy = post.toObject();
 
                 const comments = await Comment.find({post: post._id})
-                .populate('owner', '-password -createdAt -updatedAt -__v');
+                .populate('owner', '-password -createdAt -updatedAt -__v')
+                .populate('replies.owner', '-password -createdAt -updatedAt -__v');
                 postCopy.comments= comments;
 
                 return res.status(200).send({

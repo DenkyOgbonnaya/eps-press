@@ -19,7 +19,7 @@ const PostDetails = props => {
     const post = postData.post;
     const {currentUser} = authData;
     const bottom = useRef(null);
-
+    
     useEffect( () => {
         const postSlug = props.match.params.slug;
         getPost(postSlug, dispatch)

@@ -35,7 +35,7 @@ const Comment = (props) => {
     }
     const displayLikes = (comment) => {
         return(
-            <span className= {comment.likers.includes(authData.currentUser._id) && 'is-liked'} onClick = {e => handleLike(e, comment)}> 
+            <span className= {comment.likers.includes(authData.currentUser._id) ? 'is-liked' : ''} onClick = {e => handleLike(e, comment)}> 
                 <img src= '/icons/like_ic14.png' alt='like' />  {comment.likes} 
             </span>
         )

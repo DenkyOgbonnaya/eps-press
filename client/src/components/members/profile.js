@@ -45,7 +45,7 @@ const Profile = props => {
                 <Row> 
                     <Col xs='12' md='4' className='profile-col'> 
                         <div className ='profile-image'>
-                            <img src={userProfile.avatar ? userProfile.avatar : '/images/avatar.jpg'} alt='profile pix' /> <br />
+                            <img src={userProfile.avatar ? userProfile.avatar : '/images/defavatar.png'} alt='profile pix' /> <br />
                             <Can 
                                 role = {currentUser.isAdmin}
                                 perform='profile:edit'

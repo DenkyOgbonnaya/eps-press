@@ -4,12 +4,13 @@ import CommentForm from './commentForm';
 import {PostContext} from '../../context/postContext';
 import {AuthContext} from '../../context/authContext';
 import {postReply} from '../../actions/postActions';
+import { fromNow } from './helper';
 
 const Replies = ({comment}) => {
     const[reply, setReply] = useState('');
     const{dispatch} = useContext(PostContext);
     const{authData} = useContext(AuthContext);
-
+    
     const submitReply = e => {
         const currentUser = authData.currentUser._id;
         e.preventDefault();
@@ -38,7 +39,7 @@ const Replies = ({comment}) => {
                                     <CardBody> 
                                         <CardSubtitle> 
                                             <small> <b>{reply.owner.username}</b> </small>
-                                            <small className='text-muted' > {new Date(reply.createdDate).toDateString()} </small>
+                                            <small className='text-muted' > {fromNow(reply.createdDate)} </small>
                                         </CardSubtitle>
                                         <CardText> {reply.text}  </CardText>
                                     </CardBody>
