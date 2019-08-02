@@ -8,6 +8,7 @@ import {likeComment, unlikeComment, editComment, deleteComment} from '../../acti
 import './style.css';
 import CommentForm from './commentForm';
 import Can from '../includes/can';
+import { fromNow } from './helper';
 
 const Comment = (props) => {
     const[isOpen, setIsOpen] = useState(false);
@@ -74,7 +75,7 @@ const Comment = (props) => {
             </div>
             <div className='author-date'>
                 <span className='author' > <b> <Link to = {`/${comment.owner.username}/profile`}>{comment.owner.username} </Link> </b> </span>
-                <span className='date' > {new Date(comment.createdDate).toDateString()} </span>
+                <span className='date' > {fromNow(comment.createdDate)}  </span>
             </div>
             <p className='text'> {comment.text} </p>
             <div className='like-reply'>
