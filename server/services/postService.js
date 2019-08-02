@@ -89,5 +89,13 @@ const postService = {
             throw err;
         }
     },
+    async search(query){
+        try{
+            return posts = await  Post.find(query)
+            .populate('owner', '-password -createdAt -updatedAt -__v')
+        }catch(err){
+            throw err;
+        }
+    },
 }
 module.exports = postService;

@@ -24,9 +24,10 @@ const postReducer = (state, action) => {
         case actionTypes.SEARCH_POST :
             return{
                 ...state,
-                post: action.post.data,
-                currentPage: action.post.page,
-                pages: action.post.pages
+                posts: action.data.posts,
+                currentPage: action.data.page,
+                pages: action.data.pages,
+            isLoading: false
             }
         case actionTypes.EDIT_POST :
         return{

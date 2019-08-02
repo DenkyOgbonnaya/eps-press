@@ -4,7 +4,16 @@ const{isLoggedIn, isAdmin} = require('../middlewares/auth');
 const{ validatePost, checkValidationResult, uploadErrHandler} = require('../middlewares/validation');
 const upload = require('../utills/multerConfig')
 
-const{createPost, getAllPost, getOnePost, getPostLikers, likePost, unlikePost, editPost, deletePost } = postCtrl;
+const{
+    createPost, 
+    getAllPost, 
+    getOnePost, 
+    getPostLikers, 
+    likePost, 
+    unlikePost, 
+    editPost, 
+    deletePost,
+    searchPost } = postCtrl;
 
 PostRouter.route('/post')
 .post(upload.single('image'), isLoggedIn, validatePost, checkValidationResult, createPost)
@@ -20,6 +29,8 @@ PostRouter.route('/post/:postId/likes',)
 .post( likePost)
 .get(getPostLikers)
 .delete(isLoggedIn, unlikePost)
+
+PostRouter.get('/search', searchPost)
 
 
 module.exports = PostRouter

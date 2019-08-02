@@ -241,3 +241,19 @@ export async function getUserPost(userId, dispatch){
         console.log(err);
     }
 }
+export async function searchPost(search, dispatch){
+    console.log('kkksll');
+    
+    try{
+        const{data} = await axios.get(`/api/search?search=${search}`);
+        if(data.status === 'success'){
+            dispatch({
+                type: actionTypes.SEARCH_POST,
+                data
+            })
+        }
+    }catch(err){
+        console.log(err);
+    }
+    
+}

@@ -1,20 +1,27 @@
-import React, {useEffect, useContext} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import PostFeeds from './postFeeds';
 import SearchField from '../includes/searchField';
 import {PostContext} from '../../context/postContext';
-import {getPosts} from '../../actions/postActions';
+import {getPosts, searchPost} from '../../actions/postActions';
 import {Pagination, PaginationItem, PaginationLink} from 'reactstrap';
 import Paginate from '../includes/pagination';
 
 const Home = () => {
     const{postData, dispatch} = useContext(PostContext);
     const{currentPage, pages} = postData;
+    const[searchTerm, setSearchTerm] = useState('');
     
     useEffect( () => {
         getPosts(dispatch, 1,2);
     }, []);
     const handlePageChange = (pageNum) => {
         getPosts(dispatch, pageNum, 2)
+    }
+    const handleSearch = () => {
+        searchPost(searchTerm, dispatch);
+    }
+    const setSearch = search => {
+        setSearchTerm(search);
     }
 
     if(!postData || postData.posts.length === 0  )
@@ -23,7 +30,10 @@ const Home = () => {
         <div> 
             <p> The official blogging platform of the EPS CDS club Lafia. <i>...saving the environment! </i> </p>
             <hr />
-            <SearchField />
+            <SearchField 
+                setSearch= {setSearch}
+                handleSearch = {handleSearch}
+            />
             <br />
             <PostFeeds posts= {postData.posts} />
             <Paginate 

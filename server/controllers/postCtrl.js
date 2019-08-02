@@ -149,6 +149,29 @@ const postCtrl = {
             res.status(400).send(err);
         }
     },
+    async searchPost(req, res){
+        const{search} = req.query;
+        const limit = 10;
+        
+        const query = {};
+        if(search)
+            query.title = {$regex: search, $options: 'i'};
+        try{
+            const posts = await postService.search(query);
+            
+            if(posts)
+            return res.status(200).send({
+                status: 'success',
+                posts,
+                page: 1,
+                pages: Math.ceil(posts.length/limit)
+                
+            })
+            return res.status(401).send({status: 'failed', message: 'post not found'})
+        }catch(err){
+            res.status(500).send(err);
+        }
+    },
 
 }
 module.exports = postCtrl;
