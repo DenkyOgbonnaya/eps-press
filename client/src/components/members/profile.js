@@ -6,16 +6,19 @@ import { getUserProfile } from '../../actions/authActions';
 import Can from '../includes/can';
 import { AuthContext } from '../../context/authContext';
 import { changeAvatar } from '../../actions/authActions';
+import Paginate from '../includes/pagination';
 
 const Profile = props => {
     const[userProfile, setUserProfile] = useState({});
     const{authData, dispatchAuth} = useContext(AuthContext);
     const fileInput = useRef(null);
     const{currentUser} = authData;
+    const[currentPage, setCurrentPage] = useState(1);
+    const[limit, setLimit] = useState(3);
+    const{posts} = userProfile
 
     useEffect( () => {
         const username = props.match.params.username;
-        console.log(username)
         getUserProfile(username)
         .then(data => {
             if(data.status === 'success')
@@ -37,6 +40,14 @@ const Profile = props => {
     const handleBtnClick = () => {
         
         fileInput.current.click();
+    }
+    const handlePageChange = number => {
+        setCurrentPage(number);
+    }
+    const currentPosts = () => {
+        const indexOfLastTodo = currentPage * limit;
+        const indexOfFirstTodo = indexOfLastTodo - limit;
+        return posts.slice(indexOfFirstTodo, indexOfLastTodo);
     }
     return (
         <div className = 'profile-container'> 
@@ -81,10 +92,19 @@ const Profile = props => {
                     <Col xs='12' md='7'>
                         <h3>Posts </h3>
                         {
-                            !userProfile.posts  ? <div> no posts to display </div> :  
-                            <PostFeeds posts = {userProfile.posts} />
+                            !posts  ? <div> no posts to display </div> :  
+                            <PostFeeds posts = {currentPosts()} />
                         }
                     </Col>
+                    {
+                        userProfile.posts &&
+                        <Paginate 
+                            pages = {Math.ceil(posts.length / limit)}
+                            currentPage = {currentPage}
+                            handlePageChange = {handlePageChange}
+                        />
+                    }
+                    
                 </Row>
                 <Row> 
                     

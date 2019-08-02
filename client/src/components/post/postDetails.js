@@ -9,6 +9,7 @@ import {getPost, likePost, unlikePost, postComment, deletePost} from '../../acti
 import {Editor, EditorState, convertFromRaw} from 'draft-js';
 import './style.css';
 import Can from '../includes/can';
+import Paginate from '../includes/pagination';
 
 const PostDetails = props => {
     const[editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -16,9 +17,12 @@ const PostDetails = props => {
     const[comment, setComment] = useState('');
     const{postData, dispatch} = useContext(PostContext);
     const{authData} = useContext(AuthContext);
+    const[currentPage, setCurrentPage] = useState(1);
+    const[limit, setLimit] = useState(3);
     const post = postData.post;
     const {currentUser} = authData;
     const bottom = useRef(null);
+
     
     useEffect( () => {
         const postSlug = props.match.params.slug;
@@ -68,8 +72,17 @@ const PostDetails = props => {
             setIsOpen(!isOpen);
         }else
             props.history.push('/login');
+    }                       
+    const handlePageChange = number => {
+        setCurrentPage(number);
     }
-
+    const currentComments = () => {
+        const{comments} = post;
+        const indexOfLastTodo = currentPage * limit;
+        const indexOfFirstTodo = indexOfLastTodo - limit;
+        return comments.slice(indexOfFirstTodo, indexOfLastTodo);
+    }
+    
     if(!post._id)
     return(<div> Empty post </div>)
     return (
@@ -136,7 +149,7 @@ const PostDetails = props => {
                 </Row>
                 <Row> 
                     {
-                        post.comments.length > 0 ? post.comments.map(comment => 
+                        post.comments.length > 0 ? currentComments().map(comment => 
                         <Col key= {comment._id} xs='12'> 
                             <Comment comment= {comment} />
                             <hr />
@@ -145,6 +158,11 @@ const PostDetails = props => {
                     ) : 
                         <Col> <div>No Comments! be the first to comment </div> </Col>
                     }
+                    <Paginate
+                        pages = {Math.ceil(post.comments.length / limit)}
+                        currentPage = {currentPage}
+                        handlePageChange = {handlePageChange}
+                    />
                 </Row>
             </Container>
         </div>
