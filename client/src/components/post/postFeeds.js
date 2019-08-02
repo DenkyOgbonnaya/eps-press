@@ -10,7 +10,7 @@ const PostFeeds = (props) => {
                     {
                         props.posts.length > 0 && props.posts.map(post => 
                             <Col key = {post._id} xs='12' > 
-                                <Card onClick = { () => props.history.push(`/post/${post.slug}`) } > 
+                                <Card className='post-feed' onClick = { () => props.history.push(`/post/${post.slug}`) } > 
                                     <CardBody> 
                                         <CardTitle> <h4> {post.title} </h4> </CardTitle>
                                         <CardSubtitle> 

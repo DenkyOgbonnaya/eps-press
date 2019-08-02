@@ -36,7 +36,7 @@ const postCtrl = {
     },
     async getAllPost(req, res){
         const page = Number(req.query.page) || 1;
-        const limit = Number(req.query.limit) || 3;
+        const limit = Number(req.query.limit) || 10;
 
         try{
           const posts = await  postService.getAll({page, limit});

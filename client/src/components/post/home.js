@@ -12,10 +12,10 @@ const Home = () => {
     const[searchTerm, setSearchTerm] = useState('');
     
     useEffect( () => {
-        getPosts(dispatch, 1,2);
+        getPosts(dispatch, 1,10);
     }, []);
     const handlePageChange = (pageNum) => {
-        getPosts(dispatch, pageNum, 2)
+        getPosts(dispatch, pageNum, 10)
     }
     const handleSearch = () => {
         searchPost(searchTerm, dispatch);
