@@ -1,7 +1,6 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import actionTypes from './actionTypes';
-import Axios from 'axios';
 
 axios.defaults.headers.common = {'Authorization': `Bearer ${localStorage.authToken}`}
 axios.defaults.validateStatus = status => status < 500;
