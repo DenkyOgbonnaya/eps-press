@@ -5,6 +5,7 @@ import {PostContext} from '../../context/postContext';
 import {AuthContext} from '../../context/authContext';
 import {postReply} from '../../actions/postActions';
 import { fromNow } from './helper';
+import propTypes from 'prop-types';
 
 const Replies = ({comment}) => {
     const[reply, setReply] = useState('');
@@ -57,6 +58,9 @@ const Replies = ({comment}) => {
             }
         </div>
     )
+}
+Replies.propTypes = {
+    comment: propTypes.object.isRequired
 }
 export default Replies;
     

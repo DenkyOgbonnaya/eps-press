@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import {Input, InputGroup, InputGroupAddon, Button} from 'reactstrap';
 
 
@@ -12,5 +13,9 @@ const SearchField = ({setSearch, handleSearch}) => {
             </InputGroup>
         </div>
     )
+}
+SearchField.propTypes = {
+    setSearch: propTypes.func,
+    handleSearch: propTypes.func
 }
 export default SearchField;

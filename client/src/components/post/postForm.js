@@ -7,6 +7,7 @@ import {AuthContext} from '../../context/authContext';
 import {addPost, editPost} from '../../actions/postActions';
 import './style.css';
 import PostEditor from '../editor/postEditor';
+import propTypes from 'prop-types';
 
  const PostForm = (props) => {
   const[editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -95,5 +96,12 @@ import PostEditor from '../editor/postEditor';
     </div>
   )
   
+}
+
+PostForm.propTypes = {
+  postId: propTypes.string,
+  title: propTypes.string,
+  content: propTypes.string,
+  picture: propTypes.string
 }
 export default withRouter(PostForm);

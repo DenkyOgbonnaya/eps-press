@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
+import propTypes from 'prop-types';
 import {Pagination, PaginationItem, PaginationLink} from 'reactstrap';
 
 const Paginate = ({pages, currentPage, handlePageChange}) => {
 
     const displayPageNums = () => {
         const pageNumbers = [];
-        //const pages = Math.ceil(list.length / limit);
 
         for(let number = 1; number <= pages; number++){
             pageNumbers.push(number);
@@ -35,5 +35,10 @@ const Paginate = ({pages, currentPage, handlePageChange}) => {
             {displayPageNums()}
         </div>
     )
+}
+Paginate.propTypes = {
+    pages: propTypes.number.isRequired,
+    currentPage: propTypes.number.isRequired,
+    handlePageChange: propTypes.func.isRequired
 }
 export default Paginate;

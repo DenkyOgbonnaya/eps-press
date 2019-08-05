@@ -9,6 +9,7 @@ import './style.css';
 import CommentForm from './commentForm';
 import Can from '../includes/can';
 import { fromNow } from './helper';
+import propTypes from 'prop-types';
 
 const Comment = (props) => {
     const[isOpen, setIsOpen] = useState(false);
@@ -131,6 +132,9 @@ const Comment = (props) => {
             
         </div>
     )
+}
+Comment.propTypes = {
+    comment: propTypes.object.isRequired
 }
 
 export default withRouter(Comment);

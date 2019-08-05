@@ -1,6 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {Container, Row, Col, Card, CardBody, CardTitle, CardSubtitle, CardText} from 'reactstrap';
+import propTypes from 'prop-types';
 
 const PostFeeds = (props) => {
     return (
@@ -30,5 +31,8 @@ const PostFeeds = (props) => {
             </Container>
         </div>
     )
+}
+PostFeeds.propTypes = {
+    posts: propTypes.array.isRequired,
 }
 export default withRouter(PostFeeds);
