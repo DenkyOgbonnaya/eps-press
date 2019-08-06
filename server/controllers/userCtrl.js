@@ -4,6 +4,7 @@ require('dotenv').config();
 const userEmitter = require('../utills/userEmitter');
 const userService = require('../services/userService');
 const postService = require('../services/postService');
+const{dataUri} = require('../utills/multerConfig')
 
 const userCtrl = {
     async createUser(req, res){
@@ -63,9 +64,11 @@ const userCtrl = {
         const{id} = req.params;
         if(!req.file)
             return res.status(400).send({message: 'choose a profile picture'})
-
-        const avatar = `/uploads/${req.file.filename}`
         try{
+            const file = dataUri(req).content;
+            const result = await uploader.upload(file);
+            const avatar = result.url;
+
             const user = await userService.changeAvatar(id, avatar);
             userEmitter.emit('userAuth', user);
             

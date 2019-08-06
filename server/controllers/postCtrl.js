@@ -1,6 +1,7 @@
 const postService = require('../services/postService');
 const Comment = require('../models/comment');
 const postEmmitter = require('../utills/postEmitter');
+const{dataUri} = require('../utills/multerConfig');
 
 
 const postCtrl = {
@@ -16,12 +17,16 @@ const postCtrl = {
                   post
               })
             }else {
+                const file = dataUri(req).content;
+                const result = await uploader.upload(file);
                 const{title, content, owner} = req.body;
+
                 const post = await postService.create({
                     title,
                     content,
                     owner,
-                    picture: `/uploads/${req.file.filename}`
+                    picture: result.url,
+                    publicId: result.public_id
                 })
 
                 res.status(201).send({
@@ -118,7 +123,7 @@ const postCtrl = {
                 return res.status(200).send({status: 'success', post})
             }else {
                 const post = await postService.getPost(postId);
-                post.picture && postEmmitter.emit('pictureDelete', post.picture);
+                post.picture && postEmmitter.emit('pictureDelete',  post.publicId);
 
                 const editedPost = await postService.edit(postId, {
                     title,
@@ -134,7 +139,9 @@ const postCtrl = {
     async deletePost(req, res){
         const{postId} = req.params;
         try{
-            const deletePost = await postService.delete(postId);
+            const deletedPost = await postService.delete(postId);
+            deletedPost.picture && postEmmitter.emit('pictureDelete',  deletedPost.publicId);
+
             return res.status(200).send({status: 'success'})
         }catch(err){
             res.status(400).send(err);

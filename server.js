@@ -5,6 +5,7 @@ const postRouter  = require('./server/routes/postRoutes');
 const commentRouter  = require('./server/routes/commentRoutes');
 const path = require('path');
 const connectDB = require('./server/models/index');
+const{cloudinaryConfig} = require('./server/utills/cloudinary_setup')
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(cors({credentials:true, origin: 'http://localhost:3000'}));
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(express.static(__dirname + '/client/public'));
 app.use(express.static(__dirname + '/public'));
+app.use('*', cloudinaryConfig);
 
 app.use('/api/users', UserRouter);
 app.use('/api', postRouter);
