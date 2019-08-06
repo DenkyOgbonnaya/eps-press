@@ -35,6 +35,7 @@ const authReducer = (state, action) => {
                 ...state,
                 currentUser: Object.assign({}, state.currentUser, {avatar})
             }
+        break;
 
         default : return state;
     }

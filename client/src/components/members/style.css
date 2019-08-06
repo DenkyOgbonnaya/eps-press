@@ -6,17 +6,17 @@
         padding: 40px
     }
 }
-.profile-image > img {
+.profile-details > img {
     border: 1px solid #ccc;
     border-radius: 100%;
     width: 200px;
     height: 200px;
-    margin: auto;
+    margin-left: 35px;
 }
-.profile-image  input {
+.profile-details  input {
     display: none
 }
-.profile-image .edit-profile-btn {
+.profile-details .edit-profile-btn {
    margin: 10px;
-   margin-left: 40px
+   margin-left: 65px
 }

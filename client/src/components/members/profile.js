@@ -69,7 +69,7 @@ const Profile = props => {
             <Container > 
                 <Row> 
                     <Col xs='12' md='4' className='profile-col'> 
-                        <div className ='profile-image'>
+                        <div className ='profile-details'>
                             <img src={userProfile.avatar ? userProfile.avatar : '/images/defavatar.png'} alt='profile pix' /> <br />
                             {isUploading && <span> uploading avatar... </span>}
                             <Can 
