@@ -4,6 +4,7 @@ import SearchField from '../includes/searchField';
 import {PostContext} from '../../context/postContext';
 import {getPosts, searchPost} from '../../actions/postActions';
 import Paginate from '../includes/pagination';
+import Spinner from '../includes/spinner';
 
 const Home = () => {
     const{postData, dispatch} = useContext(PostContext);
@@ -23,8 +24,10 @@ const Home = () => {
         setSearchTerm(search);
     }
 
-    if(!postData || postData.posts.length === 0  )
-        return (<div> No posts at the moment</div>)
+    if(postData.isLoading )
+        return (<Spinner />)
+    if(postData.posts.length === 0)
+        return(<div> There is currently no post </div>)
     return(
         <div> 
             <p> The official blogging platform of the EPS CDS club Lafia. <i>...saving the environment! </i> </p>

@@ -10,6 +10,7 @@ import {Editor, EditorState, convertFromRaw} from 'draft-js';
 import './style.css';
 import Can from '../includes/can';
 import Paginate from '../includes/pagination';
+import Spinnar from '../includes/spinner';
 
 const PostDetails = props => {
     const[editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -19,7 +20,7 @@ const PostDetails = props => {
     const{authData} = useContext(AuthContext);
     const[currentPage, setCurrentPage] = useState(1);
     const[limit] = useState(20);
-    const post = postData.post;
+    const {post, isPostLoading} = postData;
     const {currentUser} = authData;
     const bottom = useRef(null);
     const postSlug = props.match.params.slug;
@@ -86,8 +87,8 @@ const PostDetails = props => {
         return comments.slice(indexOfFirstTodo, indexOfLastTodo);
     }
     
-    if(!post._id)
-    return(<div> Empty post </div>)
+    if(isPostLoading)
+        return <Spinnar />
     return (
         <div className='post'> 
             <div className='post-author'> 

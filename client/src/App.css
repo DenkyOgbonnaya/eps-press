@@ -25,6 +25,9 @@
   text-align: justify
 }
 
+.spinner  {
+  text-align: center
+}
 
 div.buttons {
   padding-left: 20px;

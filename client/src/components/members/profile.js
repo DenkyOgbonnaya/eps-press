@@ -7,6 +7,7 @@ import Can from '../includes/can';
 import { AuthContext } from '../../context/authContext';
 import { changeAvatar } from '../../actions/authActions';
 import Paginate from '../includes/pagination';
+import Spinnar from '../includes/spinner';
 
 const Profile = props => {
     const[userProfile, setUserProfile] = useState({});
@@ -16,14 +17,17 @@ const Profile = props => {
     const[currentPage, setCurrentPage] = useState(1);
     const[limit] = useState(5);
     const[isUploading, setIsUploading]= useState(false);
+    const[isLoading, setIsLoading] = useState(true);
     const{posts} = userProfile
     const username = props.match.params.username;
 
     useEffect( () => {
         getUserProfile(username)
         .then(data => {
-            if(data.status === 'success')
-            setUserProfile(data.userProfile)
+            if(data.status === 'success'){
+                setUserProfile(data.userProfile);
+                setIsLoading(false);
+            }
         })
     }, [username])
 
@@ -57,6 +61,8 @@ const Profile = props => {
         const indexOfFirstTodo = indexOfLastTodo - limit;
         return posts.slice(indexOfFirstTodo, indexOfLastTodo);
     }
+    if(isLoading)
+        return <Spinnar />
     return (
         <div className = 'profile-container'> 
             <h3>Profile  </h3>

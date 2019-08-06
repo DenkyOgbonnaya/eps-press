@@ -18,7 +18,7 @@ const postReducer = (state, action) => {
             return {
                 ...state,
                 post: action.post,
-                isLoading: false
+                isPostLoading: false
             }
         case actionTypes.SEARCH_POST :
             return{

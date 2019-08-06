@@ -11,7 +11,7 @@ export const PostContextProvider = (props) => {
         currentPage: '',
         isLoading: true,
         PostError: '',
-        isNewPost: true
+        isPostLoading: true
     })
     return (
         <PostContext.Provider value= {{postData, dispatch}}> 
