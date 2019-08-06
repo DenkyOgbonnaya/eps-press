@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useRef} from 'react';
 import {Container, Row, Col, Card, CardBody, CardSubtitle, CardText} from 'reactstrap';
 import CommentForm from './commentForm';
 import {PostContext} from '../../context/postContext';
@@ -11,6 +11,7 @@ const Replies = ({comment}) => {
     const[reply, setReply] = useState('');
     const{dispatch} = useContext(PostContext);
     const{authData} = useContext(AuthContext);
+    const bottom = useRef(null);
     
     const submitReply = e => {
         const currentUser = authData.currentUser._id;
@@ -20,7 +21,11 @@ const Replies = ({comment}) => {
             text:reply,
             owner: currentUser,
         }
-        postReply(replyData, comment, dispatch);
+        postReply(replyData, comment, dispatch)
+        .then( () => {
+            bottom.current.scrollIntoView({behavior: 'smooth'});
+        })
+        
     }
     return(
         <div> 
@@ -53,9 +58,7 @@ const Replies = ({comment}) => {
                 </Row>
             </Container>
             
-            {
-
-            }
+            <span ref={bottom} > </span>
         </div>
     )
 }

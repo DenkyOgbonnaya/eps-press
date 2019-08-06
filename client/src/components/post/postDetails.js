@@ -100,7 +100,7 @@ const PostDetails = props => {
                     <Col xs='12' > 
                         <div className='post-content'> 
                             
-                            <h2> {post.title.toUpperCase()} </h2>
+                            <h2> {post.title} </h2>
                             <Editor 
                                 editorState = {editorState}
                                 readOnly = {true}

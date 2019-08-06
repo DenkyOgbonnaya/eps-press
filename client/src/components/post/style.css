@@ -46,8 +46,8 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 60%;
-  height: 10%;
+  max-width: 60%;
+  max-height: 10%;
 }
 .post-content span, .reaction span, .post-feed {
 cursor: pointer;
