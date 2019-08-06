@@ -14,9 +14,11 @@ const Profile = props => {
     const fileInput = useRef(null);
     const{currentUser} = authData;
     const[currentPage, setCurrentPage] = useState(1);
-    const[limit] = useState(3);
+    const[limit] = useState(5);
+    const[isUploading, setIsUploading]= useState(false);
     const{posts} = userProfile
     const username = props.match.params.username;
+
     useEffect( () => {
         getUserProfile(username)
         .then(data => {
@@ -24,15 +26,22 @@ const Profile = props => {
             setUserProfile(data.userProfile)
         })
     }, [username])
+
     const handleAvaterChange = e => {
         let formdata = new FormData();
+        setIsUploading(true);
 
         formdata.set('image', e.target.files[0]);
-        
-        changeAvatar(currentUser._id, formdata, dispatchAuth)
+        const isCurrentUser =   currentUser._id === userProfile._id; 
+        const userId = isCurrentUser ? currentUser._id : userProfile._id
+
+        changeAvatar(userId, formdata, dispatchAuth, isCurrentUser)
         .then(data => {
             if(data && data.status !== 'success'){
                 alert(data.message)
+            }else{
+                setUserProfile(Object.assign({}, userProfile, {avatar: data.avatar}));
+                setIsUploading(false);
             }
         })
     }
@@ -56,6 +65,7 @@ const Profile = props => {
                     <Col xs='12' md='4' className='profile-col'> 
                         <div className ='profile-image'>
                             <img src={userProfile.avatar ? userProfile.avatar : '/images/defavatar.png'} alt='profile pix' /> <br />
+                            {isUploading && <span> uploading avatar... </span>}
                             <Can 
                                 role = {currentUser.isAdmin}
                                 perform='profile:edit'

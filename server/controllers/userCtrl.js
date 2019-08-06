@@ -67,7 +67,13 @@ const userCtrl = {
         const avatar = `/uploads/${req.file.filename}`
         try{
             const user = await userService.changeAvatar(id, avatar);
-            return res.status(200).send({status: 'success', avatar: user.avatar})
+            userEmitter.emit('userAuth', user);
+            
+            return res.status(200).send({
+                status: 'success', 
+                avatar: user.avatar, 
+                token: user.token
+            })
         }catch(err){
             console.log(err);
             

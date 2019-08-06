@@ -57,13 +57,18 @@ export async function verifyToken(token, dispatch){
         } );
     }
 }
-export async function changeAvatar(id, avatar, dispatch){
+export async function changeAvatar(id, avatar, dispatch, isCurrentUser){
     try{
         const{data} = await axios.put(`/api/users/${id}/avatar`, avatar)
         if(data.status ==='success'){
+            localStorage.authToken = data.token;
+            
             dispatch({
                 type: actionTypes.CHANGE_AVATAR,
-                avatar: data.avatar
+                payload: {
+                    avatar: data.avatar,
+                    isCurrentUser
+                }
             })
             return data
         }else{
