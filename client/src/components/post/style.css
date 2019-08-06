@@ -21,7 +21,7 @@
 .text {
   grid-column: 2 / 4;
 }
-.like-reply {
+.reaction {
   grid-column: 2 / 3;
   grid-row-start: 3;
   padding: 5px
@@ -46,14 +46,11 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 60%;;
-  height: 15%;
+  width: 60%;
+  height: 10%;
 }
-.post-content span, .like-reply span, .post-feed {
+.post-content span, .reaction span, .post-feed {
 cursor: pointer;
-}
-.like-reply span.is-liked > img {
-  border: 10px, solid greenyellow;
 }
 .post-author span > img, .post-author > img {
   width: 50px;
@@ -66,15 +63,16 @@ cursor: pointer;
 }
 .post-content div.DraftEditor-root {
   padding:5px;
-  font-size: 18px;
+  font-size: 17px;
   font-family: 'serif', sans-serif;
   text-align: justify;
 }
-.react-bar , .like-reply {
+.react-bar , .reaction {
   display: flex;
   justify-content: space-between;
   max-width: 250px;
+  color: grey;
 }
 .author-date >  .author *{
-  color: grey;
+  color: gray;
 }

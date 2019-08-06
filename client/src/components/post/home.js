@@ -3,7 +3,6 @@ import PostFeeds from './postFeeds';
 import SearchField from '../includes/searchField';
 import {PostContext} from '../../context/postContext';
 import {getPosts, searchPost} from '../../actions/postActions';
-import {Pagination, PaginationItem, PaginationLink} from 'reactstrap';
 import Paginate from '../includes/pagination';
 
 const Home = () => {
@@ -13,7 +12,7 @@ const Home = () => {
     
     useEffect( () => {
         getPosts(dispatch, 1,10);
-    }, []);
+    }, [dispatch]);
     const handlePageChange = (pageNum) => {
         getPosts(dispatch, pageNum, 10)
     }

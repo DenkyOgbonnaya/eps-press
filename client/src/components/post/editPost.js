@@ -1,15 +1,15 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useEffect, useContext} from 'react';
 import {PostContext} from '../../context/postContext';
 import {getPost} from '../../actions/postActions';
 import PostForm from './postForm';
 
 const EditPost = (props) => {
     const{postData, dispatch} = useContext(PostContext);
-
+    const postSlug = props.match.params.slug;
     useEffect( () => {
-        const postSlug = props.match.params.slug;
+        
         getPost(postSlug, dispatch);
-    }, []);
+    }, [postSlug, dispatch]);
 
     const{_id, title, content, picture} = postData.post;
     if(postData.isLoading)

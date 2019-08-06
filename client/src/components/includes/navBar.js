@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {Button, NavItem, Nav, Navbar, NavLink, NavbarBrand, NavbarToggler, DropdownMenu,
-dropdownOpen, DropdownToggle, DropdownItem, Dropdown, Collapse,} from 'reactstrap';
+DropdownToggle, DropdownItem, Dropdown, Collapse,} from 'reactstrap';
 import {withRouter, NavLink as RRNavlink} from 'react-router-dom';
 import {AuthContext} from '../../context/authContext';
 import { logout } from '../../actions/authActions';
@@ -28,7 +28,7 @@ const NavBar = props => {
               { authData.isAuthenticated ?
               <Dropdown nav isOpen={dropdownOpen} toggle={() => setDropDownOpen(!dropdownOpen)} > 
             <DropdownToggle caret color='dark' >
-              <img style= {{borderRadius: '50%', width:'40px', height:'40px'}} src={authData.currentUser.avatar ? authData.currentUser.avatar : '/images/defavatar.png'} />
+              <img style= {{borderRadius: '50%', width:'40px', height:'40px'}} src={authData.currentUser.avatar ? authData.currentUser.avatar : '/images/defavatar.png'} alt='avatar' />
             </DropdownToggle>
             <DropdownMenu>
               <DropdownItem header> Dashboard  </DropdownItem>

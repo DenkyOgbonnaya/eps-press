@@ -9,16 +9,18 @@ import {verifyToken} from './actions/authActions';
 
 const App = () => {
   const{dispatchAuth} = useContext(AuthContext);
+  const authToken = localStorage.authToken;
+
   useEffect( ()=> {
-    const authToken = localStorage.authToken;
     if(authToken)
       verifyToken(authToken, dispatchAuth);
-  }, [])
+  }, [authToken, dispatchAuth])
   return(
     <div className="App">
           <NavBar />
           <br />
           <Routes />
+          <br />
       <AppFooter />
     </div>
   )

@@ -1,5 +1,4 @@
 import actionTypes from '../actions/actionTypes';
-import { INSPECT_MAX_BYTES } from 'buffer';
 const postReducer = (state, action) => {
     switch(action.type){
         case actionTypes.GET_POSTS :

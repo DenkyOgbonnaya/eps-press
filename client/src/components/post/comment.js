@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, Fragment} from 'react';
 import Replies from './commentReplies';
 import {Form, Input, Button} from 'reactstrap';
 import {withRouter, Link} from 'react-router-dom';
@@ -6,7 +6,6 @@ import {AuthContext} from '../../context/authContext';
 import {PostContext} from '../../context/postContext';
 import {likeComment, unlikeComment, editComment, deleteComment} from '../../actions/postActions';
 import './style.css';
-import CommentForm from './commentForm';
 import Can from '../includes/can';
 import { fromNow } from './helper';
 import propTypes from 'prop-types';
@@ -22,25 +21,16 @@ const Comment = (props) => {
     const{currentUser} = authData;
     const{comment} = props;
 
-    const handleLike = (e, comment) => {
+     const handleLikeClick = (e, comment) => {
         const currentUser = authData.currentUser._id;
-        const likeSpan = e.target
         
-        if(likeSpan.classList.contains('is-liked')){
-            likeSpan.classList.remove('is-liked');
-            unlikeComment(comment, currentUser, dispatch);
-        }else{
-            likeSpan.classList.add('is-liked');
-            likeComment(comment, currentUser, dispatch);
-        }
+        if( e.target.textContent.trim() === 'Like'){
+            likeComment(comment, currentUser , dispatch);
+        }else
+            unlikeComment(comment, currentUser, dispatch );
+        
     }
-    const displayLikes = (comment) => {
-        return(
-            <span className= {comment.likers.includes(authData.currentUser._id) ? 'is-liked' : ''} onClick = {e => handleLike(e, comment)}> 
-                <img src= '/icons/like_ic14.png' alt='like' />  {comment.likes} 
-            </span>
-        )
-    }
+    
     const handleSave = e => {
         e.preventDefault();
         if(text.length > 0){
@@ -79,27 +69,31 @@ const Comment = (props) => {
                 <span className='date' > {fromNow(comment.createdDate)}  </span>
             </div>
             <p className='text'> {comment.text} </p>
-            <div className='like-reply'>
+            <div className='reaction'>
                 {
                     <Can 
                         role = {currentUser.isAdmin}
                         perform ='comment:like'
                         yes = { () => (
-                            displayLikes(comment)
+                            <span onClick={e => handleLikeClick(e, comment)} > {comment.likers.includes(authData.currentUser._id) ? 'unLike' : 'Like'}  </span>
                         )}
-                        no = { () => <span> {comment.likes } {comment.likes >1 ? 'likes' : 'like'} </span>}
                     />
                 }
+                    <div> {comment.likes } {comment.likes >1 ? 'likes' : 'like'} </div>
                 {
                     <Can 
                         role = {currentUser.isAdmin}
                         perform ='comment:reply'
                         yes = { () => (
-                            <span id='reply' onClick= {() => setIsOpen(!isOpen)}  > {isOpen ? 'close' : <img src='/icons/comment_ic20.png' alt='comment ic' />} {comment.replies.length} </span>
+                            <span id='reply' onClick= {() => setIsOpen(!isOpen)}  > {isOpen ? <b>close</b>: 'Reply'} {comment.replies.length} </span>
                         )}
-                        no = { () => <span onClick= {() => handleReplyClick()}> {comment.replies.length} replies <span>reply</span> </span>}
+                        no = { () => 
+                            <div > {comment.replies.length} {comment.replies.length > 1 ? 'replies' : 'reply'} </div>
+                        }
                     />
                 }
+                {!authData.isAthaunticated && <span onClick= {() => handleReplyClick()} >Reply </span>}
+                    
                 {
                     <Can 
                         role = {currentUser.isAdmin}

@@ -4,9 +4,7 @@ import actionTypes from './actionTypes';
 
 axios.defaults.headers.common = {'Authorization': `Bearer ${localStorage.authToken}`}
 axios.defaults.validateStatus = status => status < 500;
-/*const config = {headers: {
-    'Authorization': `Bearer ${localStorage.authToken}`
-}}*/
+
 export async function signup(userData, dispatch){
     try{
         const {data} = await axios.post('/api/users/signup', userData);

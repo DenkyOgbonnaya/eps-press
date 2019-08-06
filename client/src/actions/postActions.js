@@ -99,7 +99,6 @@ export async function likePost(post, liker, dispatch){
             payLoad: {likers: post.likers, inc: 1}
         });
         const{data} = await axios.post(`/api/post/${post._id}/likes`, {liker});
-        console.log(data)
         if(data.status === 'success'){
             dispatch({
                 type: actionTypes.LIKE_POST,
@@ -242,8 +241,6 @@ export async function getUserPost(userId, dispatch){
     }
 }
 export async function searchPost(search, dispatch){
-    console.log('kkksll');
-    
     try{
         const{data} = await axios.get(`/api/search?search=${search}`);
         if(data.status === 'success'){

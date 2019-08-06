@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext, useRef} from 'react';
-import {Container, Row, Col, Table, Button, Input} from 'reactstrap';
+import {Container, Row, Col, Table, Button} from 'reactstrap';
 import './style.css';
 import PostFeeds from '../post/postFeeds';
 import { getUserProfile } from '../../actions/authActions';
@@ -14,17 +14,16 @@ const Profile = props => {
     const fileInput = useRef(null);
     const{currentUser} = authData;
     const[currentPage, setCurrentPage] = useState(1);
-    const[limit, setLimit] = useState(3);
+    const[limit] = useState(3);
     const{posts} = userProfile
-
+    const username = props.match.params.username;
     useEffect( () => {
-        const username = props.match.params.username;
         getUserProfile(username)
         .then(data => {
             if(data.status === 'success')
             setUserProfile(data.userProfile)
         })
-    }, [])
+    }, [username])
     const handleAvaterChange = e => {
         let formdata = new FormData();
 

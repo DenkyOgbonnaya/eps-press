@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import {Container, Row, Col, Card, CardBody, CardSubtitle, CardText, Form, Input, Button} from 'reactstrap';
+import {Container, Row, Col, Card, CardBody, CardSubtitle, CardText} from 'reactstrap';
 import CommentForm from './commentForm';
 import {PostContext} from '../../context/postContext';
 import {AuthContext} from '../../context/authContext';

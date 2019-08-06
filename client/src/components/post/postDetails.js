@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext, useRef} from 'react';
 import {withRouter, Link} from 'react-router-dom';
 import Comment from './comment'
-import{Container, Row, Col, Card, CardFooter, CardHeader, CardBody, CardText, CardSubtitle, CardTitle} from 'reactstrap';
+import{Container, Row, Col} from 'reactstrap';
 import CommentForm from './commentForm';
 import {PostContext} from '../../context/postContext';
 import {AuthContext} from '../../context/authContext';
@@ -18,22 +18,22 @@ const PostDetails = props => {
     const{postData, dispatch} = useContext(PostContext);
     const{authData} = useContext(AuthContext);
     const[currentPage, setCurrentPage] = useState(1);
-    const[limit, setLimit] = useState(3);
+    const[limit] = useState(20);
     const post = postData.post;
     const {currentUser} = authData;
     const bottom = useRef(null);
-
+    const postSlug = props.match.params.slug;
+    const{content, _id} = post;
     
     useEffect( () => {
-        const postSlug = props.match.params.slug;
         getPost(postSlug, dispatch)
         .then( () => {
-            if(post._id){
+            if(_id){
                 setEditorState(EditorState
-                .createWithContent(convertFromRaw(JSON.parse(post.content))))
+                .createWithContent(convertFromRaw(JSON.parse(content))))
             } 
         })      
-    }, [post._id]);
+    }, [_id, postSlug, dispatch, content]);
 
     const handleEditClick = post => {
         props.history.push(`/edit/${post.slug}`);
@@ -62,8 +62,9 @@ const PostDetails = props => {
         }
         postComment(commentData, dispatch);
         setIsOpen(false);
-        pages > 1 && handlePageChange(pages);
+       
         bottom.current.scrollIntoView({behavior: 'smooth'});
+        pages > 1 && handlePageChange(pages);
     }
     const handleDelete = id => {
         deletePost(id, dispatch);
@@ -140,7 +141,7 @@ const PostDetails = props => {
                                     )}
                                 />
                             }
-                            <span> {post.likes} {post.likes > 1 ? 'likes' : 'like' } </span>
+                            <div> {post.likes} {post.likes > 1 ? 'likes' : 'like' } </div>
                             </div>
                         </div>
                         <br />

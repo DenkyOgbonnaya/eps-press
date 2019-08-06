@@ -1,7 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {Container, Row, Col, Label, Input, Alert, Button} from 'reactstrap';
 import {withRouter} from 'react-router-dom';
-import {Editor, EditorState, convertFromRaw, convertToRaw} from 'draft-js';
+import {EditorState, convertFromRaw, convertToRaw} from 'draft-js';
 import {PostContext} from '../../context/postContext';
 import {AuthContext} from '../../context/authContext';
 import {addPost, editPost} from '../../actions/postActions';
@@ -11,23 +11,21 @@ import propTypes from 'prop-types';
 
  const PostForm = (props) => {
   const[editorState, setEditorState] = useState(EditorState.createEmpty());
-  const[title, setTitle ] = useState('');
+  const[title, setTitle ] = useState(props.title || '');
   const[image, setImage] = useState(null);
-  const[imageurl, setImageUrl] = useState('');
+  const[imageurl, setImageUrl] = useState(props.picture || '');
   const[isError, setIsError] = useState(false);
   const{postData, dispatch} = useContext(PostContext);
   const{authData} = useContext(AuthContext)
-  
+  const{content, postId} = props
   useEffect(() => {
-    if(!props.postId){
+    if(!postId){
       setEditorState(EditorState.createEmpty())
     }else {
-      setTitle(props.title)
-      setImageUrl(props.picture)
       setEditorState(EditorState
-      .createWithContent(convertFromRaw(JSON.parse(props.content))))
+      .createWithContent(convertFromRaw(JSON.parse(content))))
     }
-  }, [])
+  }, [postId, content]);
   
   const handlePost = () => {
     const formData = new FormData();
@@ -67,7 +65,7 @@ import propTypes from 'prop-types';
   
   return(
     <div className='editor'>
-      <h3> {props.postId ? 'Edit Post': 'State a new post'} </h3>
+      <h3> {props.postId ? 'Edit Post': 'Start a new post'} </h3>
       <Container> 
         <Row> 
           <Col md={{size: 8, offset: 2}}>
