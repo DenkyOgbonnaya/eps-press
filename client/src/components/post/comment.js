@@ -92,7 +92,7 @@ const Comment = (props) => {
                         }
                     />
                 }
-                {!authData.isAthaunticated && <span onClick= {() => handleReplyClick()} >Reply </span>}
+                {authData.isAthaunticated ? <span onClick= {() => handleReplyClick()} >Reply </span> : ''}
                     
                 {
                     <Can 
