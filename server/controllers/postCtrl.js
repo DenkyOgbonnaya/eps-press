@@ -2,6 +2,7 @@ const postService = require('../services/postService');
 const Comment = require('../models/comment');
 const postEmmitter = require('../utills/postEmitter');
 const{dataUri} = require('../utills/multerConfig');
+const{uploader} = require('../utills/cloudinary_setup')
 
 
 const postCtrl = {
@@ -36,6 +37,7 @@ const postCtrl = {
               })
             }
         }catch(err){
+            console.log(err)
             res.status(400).send(err);          
         }
     },
@@ -122,13 +124,17 @@ const postCtrl = {
                 const post = await postService.edit(postId, {title, content});
                 return res.status(200).send({status: 'success', post})
             }else {
+                const file = dataUri(req).content;
+                const result = await uploader.upload(file);
+
                 const post = await postService.getPost(postId);
                 post.picture && postEmmitter.emit('pictureDelete',  post.publicId);
 
                 const editedPost = await postService.edit(postId, {
                     title,
                     content,
-                    picture: `/uploads/${req.file.filename}`
+                    picture: result.url,
+                    publicId: result.public_id
                   })
                 return res.status(200).send({status: 'success', post: editedPost})
             }

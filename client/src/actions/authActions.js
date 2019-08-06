@@ -2,7 +2,8 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import actionTypes from './actionTypes';
 
-axios.defaults.headers.common = {'Authorization': `Bearer ${localStorage.authToken}`}
+const authToken = localStorage.authToken;
+axios.defaults.headers.common = {'Authorization': `Bearer ${authToken}`}
 axios.defaults.validateStatus = status => status < 500;
 
 export async function signup(userData, dispatch){
@@ -90,6 +91,8 @@ export const logout = (dispatch) => {
     })
 }
 export async function getUserProfile(username){
+    console.log(authToken);
+    
     try{
         const{data} = await axios.get(`/api/users/${username}/profile`);
         return data;

@@ -5,6 +5,7 @@ const userEmitter = require('../utills/userEmitter');
 const userService = require('../services/userService');
 const postService = require('../services/postService');
 const{dataUri} = require('../utills/multerConfig')
+const{uploader} = require('../utills/cloudinary_setup');
 
 const userCtrl = {
     async createUser(req, res){

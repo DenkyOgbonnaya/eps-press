@@ -7,9 +7,16 @@ const postService = require('../services/postService');
 const postEmitter = new event.EventEmitter();
 
 postEmitter.on('pictureDelete', (publicId) => {
-    uploader.destroy(publicId, (err, esult) => {
-        if(err) throw err;
-    })
+    console.log(publicId);
+    
+    if(publicId){
+        uploader.destroy(publicId, (err, result) => {
+            if(err){
+                console.log(err);
+            } 
+        })
+    }
+    
 
 })
 module.exports = postEmitter;
