@@ -1,7 +1,8 @@
 import axios from 'axios';
 import actionTypes from './actionTypes';
 
-axios.defaults.headers.common = {'Authorization': `Bearer ${localStorage.authToken}`}
+const authToken = localStorage.getItem('authToken');
+axios.defaults.headers.common = {'Authorization': `Bearer ${authToken}`}
 axios.defaults.validateStatus = status => status < 500;
 
 export async function addPost(post, dispatch){
