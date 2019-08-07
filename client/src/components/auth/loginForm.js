@@ -32,11 +32,14 @@ const LoginForm = props => {
         })
     }
     return(
+        <div className='auth'>
+            <img src='/favicon.ico' alt='logo' /> 
         <div className = 'authForm'>
+            
             
         <div className = 'form'>
             <Alert color='danger' isOpen={isError} > {authData.authError} </Alert>
-            <h5>Login  </h5> <br />
+                <h5>Login  </h5> <br />
             {loggingIn && <span id='spinner'>...Logging you in, please wait! </span>}
 
             <Form onSubmit = {handleSubmit}  > 
@@ -52,6 +55,7 @@ const LoginForm = props => {
                 <Button color='success'> login </Button> {" "} <Link to= '/signup'> Don't have an account? </Link> <br />
             </Form>
         </div>
+</div>
 </div>
     )
 }

@@ -31,6 +31,8 @@ const SignupForm = props => {
         })
     }
     return (
+        <div className='auth' >
+            <img src='/favicon.ico' alt='logo' />
         <div className = 'authForm'>
             <div className = 'form'>
             <Alert color='danger' isOpen={isError} > {authData.authError} </Alert>
@@ -52,7 +54,7 @@ const SignupForm = props => {
                     <Button color='success'> Signup </Button> {" "} <Link to= '/login'> Already have an account? </Link>
                 </Form>
             </div>
-    
+      </div>
       </div>
     )
 }

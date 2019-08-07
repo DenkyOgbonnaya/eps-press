@@ -1,17 +1,23 @@
 body {
     height: 100vh;
 }
+.auth >img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
 .authForm {
     display: table;
     height: 300px;
     margin:0 auto;
-    border: 1px solid grey;
+    border: 1px solid green
 }
 .form {
     display: table-cell;
     vertical-align: middle;
    padding: 5px;
-   width: 600px
+   width: 500px
 }
 .form #spinner {
     color: #43a047;
