@@ -14,7 +14,6 @@ const postService = {
             return posts = await  Post.find({})
             .skip((page*limit)-limit)
             .limit(limit)
-            .sort({createdDate: 'desc'})
             .populate('owner', '-password -createdAt -updatedAt -__v')
         }catch(err){
             throw err;
