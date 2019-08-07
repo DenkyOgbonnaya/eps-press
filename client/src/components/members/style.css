@@ -20,3 +20,7 @@
    margin: 10px;
    margin-left: 65px
 }
+.profile-details #spinner {
+    margin-left: 40px;
+    color: #43a047
+}

@@ -71,7 +71,7 @@ const Profile = props => {
                     <Col xs='12' md='4' className='profile-col'> 
                         <div className ='profile-details'>
                             <img src={userProfile.avatar ? userProfile.avatar : '/images/defavatar.png'} alt='profile pix' /> <br />
-                            {isUploading && <span> uploading avatar... </span>}
+                            {isUploading && <span id='spinner'> uploading avatar... </span>}
                             <Can 
                                 role = {currentUser.isAdmin}
                                 perform='profile:edit'

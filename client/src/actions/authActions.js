@@ -9,7 +9,7 @@ axios.defaults.validateStatus = status => status < 500;
 export async function signup(userData, dispatch){
     try{
         const {data} = await axios.post('/api/users/signup', userData);
-        if(data.status === 'success'){
+        if(data && data.status === 'success'){
             localStorage.authToken = data.token;
             const{currentUser} = jwt.decode(data.token);
 
@@ -29,7 +29,7 @@ export async function signup(userData, dispatch){
 export async function login(userData, dispatch){
     try{
         const{data} = await axios.post('/api/users/login', userData);
-        if(data.status === 'success'){
+        if(data && data.status === 'success'){
             localStorage.authToken = data.token;
             const{currentUser} = jwt.decode(data.token);
 
@@ -49,7 +49,7 @@ export async function login(userData, dispatch){
 }
 export async function verifyToken(token, dispatch){
     const {data} = await axios.get(`/api/users/verify/${token}`)
-    if(data.isAuthenticated){
+    if(data && data.isAuthenticated){
         const{currentUser} = jwt.decode(token);
 
         dispatch({
@@ -61,7 +61,7 @@ export async function verifyToken(token, dispatch){
 export async function changeAvatar(id, avatar, dispatch, isCurrentUser){
     try{
         const{data} = await axios.put(`/api/users/${id}/avatar`, avatar)
-        if(data.status ==='success'){
+        if(data && data.status ==='success'){
             localStorage.authToken = data.token;
             
             dispatch({

@@ -8,7 +8,7 @@ axios.defaults.validateStatus = status => status < 500;
 export async function addPost(post, dispatch){
     try{
         const{data} = await axios.post('/api/post', post);
-        if(data.status === 'success'){
+        if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.ADD_POST,
                 post: data.post
@@ -27,7 +27,7 @@ export async function addPost(post, dispatch){
 export async function editPost( id, credentials, dispatch){
     try{
         const{data} = await axios.put(`/api/post/${id}`, credentials);
-        if(data.status === 'success'){
+        if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.EDIT_POST,
                 post: data.post
@@ -46,7 +46,7 @@ export async function editPost( id, credentials, dispatch){
 export async function getPosts(dispatch, page, limit){
     try{
         const{data} = await axios.get(`/api/post?page=${page}&limit=${limit}`);
-        if(data.status === 'success'){
+        if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.GET_POSTS,
                 data
@@ -65,7 +65,7 @@ export async function getPosts(dispatch, page, limit){
 export async function getPost(slug, dispatch){
     try{
         const{data} = await axios.get(`/api/post/${slug}`);
-        if(data.status === 'success'){
+        if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.GET_POST,
                 post: data.post
@@ -83,7 +83,7 @@ export async function deletePost(id, dispatch){
     });
     try{
         const{data} = await axios.delete(`/api/post/${id}`);
-        if(data.status === 'success'){
+        if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.DELETE_POST,
                 id
@@ -100,7 +100,7 @@ export async function likePost(post, liker, dispatch){
             payLoad: {likers: post.likers, inc: 1}
         });
         const{data} = await axios.post(`/api/post/${post._id}/likes`, {liker});
-        if(data.status === 'success'){
+        if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.LIKE_POST,
                 payLoad: {likers: data.likers, inc: 0}
@@ -117,7 +117,7 @@ export async function unlikePost(post, unLiker, dispatch){
             payLoad: {likers: post.likers, dec: 1}
         });
         const{data} = await axios.delete(`/api/post/${post._id}/likes`, {data: {unLiker}});
-        if(data.status === 'success'){
+        if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.UNLIKE_POST,
                 payLoad: {likers: data.likers, dec: 0}
@@ -131,7 +131,7 @@ export async function postComment(commentData, dispatch){
     
     try{
         const {data} = await axios.post('/api/comment', commentData);
-        if(data.status === 'success')
+        if(data && data.status === 'success')
         dispatch({
             type: actionTypes.COMMENT_POST,
             comment: data.comment
@@ -149,7 +149,7 @@ export async function likeComment(comment, liker, dispatch){
         });
         const{data} = await axios.post(`/api/comment/${comment._id}/likes`, {liker});
         
-        if(data.status === 'success'){
+        if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.LIKE_COMMENT,
                 payLoad: {likers: data.likers, inc: 0, comment}
@@ -167,7 +167,7 @@ export async function unlikeComment(comment, unliker, dispatch){
         });
         const{data} = await axios.delete(`/api/comment/${comment._id}/likes`, {data:{unliker}});
         
-        if(data.status === 'success'){
+        if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.UNLIKE_COMMENT,
                 payLoad: {likers: data.likers, dec: 0, comment}
@@ -181,7 +181,7 @@ export async function postReply(replyData, comment, dispatch){
     
     try{
         const {data} = await axios.post(`/api/comment/${comment._id}`, replyData);
-        if(data.status === 'success')
+        if(data && data.status === 'success')
         dispatch({
             type: actionTypes.REPLY_COMMENT,
             payLoad: {replies: data.replies, comment}
@@ -200,7 +200,7 @@ export async function editComment(credentials, dispatch){
     try{
         const {data} = await axios.put(`/api/comment/${credentials._id}`, credentials);
         
-        if(data.status === 'success')
+        if(data && data.status === 'success')
         dispatch({
             type: actionTypes.EDIT_COMMENT,
             credentials: data.comment
@@ -217,7 +217,7 @@ export async function deleteComment(id, dispatch){
     })
     try{
         const {data} = await axios.delete(`/api/comment/${id}`);
-        if(data.status === 'success'){
+        if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.DELETE_COMMENT,
                 id
@@ -230,7 +230,7 @@ export async function deleteComment(id, dispatch){
 export async function getUserPost(userId, dispatch){
     try{
         const{data} = await axios.get(`/api/users/${userId}/post`);
-        if(data.status === 'success'){
+        if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.GET_USER_POST,
                 posts: data.posts
@@ -244,7 +244,7 @@ export async function getUserPost(userId, dispatch){
 export async function searchPost(search, dispatch){
     try{
         const{data} = await axios.get(`/api/search?search=${search}`);
-        if(data.status === 'success'){
+        if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.SEARCH_POST,
                 data

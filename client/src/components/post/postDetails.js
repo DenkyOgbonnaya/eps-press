@@ -63,8 +63,8 @@ const PostDetails = props => {
         }
         postComment(commentData, dispatch);
         setIsOpen(false);
-       
-        bottom.current.scrollIntoView({behavior: 'smooth'});
+       if(bottom.current)
+            bottom.current.scrollIntoView({behavior: 'smooth'});
         pages > 1 && handlePageChange(pages);
     }
     const handleDelete = id => {

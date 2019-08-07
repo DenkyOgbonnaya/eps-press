@@ -19,7 +19,7 @@ const PostFeeds = (props) => {
                                             <small className='text-muted'> {new Date(post.createdDate).toDateString()} </small>
                                         </CardSubtitle>
                                         <CardText> 
-                                            {JSON.parse(post.content).blocks[0].text.substring(0, 280)}...
+                                            {JSON.parse(post.content).blocks[0].text.substring(0, 280)} <span> ...more </span>
                                         </CardText>
                                     </CardBody>
                                 </Card>

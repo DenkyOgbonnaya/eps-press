@@ -11,20 +11,24 @@ const LoginForm = props => {
     const[username, setUsername] = useState('');
     const[password, setPassword] = useState('');
     const[isError, setIsError] = useState(false);
+    const[loggingIn, setLogingIn] = useState(false);
 
     const{authData, dispatchAuth} = useContext(AuthContext);
     const handleSubmit = e => {
         e.preventDefault();
 
         const {from} = props.location.state || {from : {pathName: '/' }};
-        
+        setLogingIn(true);
+
         login({username, password}, dispatchAuth)
         .then(data => {
             if(data && data.status === 'success'){
+                
                 props.history.push(from.pathname || from.pathName);
             }else {
                 setIsError(true);
             }
+            setLogingIn(false);
         })
     }
     return(
@@ -33,6 +37,8 @@ const LoginForm = props => {
         <div className = 'form'>
             <Alert color='danger' isOpen={isError} > {authData.authError} </Alert>
             <h5>Login  </h5> <br />
+            {loggingIn && <span id='spinner'>...Logging you in, please wait! </span>}
+
             <Form onSubmit = {handleSubmit}  > 
                 <FormGroup>
                     <Label for= 'username'> Username </Label>

@@ -76,3 +76,10 @@ cursor: pointer;
 .author-date >  .author *{
   color: gray;
 }
+.post-feed > * span {
+  color: rgba(13, 69, 252, 0.938);
+}
+.editor #spinner {
+  color: #43a047;
+  margin-left: 20px;
+}

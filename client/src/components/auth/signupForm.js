@@ -12,12 +12,14 @@ const SignupForm = props => {
     const[email, setEmail] = useState('');
     const[password, setPassword] = useState('');
     const[isError, setIsError] = useState(false);
+    const[signingUp, setSigningUp] = useState(false);
 
     const {authData, dispatchAuth} = useContext(AuthContext);
 
     const handleSubmit = e => {
         e.preventDefault();
 
+        setSigningUp(true);
         signup({username, email, password}, dispatchAuth)
         .then(data => {
             if(data && data.status === 'success'){
@@ -25,6 +27,7 @@ const SignupForm = props => {
             }else {
                 setIsError(true);
             }
+            setSigningUp(false);
         })
     }
     return (
@@ -32,6 +35,7 @@ const SignupForm = props => {
             <div className = 'form'>
             <Alert color='danger' isOpen={isError} > {authData.authError} </Alert>
             <h5> Create an account </h5>
+            {signingUp && <span id='spinner' > ...Creating your account, hold on! </span>}
                 <Form onSubmit = {handleSubmit} >
                     <FormGroup>
                         <Label for ='userName'>User Name </Label> 

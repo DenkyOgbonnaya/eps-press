@@ -17,6 +17,7 @@ import propTypes from 'prop-types';
   const[isError, setIsError] = useState(false);
   const{postData, dispatch} = useContext(PostContext);
   const{authData} = useContext(AuthContext)
+  const[isPosting, setIsposting] = useState(false);
   const{content, postId} = props
   useEffect(() => {
     if(!postId){
@@ -40,20 +41,27 @@ import propTypes from 'prop-types';
     formData.set('image', image);
 
     if(!props.postId){
+      setIsposting(true);
+
       addPost(formData, dispatch)
       .then(data => {
         if(data.status === 'success'){
           props.history.push(`/post/${data.post.slug}`)
         }else 
         setIsError(true);
+
+        setIsposting(false);
       })
     }else {
+      setIsposting(true);
       editPost(props.postId, formData, dispatch)
       .then(data => {
         if(data.status === 'success'){
           props.history.push(`/post/${data.post.slug}`)
         }else 
         setIsError(true);
+
+        setIsposting(false);
       })
     }
   }
@@ -70,6 +78,7 @@ import propTypes from 'prop-types';
         <Row> 
           <Col md={{size: 8, offset: 2}}>
           <Alert color='danger' isOpen={isError} > {postData.postError} </Alert>
+          {isPosting && <div id='spinner' >{props.postId ? '...Saving post' : '...Creating post'} </div>}
             <Label for='title'> Title </Label>
             <Input name='title' value={title} placeholder='post title' onChange = { e => setTitle(e.target.value)} /> <br />
             <Label for='content'> Content </Label>
