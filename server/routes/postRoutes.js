@@ -26,7 +26,7 @@ PostRouter.route('/post/:postId')
 .delete(isLoggedIn, isAdmin, deletePost)
 
 PostRouter.route('/post/:postId/likes',)
-.post( likePost)
+.post(isLoggedIn, likePost)
 .get(getPostLikers)
 .delete(isLoggedIn, unlikePost)
 

@@ -13,10 +13,11 @@ const port = process.env.PORT || 8080;
 app.use(express.json());
 app.options('*', cors());
 app.use(cors({credentials:true, origin: 'http://localhost:3000'}));
+app.use('*', cloudinaryConfig);
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(express.static(__dirname + '/client/public'));
 app.use(express.static(__dirname + '/public'));
-app.use('*', cloudinaryConfig);
+
 
 app.use('/api/users', UserRouter);
 app.use('/api', postRouter);
