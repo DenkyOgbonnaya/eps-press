@@ -5,24 +5,30 @@ require('dotenv').config();
 const{usernameExist, emailExist} = userService;
 
 module.exports.isLoggedIn = isLoggedIn = (req, res, next) =>{
-    const token = req.headers['authorization'] && req.headers['authorization'].replace(/"/g, '').substring(7);
+    let token = req.headers['authorization'] || req.headers['x-access-token'] //&& req.headers['authorization'].replace(/"/g, '').substring(7);
     
+    if(token && token.startsWith('Bearer'))
+        token = token.slice(7); //.replace(/"/g, '').substring(7);
     if(!token) return res.status(401 ).send({message: 'unauthorized user'})
-
+    
     jwt.verify(token, process.env.SECRET_KEY, (err, decoded)=>{
         if(err) {
         console.log(err);
-            return res.status(401).send({message: 'unauthorized user.'})
+            return res.status(401).send({message: err.message})
         }
     
         next();
     });
 }
 module.exports.isAdmin = isAdmin = (req, res, next) => {
-    const token =  req.headers['authorization'] && req.headers['authorization'].replace(/"/g, '').substring(7);
-    const decoded = jwt.decode(token);
+    let token = req.headers['authorization'] || req.headers['x-access-token'] //&& req.headers['authorization'].replace(/"/g, '').substring(7);
+    if(token && token.startsWith('Bearer')){
+        token = token.slice(7);  //token.replace(/"/g, '').substring(7);
+    }
+    if(!token) return res.status(401 ).send({message: 'unauthorized user'});
+    const {currentUser} = jwt.decode(token);
 
-    if(decoded.currentUser.isAdmin !== 1)
+    if(currentUser.isAdmin !== 1)
         return res.status(401).send({message: 'unauthorized user'})
 
     next();
