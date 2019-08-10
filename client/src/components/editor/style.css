@@ -1,9 +1,0 @@
-.editor div.DraftEditor-root {
-    width:inherit;
-    height: 210px;
-    border: 1px solid #ccc;
-    padding:20px;
-    font-size: 20px;
-    font-family: 'calibri', 'serif', sans-serif;
-    overflow-y: scroll;
-  }

@@ -11,6 +11,7 @@ import './style.css';
 import Can from '../includes/can';
 import Paginate from '../includes/pagination';
 import Spinnar from '../includes/spinner';
+import decorator from '../editor/linkDecorator';
 
 const PostDetails = props => {
     const[editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -31,7 +32,7 @@ const PostDetails = props => {
         .then( () => {
             if(_id){
                 setEditorState(EditorState
-                .createWithContent(convertFromRaw(JSON.parse(content))))
+                .createWithContent(convertFromRaw(JSON.parse(content)), decorator))
             } 
         })      
     }, [_id, postSlug, dispatch, content]);

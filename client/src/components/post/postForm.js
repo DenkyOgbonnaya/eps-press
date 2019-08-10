@@ -8,6 +8,7 @@ import {addPost, editPost} from '../../actions/postActions';
 import './style.css';
 import PostEditor from '../editor/postEditor';
 import propTypes from 'prop-types';
+import decorator from '../editor/linkDecorator';
 
  const PostForm = (props) => {
   const[editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -21,13 +22,16 @@ import propTypes from 'prop-types';
   const{content, postId} = props
   useEffect(() => {
     if(!postId){
-      setEditorState(EditorState.createEmpty())
+      setEditorState(EditorState.createEmpty(decorator))
     }else {
       setEditorState(EditorState
-      .createWithContent(convertFromRaw(JSON.parse(content))))
+      .createWithContent(convertFromRaw(JSON.parse(content)), decorator))
     }
   }, [postId, content]);
   
+  const changeEditorState = state => {
+    setEditorState(state);
+  }
   const handlePost = () => {
     const formData = new FormData();
     const contentState = editorState.getCurrentContent();
@@ -81,12 +85,12 @@ import propTypes from 'prop-types';
           {isPosting && <div id='spinner' >{props.postId ? '...Saving post' : '...Creating post'} </div>}
             <Label for='title'> Title </Label>
             <Input name='title' value={title} placeholder='post title' onChange = { e => setTitle(e.target.value)} /> <br />
-            <Label for='content'> Content </Label>
+            <Label for='content'> Content (select text to format) </Label>
           </Col>
         </Row>
         <PostEditor 
           editorState = {editorState}
-          setEditorState = {setEditorState}
+          setEditorState = {changeEditorState}
         />
         <Row> 
           <Col md={{size: 8, offset: 2}} > 
