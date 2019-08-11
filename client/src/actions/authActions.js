@@ -2,8 +2,8 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import actionTypes from './actionTypes';
 
-const authToken = localStorage.authToken;
-axios.defaults.headers.common = {'Authorization': `Bearer ${authToken}`}
+//the line below some times returns null token value or expired cached token
+//axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.authToken}`
 axios.defaults.validateStatus = status => status < 500;
 
 export async function signup(userData, dispatch){
@@ -59,8 +59,11 @@ export async function verifyToken(token, dispatch){
     }
 }
 export async function changeAvatar(id, avatar, dispatch, isCurrentUser){
+    const confiq = {
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+    }
     try{
-        const{data} = await axios.put(`/api/users/${id}/avatar`, avatar)
+        const{data} = await axios.put(`/api/users/${id}/avatar`, avatar, confiq)
         if(data && data.status ==='success'){
             localStorage.authToken = data.token;
             
@@ -91,10 +94,11 @@ export const logout = (dispatch) => {
     })
 }
 export async function getUserProfile(username){
-    console.log(authToken);
-    
+    const confiq = {
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+    }
     try{
-        const{data} = await axios.get(`/api/users/${username}/profile`);
+        const{data} = await axios.get(`/api/users/${username}/profile`, confiq);
         return data;
     }catch(err){
         console.log(err);

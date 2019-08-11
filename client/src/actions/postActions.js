@@ -6,8 +6,11 @@ axios.defaults.headers.common = {'Authorization': `Bearer ${authToken}`}
 axios.defaults.validateStatus = status => status < 500;
 
 export async function addPost(post, dispatch){
+    const confiq = {
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+    }
     try{
-        const{data} = await axios.post('/api/post', post);
+        const{data} = await axios.post('/api/post', post, confiq);
         if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.ADD_POST,
@@ -25,8 +28,11 @@ export async function addPost(post, dispatch){
     }
 }
 export async function editPost( id, credentials, dispatch){
+    const confiq = {
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+    }
     try{
-        const{data} = await axios.put(`/api/post/${id}`, credentials);
+        const{data} = await axios.put(`/api/post/${id}`, credentials, confiq);
         if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.EDIT_POST,
@@ -77,12 +83,15 @@ export async function getPost(slug, dispatch){
     }
 }
 export async function deletePost(id, dispatch){
+    const confiq = {
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+    }
     dispatch({
         type: actionTypes.DELETE_POST,
         id
     });
     try{
-        const{data} = await axios.delete(`/api/post/${id}`);
+        const{data} = await axios.delete(`/api/post/${id}`, confiq);
         if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.DELETE_POST,
@@ -94,12 +103,15 @@ export async function deletePost(id, dispatch){
     }
 }
 export async function likePost(post, liker, dispatch){
+    const confiq = {
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+    }
     try{
         dispatch({
             type: actionTypes.LIKE_POST,
             payLoad: {likers: post.likers, inc: 1}
         });
-        const{data} = await axios.post(`/api/post/${post._id}/likes`, {liker});
+        const{data} = await axios.post(`/api/post/${post._id}/likes`, {liker}, confiq);
         if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.LIKE_POST,
@@ -111,12 +123,16 @@ export async function likePost(post, liker, dispatch){
     }
 }
 export async function unlikePost(post, unLiker, dispatch){
+    const confiq = {
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+    }
     try{
         dispatch({
             type: actionTypes.UNLIKE_POST,
             payLoad: {likers: post.likers, dec: 1}
         });
-        const{data} = await axios.delete(`/api/post/${post._id}/likes`, {data: {unLiker}});
+        const{data} = await axios.delete(`/api/post/${post._id}/likes`, {data: {unLiker}}, confiq)
+
         if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.UNLIKE_POST,
@@ -128,9 +144,11 @@ export async function unlikePost(post, unLiker, dispatch){
     }
 }
 export async function postComment(commentData, dispatch){
-    
+    const confiq = {
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+    }
     try{
-        const {data} = await axios.post('/api/comment', commentData);
+        const {data} = await axios.post('/api/comment', commentData, confiq);
         if(data && data.status === 'success')
         dispatch({
             type: actionTypes.COMMENT_POST,
@@ -142,12 +160,15 @@ export async function postComment(commentData, dispatch){
     }
 }
 export async function likeComment(comment, liker, dispatch){
+    const confiq = {
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+    }
     try{
         dispatch({
             type: actionTypes.LIKE_COMMENT,
             payLoad: {likers: comment.likers, inc: 1, comment}
         });
-        const{data} = await axios.post(`/api/comment/${comment._id}/likes`, {liker});
+        const{data} = await axios.post(`/api/comment/${comment._id}/likes`, {liker}, confiq);
         
         if(data && data.status === 'success'){
             dispatch({
@@ -160,12 +181,15 @@ export async function likeComment(comment, liker, dispatch){
     }
 }
 export async function unlikeComment(comment, unliker, dispatch){
+    const confiq = {
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+    }
     try{
         dispatch({
             type: actionTypes.UNLIKE_COMMENT,
             payLoad: {likers: comment.likers, dec: 1, comment}
         });
-        const{data} = await axios.delete(`/api/comment/${comment._id}/likes`, {data:{unliker}});
+        const{data} = await axios.delete(`/api/comment/${comment._id}/likes`, {data:{unliker}}, confiq);
         
         if(data && data.status === 'success'){
             dispatch({
@@ -178,9 +202,11 @@ export async function unlikeComment(comment, unliker, dispatch){
     }
 }
 export async function postReply(replyData, comment, dispatch){
-    
+    const confiq = {
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+    }
     try{
-        const {data} = await axios.post(`/api/comment/${comment._id}`, replyData);
+        const {data} = await axios.post(`/api/comment/${comment._id}`, replyData, confiq);
         if(data && data.status === 'success')
         dispatch({
             type: actionTypes.REPLY_COMMENT,
@@ -192,13 +218,15 @@ export async function postReply(replyData, comment, dispatch){
     }
 }
 export async function editComment(credentials, dispatch){
-    
+    const confiq = {
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+    }
     dispatch({
         type: actionTypes.EDIT_COMMENT,
         credentials
     })
     try{
-        const {data} = await axios.put(`/api/comment/${credentials._id}`, credentials);
+        const {data} = await axios.put(`/api/comment/${credentials._id}`, credentials, confiq);
         
         if(data && data.status === 'success')
         dispatch({
@@ -210,13 +238,15 @@ export async function editComment(credentials, dispatch){
     }
 }
 export async function deleteComment(id, dispatch){
-
+    const confiq = {
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+    }
     dispatch({
         type: actionTypes.DELETE_COMMENT,
         id
     })
     try{
-        const {data} = await axios.delete(`/api/comment/${id}`);
+        const {data} = await axios.delete(`/api/comment/${id}`, confiq);
         if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.DELETE_COMMENT,
