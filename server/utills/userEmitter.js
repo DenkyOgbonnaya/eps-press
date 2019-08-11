@@ -12,7 +12,7 @@ userEmitter.on('userAuth', user => {
         email: user.email, avatar: user.avatar, 
         isAdmin: user.isAdmin}},
     process.env.SECRET_KEY,
-    {expiresIn: '30d'} ) //24hrs
+    {expiresIn: '30d'} ) 
     
     user.token = token;
 })

@@ -14,6 +14,7 @@ import Spinnar from '../includes/spinner';
 import decorator from '../editor/linkDecorator';
 import Spinner from '../includes/spinner';
 import SocialShare from '../includes/socialShare';
+import { getWordCount, getReadingTime } from './helper';
 
 const PostDetails = props => {
     const[editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -109,7 +110,7 @@ const PostDetails = props => {
                             <h2> {post.title.substring(0,200)} </h2>
                             <div className='post-author'> 
                                 <span> <img src={post.owner.avatar ? post.owner.avatar : '/images/defavatar.png'} alt='author' /> </span>  <br />
-                                <small > By <Link to = {`/${post.owner.username}/profile`}> {post.owner.username} </Link>  | {" "} {new Date(post.createdDate).toDateString()} </small>
+                                <small > By <Link to = {`/${post.owner.username}/profile`}> {post.owner.username} </Link>  | {" "} {new Date(post.createdDate).toDateString()} - {getReadingTime(getWordCount(editorState))} </small>
                             </div>
                             <Editor 
                                 editorState = {editorState}
