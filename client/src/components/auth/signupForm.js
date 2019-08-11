@@ -5,6 +5,7 @@ import {AuthContext} from '../../context/authContext';
 import {signup} from '../../actions/authActions';
 import {withRouter} from 'react-router-dom';
 import {Alert} from 'reactstrap';
+import Spinner from '../includes/spinner';
 import './style.css';
 
 const SignupForm = props => {
@@ -37,7 +38,7 @@ const SignupForm = props => {
             <div className = 'form'>
             <Alert color='danger' isOpen={isError} > {authData.authError} </Alert>
             <h5> Create an account </h5>
-            {signingUp && <span id='spinner' > ...Creating your account, hold on! </span>}
+            {signingUp && <Spinner />}
                 <Form onSubmit = {handleSubmit} >
                     <FormGroup>
                         <Label for ='userName'>User Name </Label> 

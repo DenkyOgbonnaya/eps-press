@@ -154,6 +154,7 @@ export async function postComment(commentData, dispatch){
             type: actionTypes.COMMENT_POST,
             comment: data.comment
         })
+        return data;
     }catch(err){
         console.log(err);
         

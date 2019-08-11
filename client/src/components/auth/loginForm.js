@@ -5,6 +5,8 @@ import {AuthContext} from '../../context/authContext';
 import {login} from '../../actions/authActions';
 import {withRouter} from 'react-router-dom';
 import {Alert} from 'reactstrap';
+import Spinner from '../includes/spinner';
+
 import './style.css';
 
 const LoginForm = props => {
@@ -40,7 +42,7 @@ const LoginForm = props => {
         <div className = 'form'>
             <Alert color='danger' isOpen={isError} > {authData.authError} </Alert>
                 <h5>Login  </h5> <br />
-            {loggingIn && <span id='spinner'>...Logging you in, please wait! </span>}
+            {loggingIn && <Spinner color='success' />}
 
             <Form onSubmit = {handleSubmit}  > 
                 <FormGroup>

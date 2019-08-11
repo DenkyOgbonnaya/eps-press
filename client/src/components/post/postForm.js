@@ -9,6 +9,7 @@ import './style.css';
 import PostEditor from '../editor/postEditor';
 import propTypes from 'prop-types';
 import decorator from '../editor/linkDecorator';
+import Spinner from '../includes/spinner';
 
  const PostForm = (props) => {
   const[editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -82,7 +83,7 @@ import decorator from '../editor/linkDecorator';
         <Row> 
           <Col md={{size: 8, offset: 2}}>
           <Alert color='danger' isOpen={isError} > {postData.postError} </Alert>
-          {isPosting && <div id='spinner' >{props.postId ? '...Saving post' : '...Creating post'} </div>}
+          {isPosting && <Spinner />}
             <Label for='title'> Title </Label>
             <Input name='title' value={title} placeholder='post title' onChange = { e => setTitle(e.target.value)} /> <br />
             <Label for='content'> Content (select text to format) </Label>

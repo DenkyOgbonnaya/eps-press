@@ -12,6 +12,7 @@ import Can from '../includes/can';
 import Paginate from '../includes/pagination';
 import Spinnar from '../includes/spinner';
 import decorator from '../editor/linkDecorator';
+import Spinner from '../includes/spinner';
 
 const PostDetails = props => {
     const[editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -22,6 +23,7 @@ const PostDetails = props => {
     const[currentPage, setCurrentPage] = useState(1);
     const[limit] = useState(20);
     const {post, isPostLoading} = postData;
+    const[isCommenting, setIsCommenting] = useState(false);
     const {currentUser} = authData;
     const bottom = useRef(null);
     const postSlug = props.match.params.slug;
@@ -55,6 +57,7 @@ const PostDetails = props => {
     const submitComment = e => {
         const currentUser = authData.currentUser._id;
         const pages = Math.ceil(post.comments.length / limit);
+        setIsCommenting(true);
         e.preventDefault();
         
         const commentData = {
@@ -62,11 +65,16 @@ const PostDetails = props => {
             owner: currentUser,
             post: post._id
         }
-        postComment(commentData, dispatch);
-        setIsOpen(false);
-       if(bottom.current)
-            bottom.current.scrollIntoView({behavior: 'smooth'});
-        pages > 1 && handlePageChange(pages);
+        postComment(commentData, dispatch)
+        .then(data => {
+            if(data.status === 'success'){
+                setIsOpen(false);
+                if(bottom.current)
+                bottom.current.scrollIntoView({behavior: 'smooth'});
+                pages > 1 && handlePageChange(pages);
+            }
+            setIsCommenting(false);
+        })
     }
     const handleDelete = id => {
         deletePost(id, dispatch);
@@ -83,9 +91,9 @@ const PostDetails = props => {
     }
     const currentComments = () => {
         const{comments} = post;
-        const indexOfLastTodo = currentPage * limit;
-        const indexOfFirstTodo = indexOfLastTodo - limit;
-        return comments.slice(indexOfFirstTodo, indexOfLastTodo);
+        const indexOfLastComment = currentPage * limit;
+        const indexOfFirstComment = indexOfLastComment - limit;
+        return comments.slice(indexOfFirstComment, indexOfLastComment);
     }
     
     if(isPostLoading)
@@ -147,7 +155,7 @@ const PostDetails = props => {
                             </div>
                         </div>
                         <br />
-                        <h5>Comments: {post.comments.length} </h5>
+                        <h5>Comments: {post.comments.length} </h5> {isCommenting && <Spinner />}
                         {isOpen && <CommentForm setText= {setComment} handleSubmit={submitComment} />}
                         
                     </Col>
