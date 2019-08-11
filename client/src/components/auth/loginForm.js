@@ -44,7 +44,7 @@ const LoginForm = props => {
                 <h5>Login  </h5> <br />
             {loggingIn && <Spinner color='success' />}
 
-            <Form onSubmit = {handleSubmit}  > 
+            <Form className='inputs'  onSubmit = {handleSubmit}  > 
                 <FormGroup>
                     <Label for= 'username'> Username </Label>
                     <Input name='username' required placeholder = 'Enter username' onChange={e => setUsername(e.target.value)} />
