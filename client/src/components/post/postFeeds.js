@@ -13,7 +13,7 @@ const PostFeeds = (props) => {
                             <Col key = {post._id} xs='12' > 
                                 <Card className='post-feed' onClick = { () => props.history.push(`/post/${post.slug}`) } > 
                                     <CardBody> 
-                                        <CardTitle> <h4> {post.title} </h4> </CardTitle>
+                                        <CardTitle className='title'> <h4> {post.title.substring(0,100)} </h4> </CardTitle>
                                         <CardSubtitle> 
                                             <small className='text-muted'>By {post.owner.username} </small>  {" "}
                                             <small className='text-muted'> {new Date(post.createdDate).toDateString()} </small>

@@ -100,16 +100,16 @@ const PostDetails = props => {
         return <Spinnar />
     return (
         <div className='post'> 
-            <div className='post-author'> 
-                <span> <img src={post.owner.avatar ? post.owner.avatar : '/images/defavatar.png'} alt='author' /> </span>  <br />
-                <small > By <Link to = {`/${post.owner.username}/profile`}> {post.owner.username} </Link>  | {" "} {new Date(post.createdDate).toDateString()} </small>
-            </div>
             <Container> 
                 <Row> 
                     <Col xs='12' > 
                         <div className='post-content'> 
                             
-                            <h2> {post.title} </h2>
+                            <h2> {post.title.substring(0,200)} </h2>
+                            <div className='post-author'> 
+                                <span> <img src={post.owner.avatar ? post.owner.avatar : '/images/defavatar.png'} alt='author' /> </span>  <br />
+                                <small > By <Link to = {`/${post.owner.username}/profile`}> {post.owner.username} </Link>  | {" "} {new Date(post.createdDate).toDateString()} </small>
+                            </div>
                             <Editor 
                                 editorState = {editorState}
                                 readOnly = {true}

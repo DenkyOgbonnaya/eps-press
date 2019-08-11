@@ -67,6 +67,9 @@ cursor: pointer;
   font-family: 'serif', sans-serif;
   text-align: justify;
 }
+.post-content  div.DraftEditor-root> ::first-letter{
+  text-transform: uppercase;
+}
 .react-bar , .reaction {
   display: flex;
   justify-content: space-between;
@@ -79,7 +82,10 @@ cursor: pointer;
 .post-feed > * span {
   color: rgba(13, 69, 252, 0.938);
 }
-.editor #spinner {
-  color: #43a047;
-  margin-left: 20px;
+.post-content > h2 {
+  text-align: center;
+  text-transform: capitalize;
+}
+.post-feed .title {
+  text-transform: capitalize;
 }
