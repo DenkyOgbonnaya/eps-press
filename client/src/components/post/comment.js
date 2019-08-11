@@ -75,7 +75,7 @@ const Comment = (props) => {
                         role = {currentUser.isAdmin}
                         perform ='comment:like'
                         yes = { () => (
-                            <span onClick={e => handleLikeClick(e, comment)} > {comment.likers.includes(authData.currentUser._id) ? 'unLike' : 'Like'}  </span>
+                            <span onClick={e => handleLikeClick(e, comment)} > {comment.likers.includes(authData.currentUser._id) ? 'unlike' : 'Like'}  </span>
                         )}
                     />
                 }
