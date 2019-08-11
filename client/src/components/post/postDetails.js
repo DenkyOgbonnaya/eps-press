@@ -13,6 +13,7 @@ import Paginate from '../includes/pagination';
 import Spinnar from '../includes/spinner';
 import decorator from '../editor/linkDecorator';
 import Spinner from '../includes/spinner';
+import SocialShare from '../includes/socialShare';
 
 const PostDetails = props => {
     const[editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -154,6 +155,7 @@ const PostDetails = props => {
                             <div> {post.likes} {post.likes > 1 ? 'likes' : 'like' } </div>
                             </div>
                         </div>
+                        <SocialShare post= {post} pathname ={props.location.pathname}  />
                         <br />
                         <h5>Comments: {post.comments.length} </h5> {isCommenting && <Spinner />}
                         {isOpen && <CommentForm setText= {setComment} handleSubmit={submitComment} />}
