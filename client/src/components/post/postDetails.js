@@ -26,6 +26,7 @@ const PostDetails = props => {
     const[limit] = useState(20);
     const {post, isPostLoading} = postData;
     const[isCommenting, setIsCommenting] = useState(false);
+    const[isLiked, setIsLiked] = useState(false);
     const {currentUser} = authData;
     const bottom = useRef(null);
     const postSlug = props.match.params.slug;
@@ -40,7 +41,10 @@ const PostDetails = props => {
             } 
         })      
     }, [_id, postSlug, dispatch, content]);
-
+    useEffect( ()=>{
+        if(post.likers)
+            post.likers.includes(currentUser._id) ? setIsLiked(true) : setIsLiked(false)
+    }, [post.likers, currentUser._id])
     const handleEditClick = post => {
         props.history.push(`/edit/${post.slug}`);
     }
@@ -54,7 +58,7 @@ const PostDetails = props => {
         
     }
     const likeBtn = (post) => {
-       return post.likers.includes(authData.currentUser._id) ? 'unLike' : 'Like'
+       return isLiked ? 'unLike' : 'Like'
     }
     const submitComment = e => {
         const currentUser = authData.currentUser._id;

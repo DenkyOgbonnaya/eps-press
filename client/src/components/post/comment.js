@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Replies from './commentReplies';
 import {Form, Input, Button} from 'reactstrap';
 import {withRouter, Link} from 'react-router-dom';
@@ -13,6 +13,7 @@ import propTypes from 'prop-types';
 const Comment = (props) => {
     const[isOpen, setIsOpen] = useState(false);
     const[isEdit, setIsEdit] = useState(false);
+    const[isLiked, setIsLiked] = useState(false);
     const[text, setText] = useState(props.comment.text || '')
     const{authData} = useContext(AuthContext);
     const{dispatch} = useContext(PostContext);
@@ -21,6 +22,10 @@ const Comment = (props) => {
     const{currentUser} = authData;
     const{comment} = props;
 
+    useEffect( () => {
+        comment.likers.includes(currentUser._id) ? setIsLiked(true) : setIsLiked(false)
+    }, [comment.likers, currentUser._id]);
+    
      const handleLikeClick = (e, comment) => {
         const currentUser = authData.currentUser._id;
         
@@ -75,7 +80,7 @@ const Comment = (props) => {
                         role = {currentUser.isAdmin}
                         perform ='comment:like'
                         yes = { () => (
-                            <span onClick={e => handleLikeClick(e, comment)} > {comment.likers.includes(authData.currentUser._id) ? 'unlike' : 'Like'}  </span>
+                            <span onClick={e => handleLikeClick(e, comment)} > { isLiked ? 'unlike' : 'Like'}  </span>
                         )}
                     />
                 }

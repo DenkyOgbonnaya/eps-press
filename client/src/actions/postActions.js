@@ -117,28 +117,37 @@ export async function likePost(post, liker, dispatch){
                 type: actionTypes.LIKE_POST,
                 payLoad: {likers: data.likers, inc: 0}
             });
-        }
+        }else
+            dispatch({
+                type: actionTypes.LIKE_POST,
+                payLoad: {likers: post.likers, inc: -1}
+        });
     }catch(err){
         console.log(err);
     }
 }
 export async function unlikePost(post, unLiker, dispatch){
     const confiq = {
-        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`},
+        data: {unLiker}
     }
     try{
         dispatch({
             type: actionTypes.UNLIKE_POST,
             payLoad: {likers: post.likers, dec: 1}
         });
-        const{data} = await axios.delete(`/api/post/${post._id}/likes`, {data: {unLiker}}, confiq)
+        const{data} = await axios.delete(`/api/post/${post._id}/likes`, confiq)
 
         if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.UNLIKE_POST,
                 payLoad: {likers: data.likers, dec: 0}
             });
-        }
+        }else
+            dispatch({
+                type: actionTypes.UNLIKE_POST,
+                payLoad: {likers: post.likers, dec: -1}
+            });
     }catch(err){
         console.log(err);
     }
@@ -176,28 +185,37 @@ export async function likeComment(comment, liker, dispatch){
                 type: actionTypes.LIKE_COMMENT,
                 payLoad: {likers: data.likers, inc: 0, comment}
             });
-        }
+        }else
+            dispatch({
+                type: actionTypes.LIKE_COMMENT,
+                payLoad: {likers: comment.likers, inc: -1, comment}
+            });
     }catch(err){
         console.log(err);
     }
 }
 export async function unlikeComment(comment, unliker, dispatch){
     const confiq = {
-        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`},
+        data:{unliker}
     }
     try{
         dispatch({
             type: actionTypes.UNLIKE_COMMENT,
             payLoad: {likers: comment.likers, dec: 1, comment}
         });
-        const{data} = await axios.delete(`/api/comment/${comment._id}/likes`, {data:{unliker}}, confiq);
+        const{data} = await axios.delete(`/api/comment/${comment._id}/likes`, confiq);
         
         if(data && data.status === 'success'){
             dispatch({
                 type: actionTypes.UNLIKE_COMMENT,
                 payLoad: {likers: data.likers, dec: 0, comment}
             });
-        }
+        }else
+            dispatch({
+                type: actionTypes.UNLIKE_COMMENT,
+                payLoad: {likers: comment.likers, dec: -1, comment}
+            });
     }catch(err){
         console.log(err);
     }
