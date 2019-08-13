@@ -69,7 +69,8 @@ const PostDetails = props => {
         const commentData = {
             text:comment,
             owner: currentUser,
-            post: post._id
+            post: post._id,
+            createdDate: new Date()
         }
         postComment(commentData, dispatch)
         .then(data => {
