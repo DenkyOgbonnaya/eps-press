@@ -25,9 +25,12 @@ app.use('/api', commentRouter);
 app.use( (err, req, res, next) => {
     return res.status(400).send({status: 'error', message: err.message})
 })
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
-})
+if(process.env.NODE_ENV == 'production'){
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
+    })
+}
+
 
 //connect DB
 connectDB();
