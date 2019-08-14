@@ -4,6 +4,7 @@ DropdownToggle, DropdownItem, Dropdown, Collapse,} from 'reactstrap';
 import {withRouter, NavLink as RRNavlink} from 'react-router-dom';
 import {AuthContext} from '../../context/authContext';
 import { logout } from '../../actions/authActions';
+import Can from './can';
 const NavBar = props => {
   const[isOpen, setIsOpen] = useState(false);
   const[dropdownOpen, setDropDownOpen] = useState(false);
@@ -34,6 +35,11 @@ const NavBar = props => {
               <DropdownItem header> Dashboard  </DropdownItem>
               <DropdownItem onClick = {()=> props.history.push('/new')} >New Post </DropdownItem>
               <DropdownItem onClick = {()=> props.history.push(`/${authData.currentUser.username}/profile`)} >Profile</DropdownItem>
+              <Can 
+                role={authData.currentUser.isAdmin}
+                perform= 'users:view'
+                yes= { () => <DropdownItem onClick = {()=> props.history.push('/members')} >Members</DropdownItem>}
+              />
               <DropdownItem onClick = {()=> props.history.push('/about')} >About</DropdownItem>
               <DropdownItem divider />
               <DropdownItem  onClick={ handleLogout} > Logout </DropdownItem>

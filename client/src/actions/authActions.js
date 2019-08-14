@@ -104,3 +104,39 @@ export async function getUserProfile(username){
         console.log(err);
     }
 }
+export async function getUsers(page, limit){
+    const confiq = {
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+    }
+    try{
+        const{data} = await axios.get(`/api/users?page=${page}&limit=${limit}`, confiq);
+        if(data && data.status === 'success')
+            return data;
+    }catch(err){
+        console.log(err);
+    }
+}
+export async function makeAdmin(userId){
+    const confiq = {
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+    }
+    try{
+        const{data} = await axios.put(`/api/users/${userId}/makeadmin`, confiq);
+        if(data && data.status === 'success')
+            return data;
+    }catch(err){
+        console.log(err);
+    }
+}
+export async function disAdmin(userId){
+    const confiq = {
+        headers: {'Authorization': `Bearer ${localStorage.authToken}`}
+    }
+    try{
+        const{data} = await axios.put(`/api/users/${userId}/disadmin`, confiq);
+        
+            return data;
+    }catch(err){
+        console.log(err);
+    }
+}

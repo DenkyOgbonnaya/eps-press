@@ -45,7 +45,8 @@ const rules = {
         "users:getSelf",
         "home-page:visit",
         "dashboard-page:visit",
-        "profile:edit"
+        "profile:edit",
+        "users:view"
       ]
     }
   };

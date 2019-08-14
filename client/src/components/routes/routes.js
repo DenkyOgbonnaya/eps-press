@@ -10,6 +10,7 @@ import Spinnar from '../includes/spinner';
 const Home = lazy( () => import('../post/home'));
 const PageDetails = lazy( () => import('../post/postDetails'));
 const Profile = lazy( () => import('../members/profile'));
+const Users = lazy( () => import('../members/users'));
 const EditPost = lazy( () => import('../post/editPost'));
 
 const Routes = () => {
@@ -23,6 +24,7 @@ return(
             <Route exact path = '/login' component = {LoginForm} />
             <PrivateRoute exact path = '/new' component = {NewPost} />
             <PrivateRoute exact path = '/:username/profile' component = {Profile} />
+            <PrivateRoute exact path = '/members' component = {Users} />
             <Route exact path = '/about' component = {About} />
         </Switch>
     </Suspense>

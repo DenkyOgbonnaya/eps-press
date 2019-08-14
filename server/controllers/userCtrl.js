@@ -94,9 +94,47 @@ const userCtrl = {
            userProfile.posts = posts;
            return res.status(200).send({status: 'success', userProfile})
         }catch(err){
-
+            res.status(400).send(err);
         }
-    }
+    },
+    async getUsers(req, res){
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 20;
+
+        try{
+            const users = await userService.getUsers({page, limit});
+            const count = await userService.userCount();
+
+            return res.status(200).send({
+                status: 'success',
+                users,
+                page,
+                pages: Math.ceil(count/limit),
+                total: users.length
+            })
+        }catch(err){
+            console.log(err)
+            res.status(400).send(err);
+        }
+    },
+    async makeAdmin(req, res){
+        const{userId} = req.params;
+        try{
+           const user = await userService.makeAdmin(userId);
+           return res.status(200).send({status: 'success', isAdmin: user.isAdmin})
+        }catch(err){
+            res.status(400).send(err);
+        }
+    },
+    async disAdmin(req, res){
+        const{userId} = req.params;
+        try{
+           const user = await userService.disAdmin(userId);
+           return res.status(200).send({status: 'success', isAdmin: user.isAdmin})
+        }catch(err){
+            res.status(400).send(err);
+        }
+    },
 
 }
 module.exports = userCtrl;
