@@ -9,14 +9,17 @@ const postService = {
         }
     },
     async getAll(options){
+        console.log(options, "OPTIONS")
         const{page, limit} = options;
         try{
-            return posts = await  Post.find({})
+            const posts = await  Post.find({})
             .skip((page*limit)-limit)
             .limit(limit)
             .sort({createdDate: -1})
             .populate('owner', '-password -createdAt -updatedAt -__v')
+            return posts
         }catch(err){
+            console.log(err)
             throw err;
         }
     },

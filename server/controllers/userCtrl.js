@@ -36,14 +36,14 @@ const userCtrl = {
             if(!user)
                 return res.status(401).send({
                 status: 'error',
-                message: 'incorrect email and password combination!'})
+                message: 'incorrect username and password combination!'})
             
             const validPassword = bcrypt.compareSync(password, user.password);
 
             if(!validPassword)
                 return res.status(401).send({
                     status: 'error',
-                    message: 'incorrect email and password combination'
+                    message: 'incorrect username and password combination'
                 })
             //generate token and appen to user object
             userEmitter.emit('userAuth', user);

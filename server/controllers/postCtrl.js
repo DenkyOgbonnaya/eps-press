@@ -48,15 +48,13 @@ const postCtrl = {
         try{
           const posts = await  postService.getAll({page, limit});
           const postCount = await postService.postCount();
-          if(posts.length > 0)
-            return res.status(200).send({
-                status: 'success',
-                posts,
-                page,
-                pages: Math.ceil(postCount/limit),
-                total: posts.length
-            })
-            return res.status(404).send({message: 'No available posts'})
+          return res.status(200).send({
+            status: 'success',
+            posts,
+            page,
+            pages: Math.ceil(postCount/limit),
+            total: posts.length
+        })
         }catch(err){
             res.status(400).send(err)
 
